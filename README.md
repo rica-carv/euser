@@ -1,5 +1,7 @@
 # euser
-E107 user (or Enhanced User... :D) plugin  for E107 CMS system
+Enhanced User plugin (or addon) for E107. Part of the E series plugins (or addons)
+
+Enhanced user plugin adds new functions for the core user plugin for E107 CMS system
 
 Still in beta development, but usable.
 
