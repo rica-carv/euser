@@ -3,12 +3,12 @@
 /*
 +---------------------------------------------------------------+
 | Another Profiles Plugin v0.9.8 Spt(2.0)
-| Copyright © 2008 Istvan Csonka
+| Copyright ï¿½ 2008 Istvan Csonka
 | http://freedigital.hu
 | support@freedigital.hu
 |
 |        For the e107 website system
-|        ©Steve Dunstan
+|        ï¿½Steve Dunstan
 |        http://e107.org
 |        jalist@e107.org
 |
@@ -43,9 +43,11 @@
 
         global $euser_template;
 //        var_dump ($euser_template);
-        $euser_template['friends_caption'] = $this->tp->lanVars($euser_template['friends_caption'], array('x'=>($num>0?$num:NULL)));
         
-                if (isset($parm['caption'])){return $this->tp->parseTemplate($euser_template['friends_caption'], TRUE, $this);}
+                if (isset($parm['caption'])){
+					$euser_template['friends_caption'] = $this->tp->lanVars($euser_template['friends_caption'], array('x'=>($num>0?$num:NULL)));
+					return $this->tp->parseTemplate($euser_template['friends_caption'], TRUE, $this);
+				}
 
 
 
@@ -114,4 +116,3 @@ $online = "<img src='images/".(( $check > 0 )?"green_good":"gray_neutral").".png
 //					$text .= "<br/><table width='100%' ><tr><td class='forumheader' colspan='3' ><div class='smallblacktext'><a href='".e_SELF."?".e_QUERY."#top' onclick=\"window.scrollTo(0,0);\">".PROFILE_271."</a></div></td></tr></table>";
 				}
 return $text;
-?>
