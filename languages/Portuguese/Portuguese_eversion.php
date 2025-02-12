@@ -38,5 +38,3 @@ define("EVERSION_U19", "O gerenciador relata que este plugin ");
 define("EVERSION_U20", "está instalado. Consulte o gerenciador de Plugin."); 
 define("EVERSION_U21", "Estável"); 
 // Fim 
-
-?>

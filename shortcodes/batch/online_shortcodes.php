@@ -37,7 +37,7 @@ class plugin_euser_online_shortcodes extends e_shortcode
 //		$this->memberInfo = e107::getConfig('history');
 		$this->gen = e107::getDateConvert();
 //		$this->menuPref = e107::getConfig('menu')->getPref();
-// Não vai buscar as prefs do menu, vai buscar do plugin... 
+// NÃ£o vai buscar as prefs do menu, vai buscar do plugin... 
 		$this->Pref = e107::getPlugPref('euser');
 //var_dump ($this->menuPref);
 		$this->extendedMode = e107::getConfig('menu')->get('online_show_memberlist_extended');

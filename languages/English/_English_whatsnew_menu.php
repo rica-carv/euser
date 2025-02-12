@@ -9,205 +9,14 @@
 |	GNU General Public License (http://gnu.org).
 +---------------------------------------------------------------+
 */
-// All Menu lan
-define("LAN_EUSER_001", "Username: ");
-define("LAN_EUSER_002", "Password: ");
-define("LAN_EUSER_003", "Signup");
-define("LAN_EUSER_004", "Forgot password?");
-define("LAN_EUSER_005", "Welcome");
-define("LAN_EUSER_006", "Remember me");
-define("LAN_EUSER_007", "Unique user id not recognised (possible corrupted cookie).<br />Please <a href=\"index.php?logout\">click here</a> to destroy cookie.");
-define("LAN_EUSER_008", "Logout");           // Está no menu     // Está no shortcode
-define("LAN_EUSER_009", "Login Error");
-define("LAN_EUSER_0010", "The maintenance flag is true - this means normal visitors are being redirected to sitedown.php. To reset the flag go to admin/maintenance.");
-define("LAN_EUSER_0011", "Admin");                          // Está no shortcode
-define("LAN_EUSER_0012", "Settings");                      // Está no shortcode
-define("LAN_EUSER_0013", "Member Profile");    // Core LAN_USER_50                   // Está no template    // Está no shortcode  // Está no admin_config
-define("LAN_EUSER_0014", "new news item");
-define("LAN_EUSER_0015", "new news items");
-define("LAN_EUSER_0016", "new chatbox post");
-define("LAN_EUSER_0017", "new chatbox posts");
-define("LAN_EUSER_0018", "new comment");
-define("LAN_EUSER_0019", "new comments");
-define("LAN_EUSER_0020", "new forum post");
-define("LAN_EUSER_0021", "new forum posts");
-define("LAN_EUSER_0022", "new site member");
-define("LAN_EUSER_0023", "new site members");
-define("LAN_EUSER_0024", "Click here to see whats new");
-define("LAN_EUSER_0025", "new picture");
-define("LAN_EUSER_0026", "new pictures");
-define("LAN_EUSER_0027", "Since last time, there's been");
-define("LAN_EUSER_0028", "Login");
-define("LAN_EUSER_0029", "Members List");
-//define("LAN_EUSER_0029", "Private Msgs");   = LAN_EUSER_301
-define("LAN_EUSER_0030", "Currently Online");
-define("LAN_EUSER_0031", "Last Visitors");
-define("LAN_EUSER_0032", "new download");
-define("LAN_EUSER_0033", "new downloads");
-define("LAN_EUSER_0034", "new picture");
-define("LAN_EUSER_0035", "new pictures");
-define("LAN_EUSER_0036", "Members: ");
-define("LAN_EUSER_0037", "Guests: ");
-define("LAN_EUSER_0038", "Extra Information");
-define("LAN_EUSER_0039", "Latest changes");
-//define("LAN_EUSER_0040", "Top Forum Posters");     --> stats menu lang
-// define("LAN_EUSER_0041", "Top Visitors"); --> stats menu lang
-//define("LAN_EUSER_0042", "Hit Counter");       --> stats menu lang
-//define("LAN_EUSER_0043", "Online");   ---> LAN_EUSER_104
-// define("LAN_EUSER_0044", "No visitors yet");     --> stats menu lang
-//define("LAN_EUSER_0045", "No Forum posts yet");      --> stats menu lang
-define("LAN_EUSER_0046", "Guest");                              // Está no template
-define("LAN_EUSER_0047", "No members yet");
-define("LAN_EUSER_0048", "Joined Date");
-define("LAN_EUSER_0049", "No. of Visits");
-define("LAN_EUSER_0050", "Post in Chatbox");
-define("LAN_EUSER_0051", "Post in Forums");
-define("LAN_EUSER_0052", "Posted Comments");
-define("LAN_EUSER_0053", "new guestbook post");
-define("LAN_EUSER_0054", "new guestbook posts");
-//define("LAN_EUSER_0055", "Top Forum Starters");    --> stats menu lang
-//define("LAN_EUSER_0056", "Guests");             --> stats menu lang
-//define("LAN_EUSER_0057", "Top Forum Replier");       --> stats menu lang
-define("LAN_EUSER_0058", "new content post");
-define("LAN_EUSER_0059", "new content posts");
-define("LAN_EUSER_0060", "new link");
-define("LAN_EUSER_0061", "new links");
-define("LAN_EUSER_0062", "Live Chat");
-define("LAN_EUSER_0063", "Poll Comment - ");
-define("LAN_EUSER_0064", "new IPB forum post");
-define("LAN_EUSER_0065", "new IPB forum posts");
-define("LAN_EUSER_0066", "IPB ");
-define("LAN_EUSER_0067", "thread - ");
-define("LAN_EUSER_0068", "forum - ");
-define("LAN_EUSER_0069", "View this user&acute;s Profile");
-define("LAN_EUSER_0070", "Send a Private Message to this User");
-define("LAN_EUSER_0071", "BF2 Sig Gen");
-define("LAN_EUSER_0072", "BF2 BFHQ");
-define("LAN_EUSER_0073", "RSS Feed");
-define("LAN_EUSER_0074", "Coppermine");
-define("LAN_EUSER_0075", "IP Address: ");
-define("LAN_EUSER_0076", "Host: ");
-define("LAN_EUSER_0077", "Last Visit");
-define("LAN_EUSER_0078", "Last Posted");
-define("LAN_EUSER_0079", "Registered Users");
-define("LAN_EUSER_0080", "Avatar");                   // Está no shortcode
-define("LAN_EUSER_0081", "YOU HAVE A NEW PRIVATE MESSAGE");     // Está no menu
-define("LAN_EUSER_0082", "Click to goto PM Inbox");      // Está no menu
-define("LAN_EUSER_0083", "ACCOUNT SUSPENDED");
-define("LAN_EUSER_0084", "The Administrator on this site has Suspended your Account.  You can still use the public areas of this site, please contact the Administrator if you think you have been Suspended in Error.");
-define("LAN_EUSER_0085", "BF2142 Sig Gen");
-define("LAN_EUSER_0086", "new gallery image");
-define("LAN_EUSER_0087", "new gallery images");
-define("LAN_EUSER_0088", "new movie");
-define("LAN_EUSER_0089", "new movies");
-define("LAN_EUSER_0090", "Posted By");
-define("LAN_EUSER_0091", "Mark all as viewed");
-define("LAN_EUSER_0092", "Mark as viewed");
-define("LAN_EUSER_0093", "Delete Account");                  // Está no shortcode
-define("LAN_EUSER_0094", "Last reply by");
-define("LAN_EUSER_0095", "New Thread:");
-define("LAN_EUSER_0096", "Replies");
-define("LAN_EUSER_0097", "New Threads");
-define("LAN_EUSER_0098", "New Replies");
-define("LAN_EUSER_0099", "[ Forum ] Thread");
-define("LAN_EUSER_00100", "new game");
-define("LAN_EUSER_00101", "new games");
-define("LAN_EUSER_00102", "new top score");
-define("LAN_EUSER_00103", "new top scores");
-define("LAN_EUSER_00104", "new SMF forum post");
-define("LAN_EUSER_00105", "new SMF forum posts");
-define("LAN_EUSER_00106", "Application: ");
-define("LAN_EUSER_00107", "Bug: ");
-define("LAN_EUSER_00108", "Bugtracker Bugs");
-define("LAN_EUSER_00109", "new bug");
-define("LAN_EUSER_00110", "new bugs");
-define("LAN_EUSER_00111", "Nothing new");
-define("LAN_EUSER_00112", "new chatbox 2 post");
-define("LAN_EUSER_00113", "new chatbox 2 posts");
-define("LAN_EUSER_00114", "new coppermine picture");
-define("LAN_EUSER_00115", "new coppermine pictures");
-define("LAN_EUSER_00116", "Joke name:");
-define("LAN_EUSER_00117", "new joke post");
-define("LAN_EUSER_00118", "new joke posts");
-define("LAN_EUSER_00119", "new blog");
-define("LAN_EUSER_00120", "new blogs");
-define("LAN_EUSER_00121", "new suggestion");
-define("LAN_EUSER_00122", "new suggestions");
-define("LAN_EUSER_00123", "Chatbox 2");
-define("LAN_EUSER_00124", "Users stats");
 
+// Standard: LAN_EUSER_XXXXXXXXX_1
 
-
-define("LAN_EUSER_001001", "Head Administrator");       // Está no shortcode
-define("LAN_EUSER_001003", "Members");                  // Está no shortcode
-define("LAN_EUSER_001004", "Guests");                   // Está no shortcode
-define("LAN_EUSER_001007", "User Colour Key");          // Está no shortcode
-define("LAN_EUSER_001008", "Administrator");            // Está no shortcode
-define("LAN_EUSER_001009", "Member");                   // Está no shortcode
-define("LAN_EUSER_001010", "Forum Moderator");          // Está no shortcode
-
-// Online Menu lan
-define('LAN_EUSER_10TRACKING_MESSAGE', "Online user tracking is currently disabled, please enable it [here]");
-define("LAN_EUSER_101", "Guests:");
-define("LAN_EUSER_102", "Members:");
-define("LAN_EUSER_103", "On this page:");
-define("LAN_EUSER_104", "Online");
-define("LAN_EUSER_105", "Total members:");
-define("LAN_EUSER_106", "Newest Member:");
-define("LAN_EUSER_107", "viewing");
-define("LAN_EUSER_108", "Most ever online:");
-define("LAN_EUSER_109", "on ");
-define("LAN_EUSER_1010", "Online Menu");
-define("LAN_EUSER_1011", "Total registered members:");
-
-// Stats Menu lan
-define("LAN_EUSER_200", "Stats");
-define('LAN_EUSER_20TRACKING_MESSAGE', "Online user tracking is currently disabled, please enable it [here]");
-define("LAN_EUSER_201", "User");
-define("LAN_EUSER_202", "Rating");
-define("LAN_EUSER_203", "Top Rated Members");
-define("LAN_EUSER_204", "No users rated yet");
-define("LAN_EUSER_205", "Top Visitors");
-define("LAN_EUSER_206", "No visitors yet");
-define("LAN_EUSER_207", "Guests");
-define("LAN_EUSER_208", "Top Forum Repliers");
-define("LAN_EUSER_209", "Top Forum Posters");
-define("LAN_EUSER_2010", "No Forum posts yet");
-define("LAN_EUSER_2011", "Top Forum Starters");
-define("LAN_EUSER_2012", "Hit Counter");
-define("LAN_EUSER_2013", "Admin message: <b>Stat logging is disabled.</b><br />To enable it, you need to install the Statistic Logging plugin from your <a href='".e_ADMIN."plugin.php'>plugin manager</a>, and then activate it from the <a href='".e_PLUGIN."log/admin_config.php'>configuration screen</a>.");
-define("LAN_EUSER_2014", "Users stats");
-define("LAN_EUSER_2015", "Forum stats");
-
-define("LAN_EUSER_500", "Currently logged in");
-define("LAN_EUSER_501", "Currently not logged in, or inactive");
-
-//OLD LANS
-/*
-define("ONLINEINFO_COUNTER_L1", "Admin not being counted.");
-define("ONLINEINFO_COUNTER_L2", "This page today...");
-define("ONLINEINFO_COUNTER_L3", "total");
-define("ONLINEINFO_COUNTER_L4", "This page ever...");
-define("ONLINEINFO_COUNTER_L5", "unique");
-define("ONLINEINFO_COUNTER_L6", "This Site ...");
-define("ONLINEINFO_COUNTER_L7", "Counter");
-
-define("ONLINEINFO_COUNTER_L9", "no");
-*/
-
-// PM Menu lan
-define("LAN_EUSER_301", "Private Msgs"); 
-define("LAN_EUSER_302", "Admin message: <b>PM is disabled.</b><br />To enable it, you need to install the PM plugin from your <a href='".e_ADMIN."plugin.php'>plugin manager</a>, and then activate it from the <a href='".e_PLUGIN."pm/admin_config.php'>configuration screen</a>.");
-
-
-// Standard: LAN_EUSER_1
-// Whatnew Menu lan
-define("LAN_EUSER_400", "What`s new");     //--> whats new menu lang
 define("LAN_EUSER_401", "Username: ");
 define("LAN_EUSER_402", "Password: ");
 define("LAN_EUSER_403", "Signup");
 define("LAN_EUSER_404", "Forgot password?");
-define("LAN_EUSER_405", "Welcome");     // TODO Duplicado do LAN_EUSER_005 
+define("LAN_EUSER_405", "Welcome");
 define("LAN_EUSER_406", "Remember me");
 define("LAN_EUSER_407", "Unique user id not recognised (possible corrupted cookie).<br />Please <a href=\"index.php?logout\">click here</a> to destroy cookie.");
 define("LAN_EUSER_408", "Logout");
@@ -330,145 +139,6 @@ define("LAN_EUSER_40123", "Chatbox 2");
 define("LAN_EUSER_40124", "Users stats");
 
 
-// LAN'S PROFILE
-define("LAN_EUSER_600", "News posted");
-define("LAN_EUSER_601", "Uploads submited");
-define("LAN_EUSER_602", "Downloads");
-define("LAN_EUSER_603", "Links submited");
-
-define("LAN_EUSER_650", "Image Galleries");
-define("LAN_EUSER_651", "Update your information");
-define("LAN_EUSER_652", "Edit this user information");
-
-// TODO: VERIFICAR O QUE ESTÁ DUPLICADO AQUI....
-
-define("EUSER_LOGIN_MENU_L1", "Username: ");
-define("EUSER_LOGIN_MENU_L2", "Password: ");
-define("EUSER_LOGIN_MENU_L3", "Signup");
-define("EUSER_LOGIN_MENU_L4", "Forgot password?");
-define("EUSER_LOGIN_MENU_L5", "Welcome");
-define("EUSER_LOGIN_MENU_L6", "Remember me");
-define("EUSER_LOGIN_MENU_L7", "Unique user id not recognised (possible corrupted cookie).<br />Please <a href=\"index.php?logout\">click here</a> to destroy cookie.");
-define("EUSER_LOGIN_MENU_L8", "Logout");
-define("EUSER_LOGIN_MENU_L9", "Login Error");
-define("EUSER_LOGIN_MENU_L10", "The maintenance flag is true - this means normal visitors are being redirected to sitedown.php. To reset the flag go to admin/maintenance.");
-define("EUSER_LOGIN_MENU_L11", "Admin");
-define("EUSER_LOGIN_MENU_L12", "Settings");
-define("EUSER_LOGIN_MENU_L13", "Profile");
-define("EUSER_LOGIN_MENU_L14", "new news item");
-define("EUSER_LOGIN_MENU_L15", "new news items");
-define("EUSER_LOGIN_MENU_L16", "new chatbox post");
-define("EUSER_LOGIN_MENU_L17", "new chatbox posts");
-define("EUSER_LOGIN_MENU_L18", "new comment");
-define("EUSER_LOGIN_MENU_L19", "new comments");
-define("EUSER_LOGIN_MENU_L20", "new forum post");
-define("EUSER_LOGIN_MENU_L21", "new forum posts");
-define("EUSER_LOGIN_MENU_L22", "new site member");
-define("EUSER_LOGIN_MENU_L23", "new site members");
-define("EUSER_LOGIN_MENU_L24", "Click here to see whats new");
-define("EUSER_LOGIN_MENU_L25", "new picture");
-define("EUSER_LOGIN_MENU_L26", "new pictures");
-define("EUSER_LOGIN_MENU_L27", "Since last time, there's been");
-define("EUSER_LOGIN_MENU_L28", "Login");
-//define("EUSER_LOGIN_MENU_L29", "Private Msgs");         --> stats menu lang
-define("EUSER_LOGIN_MENU_L30", "Currently Online");
-define("EUSER_LOGIN_MENU_L31", "Last Visitors");
-define("EUSER_LOGIN_MENU_L32", "new download");
-define("EUSER_LOGIN_MENU_L33", "new downloads");
-define("EUSER_LOGIN_MENU_L34", "new picture");
-define("EUSER_LOGIN_MENU_L35", "new pictures");
-define("EUSER_LOGIN_MENU_L36", "Members: ");
-define("EUSER_LOGIN_MENU_L37", "Guests: ");
-define("EUSER_LOGIN_MENU_L38", "Extra Information");
-define("EUSER_LOGIN_MENU_L39", "Latest changes");
-//define("EUSER_LOGIN_MENU_L40", "Top Forum Posters");     --> stats menu lang
-// define("EUSER_LOGIN_MENU_L41", "Top Visitors"); --> stats menu lang
-//define("EUSER_LOGIN_MENU_L42", "Hit Counter");       --> stats menu lang
-define("EUSER_LOGIN_MENU_L43", "Online");
-// define("EUSER_LOGIN_MENU_L44", "No visitors yet");     --> stats menu lang
-//define("EUSER_LOGIN_MENU_L45", "No Forum posts yet");      --> stats menu lang
-define("EUSER_LOGIN_MENU_L46", "Guest");
-define("EUSER_LOGIN_MENU_L47", "No members yet");
-define("EUSER_LOGIN_MENU_L48", "Joined Date");
-define("EUSER_LOGIN_MENU_L49", "No. of Visits");
-define("EUSER_LOGIN_MENU_L50", "Post in Chatbox");
-define("EUSER_LOGIN_MENU_L51", "Post in Forums");
-define("EUSER_LOGIN_MENU_L52", "Posted Comments");
-define("EUSER_LOGIN_MENU_L53", "new guestbook post");
-define("EUSER_LOGIN_MENU_L54", "new guestbook posts");
-//define("EUSER_LOGIN_MENU_L55", "Top Forum Starters");    --> stats menu lang
-//define("EUSER_LOGIN_MENU_L56", "Guests");             --> stats menu lang
-//define("EUSER_LOGIN_MENU_L57", "Top Forum Replier");       --> stats menu lang
-define("EUSER_LOGIN_MENU_L58", "new content post");
-define("EUSER_LOGIN_MENU_L59", "new content posts");
-define("EUSER_LOGIN_MENU_L60", "new link");
-define("EUSER_LOGIN_MENU_L61", "new links");
-define("EUSER_LOGIN_MENU_L62", "Live Chat");
-define("EUSER_LOGIN_MENU_L63", "Poll Comment - ");
-define("EUSER_LOGIN_MENU_L64", "new IPB forum post");
-define("EUSER_LOGIN_MENU_L65", "new IPB forum posts");
-define("EUSER_LOGIN_MENU_L66", "IPB ");
-define("EUSER_LOGIN_MENU_L67", "thread - ");
-define("EUSER_LOGIN_MENU_L68", "forum - ");
-define("EUSER_LOGIN_MENU_L69", "View this user&acute;s Profile");
-define("EUSER_LOGIN_MENU_L70", "Send a Private Message to this User");
-define("EUSER_LOGIN_MENU_L71", "BF2 Sig Gen");
-define("EUSER_LOGIN_MENU_L72", "BF2 BFHQ");
-define("EUSER_LOGIN_MENU_L73", "RSS Feed");
-define("EUSER_LOGIN_MENU_L74", "Coppermine");
-define("EUSER_LOGIN_MENU_L75", "IP Address: ");
-define("EUSER_LOGIN_MENU_L76", "Host: ");
-define("EUSER_LOGIN_MENU_L77", "Last Visit");
-define("EUSER_LOGIN_MENU_L78", "Last Posted");
-define("EUSER_LOGIN_MENU_L79", "Registered Users");
-define("EUSER_LOGIN_MENU_L80", "Avatar");
-define("EUSER_LOGIN_MENU_L81", "YOU HAVE A NEW PRIVATE MESSAGE");
-define("EUSER_LOGIN_MENU_L82", "Click to goto PM Inbox");
-define("EUSER_LOGIN_MENU_L83", "ACCOUNT SUSPENDED");
-define("EUSER_LOGIN_MENU_L84", "The Administrator on this site has Suspended your Account.  You can still use the public areas of this site, please contact the Administrator if you think you have been Suspended in Error.");
-define("EUSER_LOGIN_MENU_L85", "BF2142 Sig Gen");
-define("EUSER_LOGIN_MENU_L86", "new gallery image");
-define("EUSER_LOGIN_MENU_L87", "new gallery images");
-define("EUSER_LOGIN_MENU_L88", "new movie");
-define("EUSER_LOGIN_MENU_L89", "new movies");
-define("EUSER_LOGIN_MENU_L90", "Posted By");
-define("EUSER_LOGIN_MENU_L91", "Mark all as viewed");
-define("EUSER_LOGIN_MENU_L92", "Mark as viewed");
-define("EUSER_LOGIN_MENU_L93", "Delete Account");
-define("EUSER_LOGIN_MENU_L94", "Last reply by");
-define("EUSER_LOGIN_MENU_L95", "New Thread:");
-define("EUSER_LOGIN_MENU_L96", "Replies");
-define("EUSER_LOGIN_MENU_L97", "New Threads");
-define("EUSER_LOGIN_MENU_L98", "New Replies");
-define("EUSER_LOGIN_MENU_L99", "[ Forum ] Thread");
-define("EUSER_LOGIN_MENU_L100", "new game");
-define("EUSER_LOGIN_MENU_L101", "new games");
-define("EUSER_LOGIN_MENU_L102", "new top score");
-define("EUSER_LOGIN_MENU_L103", "new top scores");
-define("EUSER_LOGIN_MENU_L104", "new SMF forum post");
-define("EUSER_LOGIN_MENU_L105", "new SMF forum posts");
-define("EUSER_LOGIN_MENU_L106", "Application: ");
-define("EUSER_LOGIN_MENU_L107", "Bug: ");
-define("EUSER_LOGIN_MENU_L108", "Bugtracker Bugs");
-define("EUSER_LOGIN_MENU_L109", "new bug");
-define("EUSER_LOGIN_MENU_L110", "new bugs");
-define("EUSER_LOGIN_MENU_L111", "nothing new");
-define("EUSER_LOGIN_MENU_L112", "new chatbox 2 post");
-define("EUSER_LOGIN_MENU_L113", "new chatbox 2 posts");
-define("EUSER_LOGIN_MENU_L114", "new coppermine picture");
-define("EUSER_LOGIN_MENU_L115", "new coppermine pictures");
-define("EUSER_LOGIN_MENU_L116", "Joke name:");
-define("EUSER_LOGIN_MENU_L117", "new joke post");
-define("EUSER_LOGIN_MENU_L118", "new joke posts");
-define("EUSER_LOGIN_MENU_L119", "new blog");
-define("EUSER_LOGIN_MENU_L120", "new blogs");
-define("EUSER_LOGIN_MENU_L121", "new suggestion");
-define("EUSER_LOGIN_MENU_L122", "new suggestions");
-define("EUSER_LOGIN_MENU_L123", "Chatbox 2");
-
-//define("EUSER_LOGIN_MENU_L124", "Users stats");  ---> stats menu lang
-
-
 
 
 
@@ -514,7 +184,286 @@ define("TITLE_PROFILE_1", "Members");
 define("TITLE_PROFILE_2", "Edit profile");
 define("TITLE_PROFILE_3", "Last update");
 // ANOTHER-PROFILES-ADMIN-MENU
-// Os defines do admin passaram para o ficheiro de linguagem admin.php 
+define("ADMIN_PROFILE_01", "<a href='http://freedigital.hu'>Another Profiles Plugin</a>");
+define("ADMIN_PROFILE_1", "<b>e107 Another profiles plugin 0.9 version</b>");
+define("ADMIN_PROFILE_1a", "Install:");
+define("ADMIN_PROFILE_1b", "Before installing, make a database save! After extracting the euser_v0.9.x.tar.gz -file copy the euser directory tho the e107 plugins directory. The webserver needs writing authority for the A userimages and usermp3 directories, so please check the attributes of these directories. The plugin can be installed from the plugin-manager. Check every settings after installing!");
+define("ADMIN_PROFILE_1c", "Update:");
+define("ADMIN_PROFILE_1d", "Save the database and the existing euser   before refreshing ! After extending euser_v0.9.x.tar.gz copy the euser directory to the e107 plugins directory. You overwite the previous version with copying. The webserver needs writing authority for the A userimages and usermp3 directories, so please check the attributes of these directories. Don't forget to click on the Another Profiles refresh icon. Check every settings after refreshing.");
+define("ADMIN_PROFILE_1e", "Server check:");
+define("ADMIN_PROFILE_1f", "In order to function properly, there are some requiremnets to fulfil from the server page. Right now, the plugin is 100% compatible with the e107 v0.7.11 - v1.0.2 versions. Because it makes picture resizing while working, the GD directory must exist( with proper php settings). It is even better if you have the possibility to use the PHP Imagick module. THe <a href='admin_menu.php?phpinfo'> server information </a> help you with the proper server settings, or with finding the possible errors.");
+define("ADMIN_PROFILE_1g", "Warranty:");
+define("ADMIN_PROFILE_1h", "I cannot garantee anything in connections with the program.");
+define("ADMIN_PROFILE_1i", "License:");
+define("ADMIN_PROFILE_1j", "Another Profiles Plugin License: GNU General Public License <a href='http://www.gnu.org/licenses/gpl.html' rel='external'>http://www.gnu.org/licenses/gpl.html</a><br/>MP3 Player Maxi License: MPL 1.1 <a href='http://www.mozilla.org/MPL/' rel='external'>http://www.mozilla.org/MPL/</a><br/>ClearBox License:to be able to use it you must accept the conditions in the file <a href='clearbox/clearbox.txt'>clearbox.txt</a>");
+define("ADMIN_PROFILE_1k", "Version Information:");
+define("ADMIN_PROFILE_1l", "The changes in the <a href='./readme.txt'>readme.txt</a> file can read.");
+define("ADMIN_PROFILE_1m", "Download:");
+define("ADMIN_PROFILE_2", "Number of comments per page.");
+define("ADMIN_PROFILE_7", "Who can view members profiles:");
+define("ADMIN_PROFILE_8", "You must first be logged in to view details of members!");
+define("ADMIN_PROFILE_9b", "Images per album max. (pcs.) <i> Every member is limited to this number of pictures per album.</i>");
+define("ADMIN_PROFILE_9c", "Column of User images and albums<i> Default 3.</i>");
+define("ADMIN_PROFILE_9a", "Number of albums max. (pcs.) <i> Every member is limited to this number of picture-albums.</i>");
+define("ADMIN_PROFILE_9", "Photo Gallery quota/member (KB) <i> Every member is limited to this much of kB. with pictures.</i>");
+define("ADMIN_PROFILE_10", "ERROR");
+define("ADMIN_PROFILE_11", "You have no permission to enter the admin area!");
+define("ADMIN_PROFILE_13", "No comments yet.");
+define("ADMIN_PROFILE_15", "Admin Profile editor");
+define("ADMIN_PROFILE_16", "<b>Another Profile Plugin general settings</b>");
+define("ADMIN_PROFILE_18", "Avatar size (Width x Height) the members, profile and settings page. <br/><i> Leave blank for basic settings ( given in the e107 members settings) size. For keeping the scale you need to keep only the width.</i>");
+define("ADMIN_PROFILE_19", "Profile picture size (Width x Height) <br/><i> The size of the picture in the user profile. For keeping the scale you need to keep only the width. If you do not give data, the basic settings is 200px.</i>");
+define("ADMIN_PROFILE_20", "Personal profile background (It does not work in all themes)");
+define("ADMIN_PROFILE_21", "Maximum upload picture size (KB)");
+define("ADMIN_PROFILE_21a", "Currently, the server php.ini setting that can be up ");
+define("ADMIN_PROFILE_21b", "B, maximum ");
+define("ADMIN_PROFILE_21c", "MP resolution pictures can be uploaded.");
+define("ADMIN_PROFILE_22", "Maximum number of videos per member. (0 = There is no limit)");
+define("ADMIN_PROFILE_24", "<b>Another Profile modules settings</b>");
+define("ADMIN_PROFILE_25", "Friends system");
+define("ADMIN_PROFILE_26", "Profile comments");
+define("ADMIN_PROFILE_27", "Image galleries");
+define("ADMIN_PROFILE_28", "Video galleries");
+define("ADMIN_PROFILE_39", "Profile Statistics (All reviewers)");
+define("ADMIN_PROFILE_40", "Clickable links for use with images?<br/>(Some of the topics better suited)");
+define("ADMIN_PROFILE_42", "The new users to logon to the following shifting their profile set?");
+define("ADMIN_PROFILE_43", "Profile background music. If enabled the upload, do not forget to file type of authorization (filetypes.php - .mp3)");
+define("ADMIN_PROFILE_44", "Profile background music max. size (KB)<br>");
+define("ADMIN_PROFILE_44a", "B size of file can be uploaded!");
+define("ADMIN_PROFILE_45", "Profile background music");
+define("ADMIN_PROFILE_48", "YES");
+define("ADMIN_PROFILE_48a", "ON");
+define("ADMIN_PROFILE_49", "NO");
+define("ADMIN_PROFILE_49a", "OFF");
+define("ADMIN_PROFILE_50", "<b>Main Features</b>");
+define("ADMIN_PROFILE_51", "Uploaded images Max. display width in pixels<br><i>If a larger picture, then clicked the new window opens, or if enabled, then the Lightbox, LightWindow, LightView or ClearBox Displays.</i>");
+define("ADMIN_PROFILE_52", "Allow Lightbox<br><i>Lightbox plugin install needed for the use</i>");
+define("ADMIN_PROFILE_53", "Allow LightWindow<br><i>LightWindow plugin install needed for the use</i>");
+define("ADMIN_PROFILE_53a", "Allow LightView<br><i>Corllete Lab Lightview Widget plugin install needed for the use</i>");
+define("ADMIN_PROFILE_53b", "Allow ClearBox<br><i>Clearbox included. To be able to use it you must accept the conditions in the file <a href='clearbox/clearbox.txt'>clearbox.txt</a></i>");
+define("ADMIN_PROFILE_54", "That column to display the list of friends<i> (max.8)</i>");
+define("ADMIN_PROFILE_55", "The list of members to be displayed by the Another Profile plugin.<br><i> If not, there is no change in the list of memebers (Site main menu- Members) display.</i>");
+define("ADMIN_PROFILE_56", "Options Update");
+define("ADMIN_PROFILE_57", "Information");
+define("ADMIN_PROFILE_58", "Options");
+define("ADMIN_PROFILE_59", "My Page");
+define("ADMIN_PROFILE_60", "The latest version can be downloaded for <a href='http://freedigital.hu'>freedigital.hu</a>.");
+define("ADMIN_PROFILE_61", "Maximum number of profile comments .<i> the maximum number of profile comments per member.</i>");
+define("ADMIN_PROFILE_62", "Image comments max.<i> the maximum number of posts per picture.</i>");
+define("ADMIN_PROFILE_63", "Video comments max.<i> the maximum number of posts per video.</i>");
+define("ADMIN_PROFILE_64", "Image and album names contain accented characters. <i>Not every server supports accented file names!</i>");
+define("ADMIN_PROFILE_65", "The members \"settings\" and \"proflie\" pages to be used by Another Profiles Plugin.<br><i> If not, then the plugin can be used only with direct links and the installment of the plugin will have no effect on the working of the site.</i>");
+define("ADMIN_PROFILE_66", "Main Features");
+define("ADMIN_PROFILE_67", "<b>Comments</b>");
+define("ADMIN_PROFILE_68", "<b>Pictures and albums</b>");
+define("ADMIN_PROFILE_69", "<b>Show Pictures</b>");
+define("ADMIN_PROFILE_70", "<b>Profile Music</b>");
+define("ADMIN_PROFILE_71", "<b>Videos</b>");
+define("ADMIN_PROFILE_71a", "<b>Friends</b>");
+define("ADMIN_PROFILE_71b", "<b>Registration and registration cancellation</b>");
+define("ADMIN_PROFILE_72", "<b>More</b>");
+define("ADMIN_PROFILE_73", "<b>Only use an external link</b>");
+define("ADMIN_PROFILE_74", "<b>Allow only file added</b>");
+define("ADMIN_PROFILE_75", "<b>Both are permissible</b>");
+define("ADMIN_PROFILE_76", "The length field in the user table user_image <br><i>The default value 100, max. value 200.</i>");
+define("ADMIN_PROFILE_77", "Can the members cancel their registration?<br><i>When you cancel registration the member's Another Profiles picture, video, profile comments, friend lists, pictures, soundfiles will be deleted, and the member will be deleted from the user database of the page as well. The main Admin will be informed in an e-mail and private message.</i> ");
+define("ADMIN_PROFILE_78", "Should deleted members have a save of their pictures, music?<br><i>If yes, then a save is done from the albums, pictures and mp3.</i>");
+define("ADMIN_PROFILE_79", "New members receive a private message by default, if designated for a friend?");
+define("ADMIN_PROFILE_79a", "New members receive e-mail by default, if marked for a friend?");
+define("ADMIN_PROFILE_80", "WARN System Support<br><i>you can read more about the WARN system settings here: http://e107hungary.org</i>");
+define("ADMIN_PROFILE_81", "Imagick PHP support enabled<br><i>If the server supports the use of imagick, then use Imagick instead of GD for resizing</i>");
+define("ADMIN_PROFILE_82", "To give extra information in the members' list about the member's comments, pictures, videos, music.<br><i> If enabled, little pictures showing if the member has forum message, forum comment, or comments about his uploaded pictures, videos or profile.</i> ");
+define("ADMIN_PROFILE_83", "This setting should apply to every members despite personal settings.");
+define("ADMIN_PROFILE_84", "Comments follow - The last profile, image and video posts list. <i>Set the maximum number of posts to list here.</i>");
+define("ADMIN_PROFILE_85", "Comment tracking");
+define("ADMIN_PROFILE_86", "Only Admins");
+define("ADMIN_PROFILE_87", "Members Only");
+define("ADMIN_PROFILE_88", "All visitors");
+define("ADMIN_PROFILE_89", "Delete User");
+define("ADMIN_PROFILE_90", "The following user selected for deletion");
+define("ADMIN_PROFILE_91", "Remove user name:");
+define("ADMIN_PROFILE_92", "Remove user code:");
+define("ADMIN_PROFILE_93", "Confirmation");
+define("ADMIN_PROFILE_94", "When user is deleted by a member of the Another Profiles Database (friends, friends indicated, profiles, images, video comments), the user data will be deleted e107 user database. Afer that the Another Profiles will be deleted according to personal settings or save his music and pictures.");
+define("ADMIN_PROFILE_95", "Final deletion of member");
+define("ADMIN_PROFILE_96", "The following members:");
+define("ADMIN_PROFILE_97", "Deleted.");
+define("ADMIN_PROFILE_98", "This member has not been deleted.");
+define("ADMIN_PROFILE_99", "Back to the members settings");
+define("ADMIN_PROFILE_100", "The maximum width of pictures and videos at the following of comments.");
+define("ADMIN_PROFILE_101", "<b>Following of profile, video and picture comments<b>");
+define("ADMIN_PROFILE_102", "Megapixel resolution can be if you are using GD (the php memory_limit ");
+define("ADMIN_PROFILE_103", "). If you want to enable bigger resolutions file than this, then you have to enlarge php memory limit on the server or use imagick.");
+define("ADMIN_PROFILE_104", "Server information");
+define("ADMIN_PROFILE_104a", "PHP information");
+define("ADMIN_PROFILE_105", "PHP module, directive");
+define("ADMIN_PROFILE_106", "Value");
+define("ADMIN_PROFILE_107", "Compliance");
+define("ADMIN_PROFILE_108", "memory_limit:");
+define("ADMIN_PROFILE_109", "post_max_size:");
+define("ADMIN_PROFILE_110", "upload_max_filesize:");
+define("ADMIN_PROFILE_111a", "The value is correct. GD resize images with maximum resolution ");
+define("ADMIN_PROFILE_111b", "The value is still appropriate, however, you need to be prepared that in some cases problems may occur when you resize the image. GD resize the image with maximum resolution ");
+define("ADMIN_PROFILE_111c", "The value is not something good. A lot of trouble to resize the images because they often may have higher-resolution photos. GD resize the image with maximum resolution ");
+define("ADMIN_PROFILE_111d", "The value is not appropriate. GD resize the image with maximum resolution ");
+define("ADMIN_PROFILE_111e", "Mpixel.");
+define("ADMIN_PROFILE_111f", "Mpixel. You might use the Imagick module instead of GD, if the server supports.");
+define("ADMIN_PROFILE_111g", "Mpixel. I suggest you use the Imagick module instead of GD, if your server supports, or increase the value of PHP memory_limit to 64MB!");
+define("ADMIN_PROFILE_111h", "Mpixel. I suggest you use the Imagick module instead of GD, if your server supports, or increase the value of PHP memory_limit to 64MB!");
+define("ADMIN_PROFILE_112a", "The corresponding value.");
+define("ADMIN_PROFILE_112b", "The value is still appropriate. Post in a likely will not receive more than this, perhaps one may have trouble uploading mp3 music.");
+define("ADMIN_PROFILE_112c", "The value is not something good. Worth increased by 15 to 20MB. Mainly be a problem uploading the mp3 files.");
+define("ADMIN_PROFILE_112d", "Unfortunately, this is not enough. The problems will be uploading files.");
+define("ADMIN_PROFILE_113a", "The value is correct.");
+define("ADMIN_PROFILE_113b", "The value is still appropriate. Probably not upload files larger one, perhaps one may have trouble uploading mp3 music.");
+define("ADMIN_PROFILE_113c", "The value is not something good. Worth increased by 15 to 20MB. Mainly be a problem uploading the mp3 files.");
+define("ADMIN_PROFILE_113d", "Unfortunately, this is not enough. The problems will be uploading files.");
+define("ADMIN_PROFILE_114", "GD version:");
+define("ADMIN_PROFILE_115", "It does not work.");
+define("ADMIN_PROFILE_116", "GD version is correct.");
+define("ADMIN_PROFILE_116a", "GD version is correct, but at least one function is not necessary.");
+define("ADMIN_PROFILE_117", "GD version is not appropriate.");
+define("ADMIN_PROFILE_117a", "GD version is not appropriate and needed at least one function does not work.");
+define("ADMIN_PROFILE_118", "GD is not installed.");
+define("ADMIN_PROFILE_119", "Imagick version:");
+define("ADMIN_PROFILE_120", "Imagick is not installed.");
+define("ADMIN_PROFILE_121", "Imagick can not be used.");
+define("ADMIN_PROFILE_122", "Imagick module is installed, usable.");
+define("ADMIN_PROFILE_123", "File upload:");
+define("ADMIN_PROFILE_124", "Enabled");
+define("ADMIN_PROFILE_124a", "The value is correct.");
+define("ADMIN_PROFILE_125", "Not allowed");
+define("ADMIN_PROFILE_125a", "The server is not enabled for file uploading.");
+define("ADMIN_PROFILE_126", "The value is correct.");
+define("ADMIN_PROFILE_127", "Upload files should be created in the temporary directory.");
+define("ADMIN_PROFILE_127a", "The file has been created to fill a temporary library.");
+define("ADMIN_PROFILE_127b", "The value is appropriate because it is not enabled the galleries and the profile background.");
+define("ADMIN_PROFILE_128", "Temporary directory for uploading:");
+define("ADMIN_PROFILE_129", "Not specified");
+define("ADMIN_PROFILE_130", "Enabled");
+define("ADMIN_PROFILE_131", "The value is correct.");
+define("ADMIN_PROFILE_132", "Not allowed");
+define("ADMIN_PROFILE_133", "Uploads to the public should be allowed, that members are able to copy their pictures and music.");
+define("ADMIN_PROFILE_133a", "The value is correct, because it did not turn on the background of the profile and galleries.");
+define("ADMIN_PROFILE_134", "Public uploads:");
+define("ADMIN_PROFILE_135", "E107 Administration Settings");
+define("ADMIN_PROFILE_136", "E107 Options");
+define("ADMIN_PROFILE_137", "The file is found filetypes.xml");
+define("ADMIN_PROFILE_138", "The value is correct.");
+define("ADMIN_PROFILE_139", "None of the \"filetypes.xml\" file");
+define("ADMIN_PROFILE_140", "E107_admin to be renamed the directory the file filetypes_xml filetypes.xml - from the file types to allow.");
+define("ADMIN_PROFILE_141", "Allow file types:");
+define("ADMIN_PROFILE_142", "A filetypes.php file found");
+define("ADMIN_PROFILE_143", "None of the \"filetypes.php\" file");
+define("ADMIN_PROFILE_144", "Rename the directory e107_admin filetypes_php filetypes.php file - from the file types to allow.");
+define("ADMIN_PROFILE_144a", "The value is correct, because it did not turn on the background of the profile and galleries.");
+define("ADMIN_PROFILE_145", "Allow file types:");
+define("ADMIN_PROFILE_146", "Appropriate version of the e107 CMS.");
+define("ADMIN_PROFILE_147", "Profiles in Another plugin is not compatible with this version of the e107, whether or not the original file ver.php!");
+define("ADMIN_PROFILE_148", "E107 CMS version:");
+define("ADMIN_PROFILE_149", "Enabled");
+define("ADMIN_PROFILE_150", "The value is correct.");
+define("ADMIN_PROFILE_151", "The member is not allowed");
+define("ADMIN_PROFILE_152", "HTML codes without the authorization of the movies are not members can set their profiles. Turn off video galleries of the main functions setting, or the HTML codes to enable the members.");
+define("ADMIN_PROFILE_152a", "The value is reasonable, since the video galleries are not enabled.");
+define("ADMIN_PROFILE_153", "Enable HTML code:");
+define("ADMIN_PROFILE_154", "Allowed file types: ");
+define("ADMIN_PROFILE_155", "The value is correct.");
+define("ADMIN_PROFILE_156", "The required file type (mp3 or jpg) is not enabled.");
+define("ADMIN_PROFILE_157", "The value is correct, because it did not turn on the background of the profile or galleries.");
+define("ADMIN_PROFILE_158", "The file that contains the file types that can not be read.");
+define("ADMIN_PROFILE_159", "The corresponding value");
+define("ADMIN_PROFILE_160", "Still available");
+define("ADMIN_PROFILE_161", "Not good");
+define("ADMIN_PROFILE_162", "Unusable");
+define("ADMIN_PROFILE_163", "Members list sorted by default");
+define("ADMIN_PROFILE_164", "Ascending");
+define("ADMIN_PROFILE_165", "Descending");
+define("ADMIN_PROFILE_166", "Members list of the default sort criteria");
+define("ADMIN_PROFILE_167", "Username");
+define("ADMIN_PROFILE_168", "Email address");
+define("ADMIN_PROFILE_169", "Registration Date");
+define("ADMIN_PROFILE_170", "Last visit");
+define("ADMIN_PROFILE_171", "Number of visits");
+define("ADMIN_PROFILE_172", "Who can view the list of members:");
+define("ADMIN_PROFILE_173", "List of members");
+define("ADMIN_PROFILE_174", "Members list settings");
+define("ADMIN_PROFILE_175", "Forum Messages");
+define("ADMIN_PROFILE_176", "Comments");
+define("ADMIN_PROFILE_177", "Profile Comments");
+define("ADMIN_PROFILE_178", "Pictures");
+define("ADMIN_PROFILE_179", "Video");
+define("ADMIN_PROFILE_180", "Music");
+define("ADMIN_PROFILE_181", "The extra information contained herein show thumbnails (the nickname column):<br/><br/><i>If you go to the small pictures displayed on the mouse, you can see how many posts, comments, image or video is a member.</i>");
+define("ADMIN_PROFILE_182", "Members List Columns:<br/><br/><i>The logon name, time zone and IP Address columns in only the appropriate permissions (user moderation / banning, etc..) admins can see in.</i>");
+define("ADMIN_PROFILE_183", "Avatar");
+define("ADMIN_PROFILE_184", "Username");
+define("ADMIN_PROFILE_185", "E-mail address");
+define("ADMIN_PROFILE_186", "Registration Date");
+define("ADMIN_PROFILE_187", "Last visit");
+define("ADMIN_PROFILE_188", "Number of visits");
+define("ADMIN_PROFILE_189", "Allow filtering of results. <i>Who knows picture, video, messages, etc.. to filter the list of members.</i>");
+define("ADMIN_PROFILE_190", "Real name");
+define("ADMIN_PROFILE_191", "Username");
+define("ADMIN_PROFILE_192", "Time Zone");
+define("ADMIN_PROFILE_193", "IP-Address");
+define("ADMIN_PROFILE_194", "Advanced search using search fields are displayed:<br/><br/><i>Search completed in certain fields of \"and \" relationship.</i>");
+define("ADMIN_PROFILE_195", "Email address");
+define("ADMIN_PROFILE_196", "Username");
+define("ADMIN_PROFILE_197", "Enable Advanced Search");
+define("ADMIN_PROFILE_198", "Directories");
+define("ADMIN_PROFILE_199", "The userimages usermp3 and writable");
+define("ADMIN_PROFILE_200", "The userimages, or do not have write permission to the directory usermp3");
+define("ADMIN_PROFILE_201", "The uploads to the Web server must have write access to directories userimages and usermp3.");
+define("ADMIN_PROFILE_202", "The value is correct, because it did not turn on the background of the profile or galleries.");
+define("ADMIN_PROFILE_203", "The value is correct.");
+define("ADMIN_PROFILE_204", "Ordered column color appears when the order of increasing:<br/><i>RGB hex code to enter eg. Red: FF0000 or F00. If you do not specify a color, then the theme will be used to set the color and did not appear, which column orderly.</i>");
+define("ADMIN_PROFILE_205", "Ordered column color appears when the order of decreasing:<br/><i>RGB hex code to enter eg. Green: 00FF00, or 0F0. If you do not specify a color, then the theme will be used to set the color and did not appear, which column orderly.</i>");
+define("ADMIN_PROFILE_205a", "Display \"Add to Friends\" link in member list:<br/><i>Click on the thumbnails directly from a list of the members designated as friends of the tag, and indicates that you have already checked / e-friendly.</i>");
+define("ADMIN_PROFILE_206", "Simply entered the wrong color code!<br/>The other settings Update");
+define("ADMIN_PROFILE_207", "Simply entered the wrong value!<br/>The other settings Update");
+define("ADMIN_PROFILE_208", "Column label CSS class:<br/><i>Enter the CSS class name of the column you want to use subtitles (default: \"button\").</i>");
+define("ADMIN_PROFILE_209", "The background music starts automatically when opening the profile?");
+define("ADMIN_PROFILE_210", "Repeat playback, if the profile music has reached the end?");
+define("ADMIN_PROFILE_211", "The playback volume:<br/><i>The value of 1 to 200 can be. 1 - minimum volume, 200 - max volume.</i>");
+define("ADMIN_PROFILE_212", "Tag-up charts showing the number of members.<br/><i>Eg. Top 40 to enter 40. The value can be up to 200.</i>");
+define("ADMIN_PROFILE_213", "Top list enabled");
+define("ADMIN_PROFILE_214", "Availability Top Lists");
+define("ADMIN_PROFILE_215", "Top members settings");
+define("ADMIN_PROFILE_216", "Select top lists");
+define("ADMIN_PROFILE_217", "Most active members");
+define("ADMIN_PROFILE_218", "Most message forums");
+define("ADMIN_PROFILE_219", "Most commented");
+define("ADMIN_PROFILE_220", "Top Rated Members");
+define("ADMIN_PROFILE_221", "Most viewed profiles");
+define("ADMIN_PROFILE_222", "Most Friend");
+define("ADMIN_PROFILE_223", "Most chatbox message");
+define("ADMIN_PROFILE_224", "Display administrators in the top lists?");
+define("ADMIN_PROFILE_225", "List Layout");
+define("ADMIN_PROFILE_226", "Traditional");
+define("ADMIN_PROFILE_227", "Contacts");
+define("ADMIN_PROFILE_228", "About layout, the number of columns <i>(default value: 3)</i>");
+define("ADMIN_PROFILE_228a", "About layout, the number of columns <i>(default value: 1)</i>");
+define("ADMIN_PROFILE_229", "Css stylesheet layout used about <i>(the css directory of the two sample css file. Lite: a clear theme, Dark: dark themes)</i>");
+define("ADMIN_PROFILE_230", "lite");
+define("ADMIN_PROFILE_231", "dark");
+define("ADMIN_PROFILE_232", "Most recently changed the display mode menu profiles");
+define("ADMIN_PROFILE_233", "Horizontal");
+define("ADMIN_PROFILE_234", "Vertical");
+define("ADMIN_PROFILE_235", "Last changed profiles up menu. many members appear <i>(default value: 3)</i>");
+define("ADMIN_PROFILE_236a", "Profiles page last changed columns");
+define("ADMIN_PROFILE_236", "Recently changed to access a list of profiles");
+define("ADMIN_PROFILE_237", "automatic");
+define("ADMIN_PROFILE_238", "User Class");
+define("ADMIN_PROFILE_239", "Allow private albums<br/><i>If checked, then the members can create private albums. The moderation of user / administrator rights banning admins and members outside the establishing the album - if the system is turned on friends, only friends can view the tag.</i>");
+define("ADMIN_PROFILE_240", "Video width <i>(Default 640)</i>");
+define("ADMIN_PROFILE_241", "Selectable video sharing");
+define("ADMIN_PROFILE_242", "Youtube");
+define("ADMIN_PROFILE_243", "Vimeo");
+define("ADMIN_PROFILE_244", "Metacafe");
+define("ADMIN_PROFILE_245", "Indavideo");
+define("ADMIN_PROFILE_246", "Check video file access<br/><i>Recommended option: Yes</i>");
+define("ADMIN_PROFILE_247", "User pictures sorted by default");
 
 // ANOTHER-PROFILES-PAGES
 define("PROFILE_1", "Another Profiles");
@@ -599,8 +548,8 @@ define("PROFILE_74", "OK");
 define("PROFILE_75", "");
 define("PROFILE_76", "is uploaded.");
 define("PROFILE_77", "The file is deleted");
-//define("PROFILE_96", "Currently logged in");
-//define("PROFILE_97", "Currently not logged in, or inactive");
+define("PROFILE_96", "Currently logged in");
+define("PROFILE_97", "Currently not logged in, or inactive");
 define("PROFILE_100", "<b>Error:</b> You cannot select yourself as a friend!");
 define("PROFILE_101", "Options");
 define("PROFILE_102", "Only friends can see my personal information.");

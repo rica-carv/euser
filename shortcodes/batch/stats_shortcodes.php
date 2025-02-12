@@ -3,7 +3,7 @@
 + ----------------------------------------------------------------------------+
 |     e107 website system
 |
-|     ©Steve Dunstan 2001-2002
+|     ¬©Steve Dunstan 2001-2002
 |     http://e107.org
 |     jalist@e107.org
 |
@@ -22,9 +22,9 @@ if (!defined('e107_INIT')) { exit; }
 include_once(e_PLUGIN.'euser/euser_class.php');
 
 //		class plugin_euser_login_menu_shortcodes extends e_shortcode
-// extende o login_menu_shortcodes para utilizar tambÈm os shortcodes do login menu do core....
+// extende o login_menu_shortcodes para utilizar tamb√©m os shortcodes do login menu do core....
 		class plugin_euser_stats_shortcodes extends e_shortcode
-// J· n„o preciso de extender os shortcodes do login menu porque o menu È embebido com o EMBEDMENU
+// J√° n√£o preciso de extender os shortcodes do login menu porque o menu √© embebido com o EMBEDMENU
 		{
 
 /*
@@ -34,7 +34,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 			private $allowEmailLogin;
 */
 //      private $orderList;
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
 //		  private $euserlmsql;
 		  private $eusersm;
 
@@ -55,7 +55,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
           return $text;
         };
 */
-//Include forum_stats class n„o funciona, o cÛdigo est· no meio do init......
+//Include forum_stats class n√£o funciona, o c√≥digo est√° no meio do init......
 		// get all replies
 		$total_posts = $this->sql->count('forum_post');
 
@@ -66,8 +66,8 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 		ORDER BY post_count DESC LIMIT 0,".($this->var['cache_records']?:10);
 
 		$this->sql->gen($query);
-	// 	$top_repliers_data = $this->sql->db_getList('ALL', false, false, 'user_id');
-		$top_repliers_data = $this->sql->retrieve($query,true);
+ 	  $top_repliers_data = $this->sql->db_getList('ALL', false, false, 'user_id');
+//		$top_repliers_data = $this->sql->retrieve($query,true);
 
 		// build top posters meanwhile
 		$top_posters = array();
@@ -170,7 +170,7 @@ if(check_class($this->var['cache_userclass'])){
 
 //$this->sql = e107::getDb();
 
-// Para que È que eu quero isto da extracache??? Provavelmente vai zarpar daqui... zarpou...
+// Para que √© que eu quero isto da extracache??? Provavelmente vai zarpar daqui... zarpou...
 /*
 	if($extraacache==1){
 		$cachet = $extracachetime*60;
@@ -286,13 +286,13 @@ if(check_class($this->var['cache_userclass'])){
 
   }  
 
-/// PROVAVELMENTE JUNTO ESTES 3 SHORTCODES NUM S” E USO OS PARMS....
+/// PROVAVELMENTE JUNTO ESTES 3 SHORTCODES NUM S√ì E USO OS PARMS....
 	function sc_esm_topforumpost($parm='')
 	{
 
 if(check_class($this->var['cache_userclass'])){
 
-//Include forum_stats class n„o funciona, o cÛdigo est· no meio do init......
+//Include forum_stats class n√£o funciona, o c√≥digo est√° no meio do init......
 /*
 if (!file_exists(e_PLUGIN.'forum/forum_stats.php')) {return;}
 ob_start();

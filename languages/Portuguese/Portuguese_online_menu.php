@@ -20,7 +20,7 @@
 // https://github.com/e107inc/multilan
 
 // Online Menu lan
-define("LAN_EUSER_10TRACKING_MESSAGE", "Usuário on-line de rastreamento está desativado no momento, por favor, habilite-lo [aqui]");
+define("LAN_EUSER_10TRACKING_MESSAGE", "Utilizador on-line de rastreamento está desativado no momento, por favor, habilite-lo [aqui]");
 define("LAN_EUSER_101", "Convidados:");
 define("LAN_EUSER_102", "Membros:");
 define("LAN_EUSER_103", "Nesta página:");

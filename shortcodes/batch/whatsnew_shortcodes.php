@@ -3,7 +3,7 @@
 + ----------------------------------------------------------------------------+
 |     e107 website system
 |
-|     ©Steve Dunstan 2001-2002
+|     Â©Steve Dunstan 2001-2002
 |     http://e107.org
 |     jalist@e107.org
 |
@@ -23,9 +23,9 @@ if (!defined('e107_INIT')) { exit; }
 include_once(e_PLUGIN.'euser/euser_class.php');
 
 //		class plugin_euser_login_menu_shortcodes extends e_shortcode
-// extende o login_menu_shortcodes para utilizar também os shortcodes do login menu do core....
+// extende o login_menu_shortcodes para utilizar tambÃ©m os shortcodes do login menu do core....
 		class plugin_euser_whatsnew_shortcodes extends login_menu_shortcodes
-// Já não preciso de extender os shortcodes do login menu porque o menu é embebido com o EMBEDMENU
+// JÃ¡ nÃ£o preciso de extender os shortcodes do login menu porque o menu Ã© embebido com o EMBEDMENU
 		{
 
 /*
@@ -35,7 +35,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 			private $allowEmailLogin;
 */
 //      private $orderList;
-//########################## Temporário, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## TemporÃ¡rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
 //		  private $euserlmsql;
 //		  private $euserlm;
 
@@ -65,7 +65,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 //      var_dump ($total);
 //--      return "<span class='label label-".($total==0?"default":"danger")."'>".$text."</span>";
 //--      }
-// {EWNM_ADMIN:type=total} devolve só o número do total
+// {EWNM_ADMIN:type=total} devolve sÃ³ o nÃºmero do total
 			function sc_ewnm_admin($parm='')
 			{
 //var_dump ($parm);
@@ -132,7 +132,7 @@ if (ADMIN) {
 			}
 
 //        if ($total==0){$text = "<span class='text-info'>".LAN_NEWS_83."</span>";}
-// Eu preciso do total de qualquer das formas, para ter o ícone...
+// Eu preciso do total de qualquer das formas, para ter o Ã­cone...
 //      if ($parm['type'] == "total") { return $total;}
 //      if ($parm['style'] == "badge") { 
 //        $badge_ini = "<span class='badge badge-pill badge-".($total==0?"info":"danger")."'>";
@@ -166,7 +166,7 @@ var_dump ($total==0);
 			}
 
 
-// Este shortcode depois é para partir em menores para maior customização
+// Este shortcode depois Ã© para partir em menores para maior customizaÃ§Ã£o
 			function sc_ewnm_updated($parm='')
 			{
 
@@ -178,7 +178,7 @@ var_dump ($total==0);
 //      var_dump ($euser_pref['showregusers']);
 //      var_dump (check_class($euser_pref['showregusers']));
 
-// Isto depois é para mudar, para as prefs
+// Isto depois Ã© para mudar, para as prefs
 //var_dump(check_class($this->var['cache_userclass']));  VERDADEIRO
 if(check_class($this->var['cache_userclass'])){
 
@@ -698,7 +698,7 @@ if ($this->euser_pref['bugtracker3'] == 1)
 
 }
 
-//// ######################################################################################### POR ENQUANTO OS STATS DO LOGIN MENU DO CORE FICAM DESACTIVADOS, ATÉ EU TER SOLUÇÃO PARA OS APRESENTAR NESTE MENU AQUI......
+//// ######################################################################################### POR ENQUANTO OS STATS DO LOGIN MENU DO CORE FICAM DESACTIVADOS, ATÃ‰ EU TER SOLUÃ‡ÃƒO PARA OS APRESENTAR NESTE MENU AQUI......
 //var_dump ($euser_pref);
 		
 /* ?????????????????????????
@@ -743,7 +743,7 @@ if (!$EUSER_WHATSNEW_MENU_STATS) {
 	$e_sub_cat = 'main';
 
 //var_dump ($e_sub_cat);
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 //------------ if ($euser_pref['loginmenutype']==0){
 /********************************
         $text_start .= "<a title='".LAN_EUSER_4011."' id='none' href='".e_ADMIN.$adminfpage."' target='_blank'><img src='".e_PLUGIN."euser/images/admin_into".($euser_pref['loginmenutype']==0?"_24":"").".png' style='border:0; vertical-align: middle'/></a>&nbsp;&nbsp;";
@@ -756,7 +756,7 @@ if (!$EUSER_WHATSNEW_MENU_STATS) {
 
 //        $text_start .= "<div id='admin-title' style='cursor:hand; font-size: ".$onlineinfomenufsize."px; text-align:left; vertical-align: middle; width:".$onlineinfomenuwidth.";' title='".ADLAN_LAT_1."'><b>&nbsp;".ADLAN_LAT_1."</b></div>";
 
-// Depois o tag do admin tem de ir buscar o shortcode {LM_ADMIN}, quando ist for templatizado.....   logo esta variável deixa de existir...
+// Depois o tag do admin tem de ir buscar o shortcode {LM_ADMIN}, quando ist for templatizado.....   logo esta variÃ¡vel deixa de existir...
 				$adminfpage = (!$this->euser_pref["adminstyle"] || $this->euser_pref["adminstyle"] == 'default' ? 'admin.php' : $this->euser_pref["adminstyle"].'.php');				
 				$text_start .= ($this->euser_pref["maintainance_flag"]==1 ? '<div style="text-align:center"><b>'.LAN_EUSER_4010.'</div></b><br />' : '' );
 //				$text_start .= '<img src="'.$bulletimage.'" alt="bullet" />&nbsp;<a href="'.e_ADMIN.$adminfpage.'">'.LAN_EUSER_4011.'</a><br />';
@@ -778,7 +778,7 @@ if (!$EUSER_WHATSNEW_MENU_STATS) {
 //------------}	
 	// ADMIN Section
 	
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 //    if ($this->euser_pref['loginmenutype']!=0){
 /*
 if (ADMIN) {                                      
@@ -810,7 +810,7 @@ if (ADMIN) {
 				$text_start .= "<br /><b><a href='".e_ADMIN."message.php'>".ADLAN_LAT_8." [".$amount."]</a></b>";
 			}
 
-// Valor para apresentar junto ao ícone (em shortcode)
+// Valor para apresentar junto ao Ã­cone (em shortcode)
       global $euser_all_menu_shortcodes;
       var_dump ("whatsnew_sc linha 809...   ".$euser_all_menu_shortcodes);
       if ($euser_all_menu_shortcodes){
@@ -821,7 +821,7 @@ if (ADMIN) {
 */
 //}
 
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 /*
     if ($this->euser_pref['loginmenutype']!=0){
     $text_start.="<br/>";
@@ -842,7 +842,7 @@ $checkfornew=$onlineinfo_getgallery2info+$onlineinfo_getipbinfo+$onlineinfo_gets
 
 //var_dump ($checkfornew);
 
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 
   if ($this->euser_pref['loginmenutype']==0) {
 //  $text_start .= "<a title='".LAN_EUSER_4039." ".($checkfornew>0 ? "(".$checkfornew.")" : "(0)")."'><img src='".e_PLUGIN."euser/images/news".($checkfornew>0?"_new":"").($this->euser_pref['loginmenutype']==0?"_24":"").".png' style='border:0; vertical-align: middle'/>&nbsp;".($checkfornew>0?"<span class='onlineinfonew'>":"").$checkfornew."</a>&nbsp;&nbsp;";
@@ -859,7 +859,7 @@ $checkfornew=$onlineinfo_getgallery2info+$onlineinfo_getipbinfo+$onlineinfo_gets
     else
     {
 */
-// A partir de agora, esta linha vem do caption do próprio menu....
+// A partir de agora, esta linha vem do caption do prÃ³prio menu....
 //    	$text_start .= "<div class='smallblacktext' style='font-size: ".$onlineinfomenufsize."px; font-weight:bold; width:".$onlineinfomenuwidth."'>".LAN_EUSER_4039."</div><div style='text-align:left; width:".$onlineinfomenuwidth."; margin-left:5px; margin-right:5px;'><table style='text-align:left; width:".$onlineinfomenuwidth."'><tr><td>";
     	$text_start .= "<div style='text-align:left; width:".$onlineinfomenuwidth."; margin-left:5px; margin-right:5px;'><table style='text-align:left; width:".$onlineinfomenuwidth."'><tr><td>";
 //----    }
@@ -938,12 +938,12 @@ if (!$EUSER_EXTRAINFO_MENU_STATS) {
 //////////////////////////////$extrainfo_menu_shortcodes = e107::getScBatch('extrainfo_menu', 'euser');
 //				$text_start .= $tp -> parseTemplate($EUSER_EXTRAINFO_MENU_STATS, true, $extrainfo_menu_shortcodes);
 
-// PARTIMOS PARA A VERSÃO CURTO E GROSSO...
-// Adição do código do user_menu do core
+// PARTIMOS PARA A VERSÃƒO CURTO E GROSSO...
+// AdiÃ§Ã£o do cÃ³digo do user_menu do core
 /*
-$text_start .= "»»»»»»»»»»<hr>";
+$text_start .= "Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»<hr>";
 $text_start .= str_replace("\$ns->tablerender(\$caption, \$text_start, 'login');", "", file_get_contents(e_PLUGIN."login_menu/login_menu.php"));
-$text_start .= "<hr>««««««««««";
+$text_start .= "<hr>Â«Â«Â«Â«Â«Â«Â«Â«Â«Â«";
 */
 
 $core_login_menu = str_replace(array("\$ns->tablerender(\$caption, \$text, 'login');","<?php","?\>"), "", file_get_contents(e_PLUGIN."login_menu/login_menu.php"));
@@ -976,7 +976,7 @@ eval ($core_login_menu);
 //$EXTRAINFO_MENU_TEMPLATE['core'] = '<ul class="login-menu-logged nav nav-list"><li class="nav-header login-menu-stats smalltext">'.LAN_LOGINMENU_25.':</li><li>{LM_STATS}</li></ul>';
 
 //  var_dump ($template);
-// Dá para customizar... fixe... $LOGIN_MENU_STATITEM = '----------{LM_STAT_NEW} {LM_STAT_LABEL}{LM_STAT_EMPTY}--------------';
+// DÃ¡ para customizar... fixe... $LOGIN_MENU_STATITEM = '----------{LM_STAT_NEW} {LM_STAT_LABEL}{LM_STAT_EMPTY}--------------';
     	$text = $this->tp->parseTemplate($this->template['login_menu'], true, $sc);
 
 
@@ -1004,9 +1004,9 @@ if (!$EUSER_EXTRAINFO_MENU_STATS) {
 */
 //eval ($core_login_menu);
 //$caption = "";
-// Inclui fallback no caso do core menu não existir....
+// Inclui fallback no caso do core menu nÃ£o existir....
 $text .= ($core_login_menu?"":"<div style='font-weight:bold;'>".LAN_EUSER_4027."</div>").$text_start;
-//$text = "»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»";
+//$text = "Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»Â»";
 
 //	$sc = e107::getScBatch('all_menu', 'euser');
 //				$text .= $tp -> parseTemplate($EUSER_EXTRAINFO_MENU_STATS, true, $sc);
@@ -1014,7 +1014,7 @@ $text .= ($core_login_menu?"":"<div style='font-weight:bold;'>".LAN_EUSER_4027."
 //				$text = $LOGIN_MENU_STATS;
 ////##################################################################################
 // FUTURAMENTE DAQUI PARA BAIXO POR ISTO TUDO EM SHORTCODES.....
-// Inclui fallback no caso do core menu não existir....
+// Inclui fallback no caso do core menu nÃ£o existir....
 //if($this->euser_pref['shownews']==1){
 if($this->euser_pref['shownews']==1 && !$core_login_menu){
 
@@ -1054,7 +1054,7 @@ if($this->euser_pref['shownews']==1 && !$core_login_menu){
 
 }
 
-// Inclui fallback no caso do core menu não existir....
+// Inclui fallback no caso do core menu nÃ£o existir....
 //if($this->euser_pref['shownews']==1){
 if(!$core_login_menu){
     if ( $new_comments <> ONLINEINFO_COUNTER_L9)
@@ -1442,7 +1442,7 @@ if ($this->euser_pref['blog'] == 1)
 
 
 
-// Inclui fallback no caso do core menu não existir....
+// Inclui fallback no caso do core menu nÃ£o existir....
 //	if ($this->euser_pref['members'] == 1){
 if($this->euser_pref['members']==1 && !$core_login_menu){
 	    if ($new_users <> ONLINEINFO_COUNTER_L9)
@@ -1483,9 +1483,9 @@ else {$text .= "</td></tr></table>";}
 
 }
 
-// Isto só é chamado uma vez, pode vir para aqui definitivo, não???
+// Isto sÃ³ Ã© chamado uma vez, pode vir para aqui definitivo, nÃ£o???
 //require_once(e_PLUGIN."euser/euser_lm_regusers.php");
-/* ISTO JÁ ESTÁ NO ONLINE MENU...
+/* ISTO JÃ ESTÃ NO ONLINE MENU...
 //var_dump(check_class($this->euser_pref['showregusers'])); FALSO
 if(check_class($this->euser_pref['showregusers'])){
 
@@ -1564,7 +1564,7 @@ if(check_class($this->var['cache_userclass'])){
     
     $BDAY_now = time();
     
-/* NÃO PRECISO DA CACHE
+/* NÃƒO PRECISO DA CACHE
     	if($extraacache==1){
 		$cachet = $extracachetime*60;
 		$currenttime=time();
@@ -1601,7 +1601,7 @@ limit 0,".$extrarecords."";
           			 	
 						$onlineinfo_birthday_age  = date("Y-m-d", $BDAY_now) - $user_birthday;
 						             
-            			$buildcache[$setarray] = $user_id."|".$user_name."=>".$user_birthday."¬".$onlineinfo_birthday_age;						
+            			$buildcache[$setarray] = $user_id."|".$user_name."=>".$user_birthday."Â¬".$onlineinfo_birthday_age;						
 						$setarray++;
             	}
         			$arraydata="";					
@@ -1634,7 +1634,7 @@ limit 0,".$extrarecords."";
         	{				
         		$blowmoredata = explode("=>",$blowdata[$z]);        
 				$blowdataagain = explode("|",$blowmoredata[0]);
-				$blowevenmoredata=explode("¬",$blowmoredata[1]);						
+				$blowevenmoredata=explode("Â¬",$blowmoredata[1]);						
         		$onlineinfo_birthday_datepart = explode("-", $blowevenmoredata[0]);		
 				$user_birthday = $onlineinfo_birthday_datepart[1]."-".$onlineinfo_birthday_datepart[2];	
 				$onlineinfo_birthday_age = $blowevenmoredata[1];
@@ -1847,7 +1847,7 @@ if (file_exists(e_PLUGIN."online/lastseen_menu.php"))
 
 //----	if($extrahide==1){
 
-// isto depois tem de passar para o template, é o inicio...
+// isto depois tem de passar para o template, Ã© o inicio...
 //----        $text .= "<div id='lastv-title' style='cursor:hand; text-align:left; font-size: ".$onlineinfomenufsize."px; vertical-align: middle; width:".$onlineinfomenuwidth."; font-weight:bold;' title='".LAN_EUSER_4031."'>&nbsp;".LAN_EUSER_4031."</div>";
 //----	    $text .= "<div id='lastv' class='switchgroup1' style='display:none'>";
 //----        $text .= "<table style='text-align:left; width:".$onlineinfomenuwidth."; margin-left:5px;'>";

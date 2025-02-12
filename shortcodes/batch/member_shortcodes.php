@@ -3,7 +3,7 @@
 + ----------------------------------------------------------------------------+
 |     e107 website system
 |
-|     ©Steve Dunstan 2001-2002
+|     Â©Steve Dunstan 2001-2002
 |     http://e107.org
 |     jalist@e107.org
 |
@@ -21,9 +21,9 @@ if (!defined('e107_INIT')) { exit; }
 //global $tp;
 
 //		class plugin_euser_login_menu_shortcodes extends e_shortcode
-// extende o login_menu_shortcodes para utilizar também os shortcodes do login menu do core....
+// extende o login_menu_shortcodes para utilizar tambÃ©m os shortcodes do login menu do core....
 		class plugin_euser_member_shortcodes extends e_shortcode
-// Já não preciso de extender os shortcodes do login menu porque o menu é embebido com o EMBEDMENU
+// JÃ¡ nÃ£o preciso de extender os shortcodes do login menu porque o menu Ã© embebido com o EMBEDMENU
 		{
 
 /*
@@ -33,7 +33,7 @@ if (!defined('e107_INIT')) { exit; }
 			private $allowEmailLogin;
 */
 //      private $orderList;
-//########################## Temporário, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## TemporÃ¡rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
 //		  private $euserlmsql;
 		  private $eusersm;
 

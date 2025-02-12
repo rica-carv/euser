@@ -23,6 +23,8 @@ define("LAN_EUSER_ADMIN_SHAREDCONFIG", "Please take attention, these settings ar
 define("LAN_EUSER_ADMIN_SHAREDCONFIGMENUS", "Therefore, some configurations for this menu should be setup using the link buttons below...");
 define("LAN_EUSER_ADMIN_SHAREDTAB", "Shared preferences");
 
+define("LAN_EUSER_ADMIN_COLORH",  LAN_EUSER_ADMIN_CLICKHERESTART.LAN_EUSER_ADMIN_PICKCOLOR);
+
 //euser_menu lans
 define("LAN_EUSER_ADMIN_001", "Section Memory");
 define("LAN_EUSER_ADMIN_001H", "This sets the Browser to remember which sections are open or closed");

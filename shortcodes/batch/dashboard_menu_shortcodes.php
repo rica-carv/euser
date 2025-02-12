@@ -3,7 +3,7 @@
 + ----------------------------------------------------------------------------+
 |     e107 website system
 |
-|     ©Steve Dunstan 2001-2002
+|     ¬©Steve Dunstan 2001-2002
 |     http://e107.org
 |     jalist@e107.org
 |
@@ -27,7 +27,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 //$menu_pref 	= e107::getConfig('menu')->getPref();
 //var_dump($menu_pref);
 //		class plugin_euser_login_menu_shortcodes extends e_shortcode
-// extende o login_menu_shortcodes para utilizar tambÈm os shortcodes do login menu do core....
+// extende o login_menu_shortcodes para utilizar tamb√©m os shortcodes do login menu do core....
 		class plugin_euser_dashboard_menu_shortcodes extends login_menu_shortcodes
 // Preciso de extender os shortcodes do login menu de qualquer das formas...
 		{
@@ -39,7 +39,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 			private $allowEmailLogin;
 */
 //      private $orderList;
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
 //		  private $euserlmsql;
 //		  private $euserlm;
 
@@ -64,7 +64,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 				$this->sec = e107::getSecureImg();
 				$this->usernameLabel = '';
 				$this->allowEmailLogin = $pref['allowEmailLogin'];
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
   		  $this->euserlmsql = new db;
 
 				if($pref['allowEmailLogin']==1)
@@ -78,7 +78,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 				}
 */
 
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, fica no euser_login_menu.php
 //		$ordersql=new db;
 /*
     $script="SELECT * FROM ".MPREFIX."euser_cache Where type='order' ORDER BY type_order";
@@ -89,7 +89,7 @@ include_once(e_PLUGIN.'euser/euser_class.php');
 */
 
  				$this->sql = e107::getDb(); 
-// SÛ preciso disto no avatar				$this->tp = e107::getParser();
+// S√≥ preciso disto no avatar				$this->tp = e107::getParser();
 //        $this->euser_pref = e107::getPlugPref('euser');
 //        $this->parm = ($this->parm?:e107::getPlugPref('euser'));
 //        var_dump ($this->var);
@@ -116,9 +116,9 @@ return LAN_LOGINMENU_5.' '.(USER?USERNAME:LAN_EUSER_0046);
 //if(check_class($orderclass))
 //{
 
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, esta vari·vel vem do euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, esta vari√°vel vem do euser_login_menu.php
 //var_dump ($orderList['euser_lm_avatar.php']['hide'] == 1);
-// A vari·vel $orderlist n„o existe aqui no shortcode.... pufff... isto È para desaparecer???
+// A vari√°vel $orderlist n√£o existe aqui no shortcode.... pufff... isto √© para desaparecer???
 /*
 if ($orderList['euser_lm_avatar.php']['hide'] == 1)
     {
@@ -155,7 +155,7 @@ if ($orderList['euser_lm_avatar.php']['hide'] == 1)
 			$avatarimage .= '<br><img src="'.$bulletimage.'" alt="bullet" /> <a href="'.e_BASE.'usersettings.php">'.LAN_EUSER_0012.'</a><br /><img src="'.$bulletimage.'" alt="bullet" /> <a href="'.e_BASE.'user.php?id.'.USERID.'">'.LAN_EUSER_0013.'</a><br /><br /><img src="'.$bulletimage.'" alt="bullet" /> <a href="'.e_BASE.'index.php?logout">'.LAN_EUSER_008.'</a>';
 */
 
-// TENHO DE FOR«AR O AVATAR A USAR O USERID, SEN√O MOSTRA-ME O AVATAR DO ID 1
+// TENHO DE FOR√áAR O AVATAR A USAR O USERID, SEN√ÉO MOSTRA-ME O AVATAR DO ID 1
 //$avatarimage .= $this->tp->parseTemplate( '<a href="'.e_BASE.'user.php?id.'.USERID.'" title="'.USERNAME.' - '.LAN_EUSER_0013.'">{USER_AVATAR='.USERID.'}</a>', TRUE);
 /*
 $user_shortcodes = e107::getScBatch('user');
@@ -223,7 +223,7 @@ $avatar = $tp->parseTemplate('{USER_AVATAR}',true);
 					
 			// Add in look for Delete Me Plugin
 if ($this->var['deleteme'] && e107::isInstalled('deleteme'))
-// TODO: Adicionar verificaÁ„o se o plugin est· instalado
+// TODO: Adicionar verifica√ß√£o se o plugin est√° instalado
 //			if ($this->euser_pref['deleteme']==1)
 				      {
 //			$avatar.='<img src="'.$bulletimage.'" alt="bullet" /> <a href="'.e_PLUGIN.'deleteme/deleteme.php">'.LAN_EUSER_0093.'</a><br />';
@@ -236,7 +236,7 @@ if ($this->var['deleteme'] && e107::isInstalled('deleteme'))
 //			$avatar .= '<a href="'.e_BASE.'user.php?id.'.USERID.'">'.IMAGE_user.'</a>';
 //			$avatar .= '<a href="'.e_BASE.'usersettings.php">'.LAN_EUSER_0012.'</a><br /><a href="'.e_BASE.'user.php?id.'.USERID.'">'.LAN_EUSER_0013.'</a><br /><br /><a href="'.e_BASE.'index.php?logout">'.LAN_EUSER_008.'</a>';
 /*
-// APAGAR ALGO QUE N√O EXISTE?????
+// APAGAR ALGO QUE N√ÉO EXISTE?????
 			if(!$this->sql -> db_Select("online", "*", "online_ip='".$ip."' AND online_user_id='0' ")){
 				$this->sql -> db_Delete("online", "online_ip='".$ip."' AND online_user_id='0' ");
 			}
@@ -270,7 +270,7 @@ if ($this->var['deleteme'] && e107::isInstalled('deleteme'))
 			function sc_eam_admin_icon($parm='')
 			{
 //        var_dump ($this->var['admin_counter']);
-// O $admin_counter sÛ conta depois de incluir o extrainfo_updated.php atravÈs do euser_online_menu.php....
+// O $admin_counter s√≥ conta depois de incluir o extrainfo_updated.php atrav√©s do euser_online_menu.php....
 // Possivelmente este shortcode tem de passar para dentro do euser_online_menu.php.....
 				if(ADMIN == TRUE) {
 //					return '<div class="btn-group btn-group-xs"><a class="login_menu_link admin btn btn-primary" id="login_menu_link_admin" href="'.$this->sc_lm_adminlink('href').'">'.IMAGE_admin.'<span class="badge">'.$this->var['admin_counter'].'</span></a></div>';
@@ -281,7 +281,7 @@ if ($this->var['deleteme'] && e107::isInstalled('deleteme'))
 			function sc_eam_admin_count($parm='')
 			{
 //        var_dump ($this->var['admin_counter']);
-// O $admin_counter sÛ conta depois de incluir o extrainfo_updated.php atravÈs do euser_online_menu.php....
+// O $admin_counter s√≥ conta depois de incluir o extrainfo_updated.php atrav√©s do euser_online_menu.php....
 // Possivelmente este shortcode tem de passar para dentro do euser_online_menu.php.....
 				if(ADMIN == TRUE) {
 //					return '<div class="btn-group btn-group-xs"><a class="login_menu_link admin btn btn-primary" id="login_menu_link_admin" href="'.$this->sc_lm_adminlink('href').'">'.IMAGE_admin.'<span class="badge">'.$this->var['admin_counter'].'</span></a></div>';
@@ -327,7 +327,7 @@ return $this->originalmenutext;
 
 // Colorkey passou para o e_shortcode
 
-// ################## Shortcodes em princÌpio n„o utilizados, pois vai ser utilizado o por defeito do login menu do core.
+// ################## Shortcodes em princ√≠pio n√£o utilizados, pois vai ser utilizado o por defeito do login menu do core.
 /*
 			function sc_lm_username_input($parm='')
 			{
@@ -457,7 +457,7 @@ return $this->originalmenutext;
 
 
 
-// Shortcodes pÛs login...
+// Shortcodes p√≥s login...
 /*
 			function sc_lm_maintenance($parm='')
 			{

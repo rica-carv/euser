@@ -21,6 +21,6 @@
 +---------------------------------------------------------------+
 */
 // ADMIN LAN
-define("AP_ADMIN_1", "Another Profiles - Kibővített e107 felhasználói profilok lehetőséget adnak arra, hogy a tagok barátokat jelöljenek meg, képeket, videókat osszanak meg, saját profil zenét állítsanak be stb. ...");
-define("AP_ADMIN_2", "Another Profiles Plugin konfiguráció");
+define("AP_ADMIN_1", "Another profiles- the extended e107 user profiles enable the members to tag friends, to share videos, to have their own music etc. ...");
+define("AP_ADMIN_2", "Another Profiles Plugin settings");
 ?>
