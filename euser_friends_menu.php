@@ -184,16 +184,16 @@ $user_id=$_POST['id'];
 
 //My Friends Array
 //		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".$user_id."' ");
-		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".USERID."' ");
-
+//		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".USERID."' ");
+		$sql->select("euser", "user_friends, user_friends_request", "user_id='".USERID."'");
 
 /*
 echo "<hr>";
 echo "SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".USERID."' ";
 echo "<hr>";
 */
-
-		$settings = $sql->db_Fetch();
+//		$settings = $sql->db_Fetch();
+		$settings = $sql->fetch();
 		$friendb = explode("|", $settings['user_friends']);
 		$friendb1 = explode("|", $settings['user_friends_request']);
 

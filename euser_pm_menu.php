@@ -3,14 +3,14 @@ if (!defined('e107_INIT')) { exit; }
 
 //e107::lan('euser', 'pm_menu', true);
 e107::lan('euser', 'front', true);
-// Se o cÛdigo do pm.php vier para aqui, o cÛdigo tem de ser limpo do construct....
+// Se o c√≥digo do pm.php vier para aqui, o c√≥digo tem de ser limpo do construct....
 //        return call_user_func($this ->euserlm, "includes/pm.php");
 
-// UTILIZA«√O DE OUTRO SISTEMA DE PM'S, TEM DE SAIR DAQUI, TIPO PARA UM SHORTCODE...
+// UTILIZA√á√ÉO DE OUTRO SISTEMA DE PM'S, TEM DE SAIR DAQUI, TIPO PARA UM SHORTCODE...
 //if($euser_pref['ibfpm']==0){
 
 
-// UTILIZA«√O DE OUTRO SISTEMA DE PM'S, TEM DE SAIR DAQUI, TIPO PARA UM SHORTCODE...
+// UTILIZA√á√ÉO DE OUTRO SISTEMA DE PM'S, TEM DE SAIR DAQUI, TIPO PARA UM SHORTCODE...
 // IPB Forum PM System
 if($euser_pref['ibfpm']==1){
 	$onlineinfo_ipb_sql = new db;
@@ -89,14 +89,14 @@ $text .= "<table style='text-align:left; width:".$onlineinfomenuwidth."; margin-
 
 //	if(check_class($orderclass)){
 // ANTIGO	if(check_class($orderclass) && e107::isInstalled("pm")){
-// ################ AGORA … TUDO TRATADO PELO PLUGIN PM.... Inclusive o prÛprio plugin chamada È o PM...
-//Este sÛ serve se n„o houver plugin PM...
+// ################ AGORA √â TUDO TRATADO PELO PLUGIN PM.... Inclusive o pr√≥prio plugin chamada √© o PM...
+//Este s√≥ serve se n√£o houver plugin PM...
 /*--
 */
 	if(e107::isInstalled("pm")){
 //var_dump ($data);
 	//var_dump ($this->orderList['euser_lm_avatar.php']['class']);
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, esta vari·vel vem do euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, esta vari√°vel vem do euser_login_menu.php
 
 /*
 	$pm_user = USERID;
@@ -311,8 +311,8 @@ if ($euser_pref['sound']){
 //	$text .= "</td></tr></table></div></td></tr></table>";
 	$text .= "</td></tr></table></div>";
 
-// ################ DAQUI PARA CIMA ISTO TEM DE SAIR TUDO, AGORA … TUDO TRATADO PELO PLUGIN PM.... Inclusive o prÛprio plugin chamada È o PM...
-//Este sÛ serve se n„o houver plugin PM...
+// ################ DAQUI PARA CIMA ISTO TEM DE SAIR TUDO, AGORA √â TUDO TRATADO PELO PLUGIN PM.... Inclusive o pr√≥prio plugin chamada √© o PM...
+//Este s√≥ serve se n√£o houver plugin PM...
 //---------	$text = $tp->parseTemplate('{PM_NAV}{SENDPM}', true, $EUSER_LOGIN_MENU_shortcodes);
 //	return $tp->parseTemplate('{PM_NAV}{SENDPM}', true, $EUSER_LOGIN_MENU_shortcodes);
 //---------	$caption = LAN_EUSER_301;	

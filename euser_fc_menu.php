@@ -8,7 +8,7 @@ if(!$euser_pref['flashchatuse']){ return; }
 //		$orderList = getcachedvars('orderList');
 //var_dump ($data);
 	//var_dump ($this->orderList['euser_lm_avatar.php']['class']);
-//########################## Tempor·rio, assim que tudo estiver em shortcodes, esta vari·vel vem do euser_login_menu.php
+//########################## Tempor√°rio, assim que tudo estiver em shortcodes, esta vari√°vel vem do euser_login_menu.php
 //if(check_class($orderList['euser_lm_fc.php']['class']))
 /*
 		$ordersql=new db;

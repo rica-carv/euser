@@ -58,12 +58,12 @@ class euser_menu
     $this->tabs = array(0 => LAN_PREFS, 1 => LAN_EUSER_ADMIN_SHAREDTAB);
       $fields = array(
 /*   ANTIGOS PREFS
-$onlineinfo_caption = $pref['onlineinfo_caption'];                    »TEMPLATE ?? dash_caption
-$onlineinfo_width = $pref['onlineinfo_width'];                               »CSS
-$onlineinfo_showpmmsg = $pref['onlineinfo_showpmmsg'];                       »PM
+$onlineinfo_caption = $pref['onlineinfo_caption'];                    Â»TEMPLATE ?? dash_caption
+$onlineinfo_width = $pref['onlineinfo_width'];                               Â»CSS
+$onlineinfo_showpmmsg = $pref['onlineinfo_showpmmsg'];                       Â»PM
 $onlineinfo_rememberbuttons = $pref['onlineinfo_rememberbuttons'];           remembersections
-$onlineinfo_fontsize = $pref['onlineinfo_fontsize'];                         »CSS
-$onlineinfo_sound =  $pref['onlineinfo_sound'];                              »PM
+$onlineinfo_fontsize = $pref['onlineinfo_fontsize'];                         Â»CSS
+$onlineinfo_sound =  $pref['onlineinfo_sound'];                              Â»PM
 $onlineinfo_deleteme =  $pref['onlineinfo_deleteme'];                        deleteme
 $onlineinfo_logindiag =  $pref['onlineinfo_logindiag'];                      logindiag
 $onlineinfo_turnoffavatar = $pref['onlineinfo_turnoffavatar'];               avatar
@@ -76,7 +76,7 @@ $ns -> tablerender(ONLINEINFO_LOGIN_MENU_A2.' - '.ONLINEINFO_LOGIN_MENU_A71, $te
 					'logindiag'  => array('title'=> LAN_EUSER_ADMIN_003, 'type'=>'boolean','tab'=>0,  'help'=>LAN_EUSER_ADMIN_003H),
 					'avatar'  => array('title'=> LAN_EUSER_ADMIN_004, 'type'=>'boolean','tab'=>0,  'help'=>LAN_EUSER_ADMIN_003H),
 
-// Prefs que não estavam no config do OIM, mas já não estão no menu agora... Passaram para aqui. TODO: verificar lan's
+// Prefs que nÃ£o estavam no config do OIM, mas jÃ¡ nÃ£o estÃ£o no menu agora... Passaram para aqui. TODO: verificar lan's
 //					'dash_caption'  => array('title'=> "Menu caption (leave empty for default)", 'type'=>'text'),
 //          'adminstyle'  => array('title'=> "Admin style", 'type'=>'boolean'),
 //					'maintenance_flag'  => array('title'=> "Maintenance flag", 'type'=>'boolean')
@@ -113,7 +113,7 @@ e107::coreLan('plugin', true);
 $fields['deleteme']['writeParms']['post'] = "</div>&nbsp;".euser_admin::label_installed('deleteme', true);
 
 ///////////////////				$fields['deleteme']['writeParms']['class'] = (e107::isInstalled('deleteme')?:"disabled");
-///////---- Com as minhas alterações
+///////---- Com as minhas alteraÃ§Ãµes
 ///////----				$fields['deleteme']['writeParms']['disabled'] = !e107::isInstalled('deleteme');
 ///////----       $fields['deleteme']['writeParms']['label'] = 'zero&um';
 //				$fields['deleteme']['writeParms']['class'] = (e107::isInstalled('deleteme')?"":"hidden");
@@ -152,12 +152,12 @@ var_dump (e107::getTemplate('euser', 'dashboard_menu', null, 'front'));
     }
     if ($menu == "euser_whatsnew"){
     $this->tabs = array(0 => LAN_EUSER_ADMIN_SHAREDTAB);
-// NÃO FUNCIONA....
+// NÃƒO FUNCIONA....
 //     	$mes = e107::getMessage();
 //	    $message = "TESTE TESTE TESTE TESTE";
 //			$mes->addInfo($message);
           
-// Prefs que não estavam no config do OIM, mas estão no menu agora... Passaram para aqui. TODO: verificar lan's
+// Prefs que nÃ£o estavam no config do OIM, mas estÃ£o no menu agora... Passaram para aqui. TODO: verificar lan's
 // passaram para o admin_config.php
 //					$fields['whatsnewpage']  = array('title'=> "Use plugin what's new page, instead of core", 'type'=>'boolean');
 //					$fields['_alert'] = euser_admin::render_dismalert ('info', LAN_EUSER_ADMIN_SHAREDCONFIG."<br>".LAN_EUSER_ADMIN_SHAREDCONFIGMENUS);
@@ -1204,7 +1204,7 @@ require_once(e_ADMIN.'footer.php');
 				$this->prefs['deleteme']['writeParms']['post'] = " <span class='label label-important label-danger'>".LANG_LAN_05."</span>";
 			}
 */
-// NÃO FUNCIONA....			e107::getMessage()->addInfo(LAN_EUSER_ADMIN_SHAREDCONFIG);
+// NÃƒO FUNCIONA....			e107::getMessage()->addInfo(LAN_EUSER_ADMIN_SHAREDCONFIG);
     }
 
 

@@ -4,7 +4,7 @@ if (!defined('e107_INIT')) { exit; }
 
 //global $euser_pref;
 //global $tp, $sql;
-// Tirar caso aprovem o issue... os parms só vem por defeito das prefs em último caso...
+// Tirar caso aprovem o issue... os parms sÃ³ vem por defeito das prefs em Ãºltimo caso...
 $euser_pref = e107::getPlugPref('euser');
 //e107::lan('euser', 'front', true);
 //e107::lan('euser', 'stats_menu', true);
@@ -42,7 +42,7 @@ $orderrow = $ordersql->db_Fetch();
 if ($euser_pref['loginmenutype']!=0){
         $caption .= '<div id="info-title" style="cursor:hand; text-align:left; font-size: '.$onlineinfomenufsize.'px; vertical-align: middle; width:'.$onlineinfomenuwidth.'; font-weight:bold;" title="'.EUSER_LOGIN_MENU_L38.'">&nbsp;'.EUSER_LOGIN_MENU_L38.'</div>';
 }
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 		$text .= '<div id="info" class="switchgroup1" style="'.($euser_pref['loginmenutype']!=0?'display:none;text-align:left; width:'.$onlineinfomenuwidth.'; margin-left:16px;':'text-align:center; ').'">';
 */
 
@@ -54,7 +54,7 @@ if ($euser_pref['loginmenutype']!=0){
 
 //var_dump ($checkfornew);
 
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 /*
   if ($euser_pref['loginmenutype']==0) {
 //  $text .= "<a title='".EUSER_LOGIN_MENU_L39." ".($checkfornew>0 ? "(".$checkfornew.")" : "(0)")."'><img src='".e_PLUGIN."euser/images/news".($checkfornew>0?"_new":"").($euser_pref['loginmenutype']==0?"_24":"").".png' style='border:0; vertical-align: middle'/>&nbsp;".($checkfornew>0?"<span class='onlineinfonew'>":"").$checkfornew."</a>&nbsp;&nbsp;";
@@ -78,7 +78,7 @@ if ($euser_pref['loginmenutype']!=0){
   $sc->wrapper('stats_menu/main');
 
 
-// Isto depois é para mudar, para as prefs
+// Isto depois Ã© para mudar, para as prefs
 		$extrasql=new db;
 		$script="SELECT * FROM ".MPREFIX."euser_cache Where type='extraorder' ORDER BY type_order";
 		$onlineinfoextra = $extrasql->db_Select_gen($script);
@@ -108,7 +108,7 @@ if ($euser_pref['loginmenutype']!=0){
 
 		}
 
-// O tipo de menu passa a ser definido no próprio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no próprio template...
+// O tipo de menu passa a ser definido no prÃ³prio template... isto tem de sair daqui, para um shortcode, por exemplo... ou com uma constante definida no prÃ³prio template...
 /*
 if ($euser_pref['loginmenutype']!=0){
 		$text .='</div>';

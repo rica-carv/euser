@@ -1316,7 +1316,7 @@ return $pdata;
 	
 }
 
-// Funções novas minhas
+// FunÃ§Ãµes novas minhas
 			function makelabel($total = 0){
 //      var_dump ($total);
 //var_dump ($this->template['label0']);

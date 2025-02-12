@@ -1,6 +1,6 @@
 <?php
 // ###########################################################################################
-// PREFIRO USAR UMA CÓPIA DO ONLINE MENU PORQUE NÃO TENHO GARANTIAS DE ESTAR NO CORE...
+// PREFIRO USAR UMA CÃ“PIA DO ONLINE MENU PORQUE NÃƒO TENHO GARANTIAS DE ESTAR NO CORE...
 // ###########################################################################################
 /*
  * e107 website system
@@ -25,7 +25,7 @@ if (!defined('e107_INIT')) { exit; }
 //if (!$parm) {$parm = e107::getPlugPref('euser');}
 // Forces retrieval of menu pref if no parm from menu pref
 //    var_dump ($parm);
-// Tirar caso aprovem o issue... os parms só vem por defeito das prefs em último caso...
+// Tirar caso aprovem o issue... os parms sÃ³ vem por defeito das prefs em Ãºltimo caso...
 if (!$parm) {$parm = e107::getPlugPref('euser');}
 
 $tp = e107::getParser();
@@ -50,7 +50,7 @@ $mes->addDebug("-^^^^^^^^-");
 //e107::getOnline()->goOnline();
 	$sc = e107::getScBatch('online', 'euser');
 
-//  Não vale a pena, o único parm aqui é o do menu caption...
+//  NÃ£o vale a pena, o Ãºnico parm aqui Ã© o do menu caption...
 //  $sc->setVars($parm);
 
 //--require_once(e_PLUGIN.'euser/online_shortcodes.php');

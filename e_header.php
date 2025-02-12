@@ -4,7 +4,7 @@
 
 if (!defined('e107_INIT')) { exit; }
 
-// A porcaria do emenuactive não funciona....
+// A porcaria do emenuactive nÃ£o funciona....
 //global $eMenuActive;
 //var_dump ($eMenuActive['chatbox_menu']);
 //e107::getMessage()->addError(var_dump ($eMenuActive), 'default', true);
@@ -52,12 +52,12 @@ if (e_PAGE == "user.php") {
 /*
 +---------------------------------------------------------------+
 | Another Profiles Plugin v0.9.6
-| Copyright © 2008 Istvan Csonka
+| Copyright Â© 2008 Istvan Csonka
 | http://freedigital.hu
 | support@freedigital.hu
 |
 |        For the e107 website system
-|        ©Steve Dunstan
+|        Â©Steve Dunstan
 |        http://e107.org
 |        jalist@e107.org
 |

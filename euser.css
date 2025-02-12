@@ -1,0 +1,79 @@
+/*
+CSS FOR EUSER.PHP MAIN FILE
+*/
+
+.panel-profile .panel-body .tab-content div[class^='col'], .panel-profile .panel-body .tab-content div[class*=' col']{
+	padding: 6px 10px;
+}
+.panel-profile .panel-body .tab-content .row > :nth-child(n+3){
+	border-top: 1px solid rgba(170,170,170,0.35);
+}
+.panel-profile .panel-body .tab-content div.row {
+	border:unset;
+    padding: unset;
+}
+/*
+.panel-profile .panel-body .tab-content > .active div {
+	display:unset;
+}
+*/
+.panel-profile .panel-body .tab-content {
+	display: flex;
+}
+.panel-profile .panel-body .tab-content > .tab-pane {
+	display: block; /* undo "display: none;" */
+	visibility: hidden;
+	margin-right: -100%;
+	width: 100%;
+}
+.panel-profile .panel-body .tab-content > .active {
+	visibility: visible;
+}
+.panel-profile div.euseroff img.user-avatar{
+	border-color: gray;
+	filter: grayscale(1);
+}
+
+/*
+CSS FOR USER MEMBER & PROFILE INFO PANEL
+*/
+/*
+.user-profile .useronoff {
+	left: 15%;
+}
+*/
+.author-info .useronoff {
+	left: 25%;
+	font-size: large;
+}
+/*
+.member-info .euseroff img.user-avatar{
+filter: grayscale(75%);
+}
+*/
+.author-info a.euseroff{
+	color: gray;
+}
+.author-info a.euseroff:hover{
+	color: inherit;
+}
+/* Não vou usar, fica aqui só para o caso de não quered borda no avatar....
+.author-info div .euseron img.user-avatar{
+	border-style: unset;
+}
+*/
+.author-info a.euseroff:hover {
+	color: unset;
+}
+.author-info a img.user-avatar{
+	border: .15rem solid;
+}
+
+.small-text .btn {
+	font: inherit;
+	font-size: .8em;
+	padding: 3px;
+}
+.small-text .btn .badge{
+	padding: 2px 3px 1px 2px;
+}

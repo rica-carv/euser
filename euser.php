@@ -36,7 +36,7 @@
 //var_dump('e107_INIT');
 if (!defined('e107_INIT'))
   	{
-  		require_once("../../class2.php");
+		require_once(__DIR__.'/../../class2.php');
   	}
 
 //FAILSAFE DO GET....
@@ -82,6 +82,8 @@ if(file_exists(e_PLUGIN."euser/languages/".e_LANGUAGE.".php")){
 }
 */
 e107::lan('euser',"front", true);
+e107::lan('core',"usersettings");
+e107::css('euser', 'euser.css'); // always load style.css last.
 
 /*
 require_once(e_PLUGIN."euser/languages/".
@@ -181,6 +183,7 @@ if ($qs[0] == 'id' && isset($qs[1])) {
 	$id = intval($qs[1]);
 
 // Início do isto veio do user.php do core
+/*
 if ($id == 0)
 	{
 		$text = "<div style='text-align:center'>".LAN_USER_49." ".SITENAME."</div>";
@@ -198,6 +201,70 @@ if ($id == 0)
 		require_once(FOOTERF);
 		exit;
 	}
+*/
+
+//include_once(__DIR__.'/../../user.php');
+/* Não funciona...
+ob_start();
+require(__DIR__.'/../../user.php');
+ob_end_clean();
+
+echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>";
+*/
+//+++++++++++++ Cópia das linhas 182 a 230 do user.php****************
+
+if (isset($id))
+{
+	$user_exists = $sql->count("user","(*)", "WHERE user_id = ".$id."");
+	if($id == 0 || $user_exists == false)
+	{
+		$text = "<div style='text-align:center'>".LAN_USER_49." ".SITENAME."</div>";
+		$ns->tablerender(LAN_ERROR, $text);
+		require_once(FOOTERF);
+		exit;
+	}
+
+	$loop_uid = $id;
+
+	$ret = e107::getEvent()->trigger("showuser", $id);
+	$ret2 = e107::getEvent()->trigger('user_profile_display',$id);
+
+	if (!empty($ret) || !empty($ret2))
+	{
+		$text = "<div style='text-align:center'>".$ret."</div>";
+		$ns->tablerender(LAN_ERROR, $text);
+		require_once(FOOTERF);
+		exit;
+	}
+
+	if(vartrue($pref['profile_comments']))
+	{
+		require_once(e_HANDLER."comment_class.php");
+		$comment_edit_query = 'comment.user.'.$id;
+	}
+
+	if (isset($_POST['commentsubmit']) && $pref['profile_comments'])
+	{
+		$cobj = new comment;
+		$cobj->enter_comment($_POST['author_name'], $_POST['comment'], 'profile', $id, null, $_POST['subject']);
+	}
+/*
+	if($text = renderuser($id))
+	{
+		$ns->tablerender(LAN_USER_50, e107::getMessage()->render(). $text, 'user');
+	}
+	else
+	{
+		$text = "<div style='text-align:center'>".LAN_USER_51."</div>";
+		$ns->tablerender(LAN_ERROR,  e107::getMessage()->render().$text);
+	}
+	unset($text);
+	require_once(FOOTERF);
+	exit;
+*/
+}
+
+//+++++++++++++ FIM DA Cópia das linhas ****************
 
 $full_perms = getperms("0") || check_class(varset($pref['memberlist_access'], 253));		// Controls display of info from other users
 // Fim do isto veio do user.php do core
@@ -224,16 +291,22 @@ $full_perms = getperms("0") || check_class(varset($pref['memberlist_access'], 25
 	}
 	$user = $sql -> db_Fetch();
 */
-$user = get_user_data($id);
+//$user = get_user_data($id);
+$user = e107::user($id);
 	if (!$user) {
 		$ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2a);
 		require_once(FOOTERF);
 		exit;
 	}
 
-$user_sc = e107::getScBatch('euser', TRUE);
+e107::coreLan('user');
+$euser_template = e107::getTemplate('euser');
+  
+//var_dump ($user);
+$user_sc = e107::getScBatch('user', 'euser', 'user');
 $user_sc->setVars($user);
-//var_dump ($user_sc);
+
+//echo "<pre>"; var_dump ($user_sc); echo "</pre>";
 //	$username = $_GET['usrname'];
 /*
 	// ONLINE NOW
@@ -344,9 +417,11 @@ var_dump ($user_image);
 //	$comnumrows = $sql->fetch();
 
   $user_sc->wrapper('euser/main');
+//  $user_sc->wrapper('euser');
 
-  e107::coreLan('user');
-  $euser_template = e107::getTemplate('euser');
+// Isto tem de ser carregado primeiro que o sc
+//  e107::coreLan('user');
+//  $euser_template = e107::getTemplate('euser');
 //    e107::getTemplate('euser');
 
 /*
@@ -671,12 +746,24 @@ $sc_style['USER_SIGNATURE']['post'] = "</td></tr>";
 //	$text .= "</table></div><table></table>";
 //	$text .= "</table></td>";
 //	$text .= "<td style='text-align:center;width:45%;padding-left:0.5%' >";
+//
+//*********************************************************
+//*********************************************************
+//*********************************************************
+//*********************************************************
+//*********************************************************
+// DAQUI PARA BAIXO REVER TUDO, ESTÁ UMA CONFUSÃO PEGADA...............................................................................................
+//*********************************************************
+//*********************************************************
+//*********************************************************
+//*********************************************************
+//*********************************************************
 
 function ap_tablerender($text, $notexit = null) {
 // Futuro??? function ap_tablerender($text, &$caption, &$user_sc, &$text_js, $notexit = null) {
 //extract($GLOBALS); 
 //global $tp, $caption, $user_sc, $textjs, $ns;
-global $tp, $euser_template, $user_sc, $textjs, $ns;
+	global $tp, $euser_template, $user_sc, $textjs, $ns;
 //var_dump ($user_sc);
 //var_dump ($this->euser_template['caption']);
 /*
@@ -684,16 +771,15 @@ echo "<hr>TEXT tbl: ";
 echo htmlentities($text);
 echo "<hr><hr>";
 */
-		$display = $tp->parseTemplate($text, TRUE, $user_sc);
+	$display = $tp->parseTemplate($text, TRUE, $user_sc);
 
 //				$tdisplay = $tp->parseTemplate($caption, TRUE, $user_sc);
-				$tdisplay = $tp->parseTemplate($euser_template['caption'], TRUE, $user_sc);
+	$user_sc->wrapper('euser/caption');
+	$cdisplay = $tp->parseTemplate($euser_template['caption'], TRUE, $user_sc);
 
-            $display .= $textjs;
+    $display .= $textjs;
 
-
-				$ns->tablerender($tdisplay,$display);
-
+	$ns->tablerender($cdisplay,$display);
 
     if (is_null($notexit)){
 				require_once(FOOTERF);
@@ -2474,9 +2560,12 @@ $getdata?$sql->update("euser", "user_lastviewed='".$array."', user_totalviews=us
 				}
 			}
 		} else {
-			$sql->mySQLresult = @mysql_query("SELECT user_id, user_custompage, user_simple FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
-			$rows = $sql->db_Rows();
-			$profile = $sql->db_Fetch();
+//			$sql->mySQLresult = @mysql_query("SELECT user_id, user_custompage, user_simple FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
+//$rows = $sql->db_Rows();
+//$profile = $sql->db_Fetch();
+//			$sql->mySQLresult = @mysql_query("SELECT user_id, user_custompage, user_simple FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
+//			$rows = $sql->db_Rows();
+			$profile = $sql->retrieve("euser", "user_id, user_custompage, user_simple", "user_id='".$id."'");
 			$custompage = $profile['user_custompage'];
 			$info = unserialize($custompage);
 			$html .= $tp -> toHTML($custompage, true);
@@ -3683,5 +3772,3 @@ function renderuser($uid) {
 
 }
 require_once(FOOTERF);
-
-?>
