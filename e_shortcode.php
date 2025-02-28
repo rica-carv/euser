@@ -559,7 +559,7 @@ return $colourkey;
         var_dump ($row['category_news_count']);
   */
   //      $sc->setScVar('news_item', $row); // send $row values to shortcodes.
-		  $template = e107::getTemplate('euser', 'euserinfo');
+		  $template = e107::getTemplate('euser', 'euser_info');
 /*
 		  echo "<pre>";
 		  var_dump ($template);
@@ -604,11 +604,11 @@ echo "</pre>";
 //		  $sc->wrapper('user/'.$main.$submain);
 			$sub = ($parms['inline']?"inline":"panel");
 //var_dump ('euser/'.($submain??$main));
-			$sc->wrapper('euserinfo/'.($submain??$main).'/'.$sub);
+			$sc->wrapper('euser_info/'.($submain??$main).'/'.$sub);
 //			e107::lan('eforum');
 //		  $text = $this->tp->parseTemplate($template[($submain?:$main)][$sub], true, $sc_merged); // parse news shortcodes.
 //e107::lan('eforum');  // English_menu.php or {LANGUAGE}_menu.php
-			$sc_info    = e107::getScBatch('euserinfo', 'euser'); // get template shortcodes.
+			$sc_info    = e107::getScBatch('euser_info', 'euser'); // get template shortcodes.
 			$var['EUSER_FORUM_COMBO']=$sc_info->sc_euser_forum_combo();
 /*
 ESQUECE, NÃO FUNCIONA....

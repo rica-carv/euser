@@ -84,4 +84,3 @@ if (e107::isInstalled('euser')) {
 	$FORUMREPLYSTYLE = str_replace($forum_old, $forum_new, $FORUMREPLYSTYLE);
   }
 }
-?>

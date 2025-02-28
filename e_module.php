@@ -46,14 +46,17 @@ var_dump (e_PAGE == "user.php");
 //var_dump(check_class($euser_pref['memberlist_accept']));
 
 //  if ($euser_pref['redirect_usersettings'] && e_PAGE == "usersettings.php" && e_QUERY != "update") {
-  if (check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update") {
+//	var_dump(check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update");
+//	exit;
+		if (check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update") {
 //  if (e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "usersettings.php" && e_QUERY != "update") {
   $_uid = is_numeric(e_QUERY) ? intval(e_QUERY) : "";
 	if ($_uid != '') {
     e107::redirect(e_PLUGIN."euser/euser_settings.php?uid=".$_uid);
 //				header("Location: ".e_PLUGIN."euser/euser_settings.php?uid=".$_uid."");
 	} else {
-    e107::redirect(e_PLUGIN."euser/euser_settings.php?page=settings");
+//		e107::redirect(e_PLUGIN."euser/euser_settings.php?page=settings");
+		e107::redirect(e_PLUGIN."euser/euser_settings.php");
 //		header("Location: ".e_PLUGIN."euser/euser_settings.php?page=settings");
 	}
   }
@@ -126,4 +129,3 @@ var_dump (e_PAGE == "user.php");
 	}
   }
 //}
-?>

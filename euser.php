@@ -39,20 +39,24 @@ if (!defined('e107_INIT'))
 		require_once(__DIR__.'/../../class2.php');
   	}
 
+
+
+
+
 //FAILSAFE DO GET....
 function checkget($string)
 {
-switch ($string) {
-    case comments;
-    case friends;
-    case images;
-    case videos;
-        return $string;
-        break;
-    default;
-        return NULL;
-        break;
-}
+	switch ($string) {
+    	case comments;
+    	case friends;
+    	case images;
+    	case videos;
+        	return $string;
+//        	break;
+    	default;
+        	return NULL;
+//        break;
+	}
 }
 
 //echo "<hr>";
@@ -100,6 +104,9 @@ e_LANGUAGE
 //require_once(e_LANGUAGEDIR."/".e_LANGUAGE."/lan_user.php");
 
 define("e_PAGETITLE", TITLE_PROFILE_1);
+
+$euser_pref = e107::getPlugPref('euser');
+
 $WYSIWYG = $euser_pref['wysiwyg'];
 if ($_GET['page'] == comments) {
 $e_wysiwyg = "user_comment";
@@ -113,6 +120,7 @@ $e_wysiwyg = "user_video_comment";
 require_once(HEADERF);
 
 // Não funciona, por enquanto... e107::getTemplate('euser', 'icons');
+/*
 	if (file_exists(THEME.'templates/icons_template.php')) // Preferred v2.x location.
 	{
 		require_once(THEME.'templates/icons_template.php');
@@ -129,7 +137,8 @@ require_once(HEADERF);
 	{
 		require_once(e_PLUGIN.'euser/templates/icons_template.php');
 	}
-
+*/
+e107::getTemplate('euser', 'icons');
 
 //var_dump ("sadklasdlçjksakldj");
 if (!e107::isInstalled('euser')) {
@@ -140,7 +149,7 @@ if (!e107::isInstalled('euser')) {
 // Global porquê???
 //global $user_sc, $euser_pref;
 //var_dump ($euser_pref);
-$euser_pref = e107::getPlugPref('euser');
+//$euser_pref = e107::getPlugPref('euser');
 
 //IMAGE_alert = "<img src='images/alert.png' title='!' />";
 //IMAGE_alert = "<img src='images/alert.png' title='!' style='vertical-align: middle;' />"."&nbsp;".ADMIN_PROFILE_10;
@@ -305,7 +314,9 @@ $euser_template = e107::getTemplate('euser');
 //var_dump ($user);
 $user_sc = e107::getScBatch('user', 'euser', 'user');
 $user_sc->setVars($user);
-
+$curVal['euser_data'] = $euser_data; 
+$curVal['euser_pref'] = $euser_pref;
+$user_sc->addVars($curVal);
 //echo "<pre>"; var_dump ($user_sc); echo "</pre>";
 //	$username = $_GET['usrname'];
 /*
@@ -759,11 +770,11 @@ $sc_style['USER_SIGNATURE']['post'] = "</td></tr>";
 //*********************************************************
 //*********************************************************
 
-function ap_tablerender($text, $notexit = null) {
-// Futuro??? function ap_tablerender($text, &$caption, &$user_sc, &$text_js, $notexit = null) {
+function euser_tablerender($text, $notexit = null) {
+// Futuro??? function euser_tablerender($text, &$caption, &$user_sc, &$text_js, $notexit = null) {
 //extract($GLOBALS); 
 //global $tp, $caption, $user_sc, $textjs, $ns;
-	global $tp, $euser_template, $user_sc, $textjs, $ns;
+	global $tp, $euser_template, $user_sc, $textjs, $ns, $euser_pref;
 //var_dump ($user_sc);
 //var_dump ($this->euser_template['caption']);
 /*
@@ -771,7 +782,23 @@ echo "<hr>TEXT tbl: ";
 echo htmlentities($text);
 echo "<hr><hr>";
 */
-	$display = $tp->parseTemplate($text, TRUE, $user_sc);
+// ISTO TAMBÉM ESTÁ NO EUSERSETTINGS. FAZER UM TRAIT?
+/*
+if(ADMIN)
+{
+//	var_dump($euser_pref['friends']);
+	$sections = $euser_pref['friends']?EUSERPROFILE_130.", ":null;
+	$sections .= $euser_pref['pics']?EUSERPROFILE_140.", ":null;
+	$sections .= $euser_pref['videos']?EUSERPROFILE_150:null;
+	$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(EUSERPROFILE_6, true), array('x'=>$sections)).'</div>';
+}
+*/
+	include_once(e_PLUGIN . "euser/includes/euser_trait.php");
+	$adminwarn = (new class { use Euser_admin_info; })::adminwarn($euser_pref);
+
+//	$adminwarn = $this->adminwarn($euser_pref);
+
+	$display = $adminwarn.$tp->parseTemplate($text, TRUE, $user_sc);
 
 //				$tdisplay = $tp->parseTemplate($caption, TRUE, $user_sc);
 	$user_sc->wrapper('euser/caption');
@@ -788,7 +815,7 @@ echo "<hr><hr>";
 }
 
 
-function ap_onlyfriends($text_friends, $tdinline = null) {
+function euser_onlyfriends($text_friends, $tdinline = null) {
 //extract($GLOBALS); 
 global $text, $friendb, $euser_pref, $username;
 //echo "<hr>TEXTFRIENDS: ";
@@ -803,7 +830,7 @@ echo "<hr><hr>";
 */
         $text .= ( $text_friends[0]!='' ? $username.$text_friends[0]."</td></tr>" : "" );
         $text .= "</table>";
-        ap_tablerender($text, $tdinline);
+        euser_tablerender($text, $tdinline);
 			} else if ($euser_pref['friends'] != "ON") {
 /*
 echo "<hr>TEXT2: ";
@@ -812,7 +839,7 @@ echo "<hr><hr>";
 */
         $text .= ($text_friends[1]!=''?$username.$text_friends[1]."</td></tr>":"");
         $text .= "</table>";
-        ap_tablerender($text, $tdinline);
+        euser_tablerender($text, $tdinline);
 			}
 	} else {
 /*
@@ -823,7 +850,7 @@ echo "<hr><hr>";
 					//----------- Only friends
 					if (!in_array(USERID, $friendb) || !USER) {
         $text .= $username.$text_friends[0]."</td></tr></table>";
-        ap_tablerender($text, $tdinline);
+        euser_tablerender($text, $tdinline);
 		}
   }
 }
@@ -856,7 +883,7 @@ echo "<hr><hr>";
 			}
 		}
 */
-    ap_onlyfriends(array(PROFILE_104,PROFILE_104a));
+    euser_onlyfriends(array(PROFILE_104,PROFILE_104a));
 	}
 
 	if(!isset($_GET['add'])) {
@@ -992,7 +1019,7 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 /*--
 					if ((!USER && $break[10] == 1) || ($break[10] == 1 && $id != USERID && !isset($_GET['add']))) {
 						//----------- Only friends
-    ap_onlyfriends(array('',''));
+    euser_onlyfriends(array('',''));
 /*
 						if (((!in_array(USERID, $friendb)) && ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "")) || !USER) {
 							$text .= "</table>";
@@ -1045,7 +1072,6 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 			$text .= "</td></tr></table>";
 		}
 */
-
 
   $text .=$tp->parseTemplate($euser_template['main'], TRUE, $user_sc);;
 
@@ -1228,7 +1254,7 @@ document.write(\"<a href='#' rel='previous'><</a><span class='flatview'></span><
 */
 //----				if ((!USER && $break[9] == 1) || ($break[9] == 1 && $id != USERID && !isset($_GET['add']))) {
 					//----------- Only friends
-//----    ap_onlyfriends(array(PROFILE_253,PROFILE_253a));
+//----    euser_onlyfriends(array(PROFILE_253,PROFILE_253a));
 /*
 					if (((!in_array(USERID, $friendb)) && ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "")) || !USER) {
 						$text .= "<br/>".$username." ".PROFILE_253;
@@ -1559,7 +1585,7 @@ document.write(\"<a href='#' rel='previous'><</a><span class='flatview'></span><
 						exit;
 					}
 */
-    //---ap_onlyfriends(array(PROFILE_252));			
+    //---euser_onlyfriends(array(PROFILE_252));			
 //---				}
 //---			}
 
@@ -1659,7 +1685,7 @@ document.write(\"<a href='#' rel='previous'><</a><span class='flatview'></span><
 */
 //--				if ((!USER && $break[8] == 1) || ($break[8] == 1 && $id != USERID && !isset($_GET[//--'add']))) {
 					//----------- Only friends
-//--    ap_onlyfriends(array(PROFILE_250,PROFILE_250a));
+//--    euser_onlyfriends(array(PROFILE_250,PROFILE_250a));
 /*
 					if (((!in_array(USERID, $friendb)) && ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "")) || !USER) {
 						$text .= "<br/>".$username." ".PROFILE_250;
@@ -2352,7 +2378,7 @@ if (e_LANGUAGE == "English") {
 */
 //--				if ((!USER && $break[7] == 1) || ($break[7] == 1 && $id != USERID && !isset($_GET['add']))) {
 					//----------- Only friends
-//--    ap_onlyfriends(array(PROFILE_251,PROFILE_251a));			
+//--    euser_onlyfriends(array(PROFILE_251,PROFILE_251a));			
 
 /*
 					if (((!in_array(USERID, $friendb)) && ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "")) || !USER) {
@@ -2572,7 +2598,7 @@ $getdata?$sql->update("euser", "user_lastviewed='".$array."', user_totalviews=us
 			$break = explode("[||]", $html);
 		}
 	}
-        ap_tablerender($text."</div>", 0);
+        euser_tablerender($text."</div>", 0);
 //		$display = $tp->parseTemplate($text, TRUE, $user_sc);
 //		$ns->tablerender("",$display);
 } else {

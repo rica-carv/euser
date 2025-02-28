@@ -1,18 +1,31 @@
 #
 # Table structure for table `euser`
 #
+# OLD STRUCTURE
+#CREATE TABLE IF NOT EXISTS  euser (
+#  user_id int(5) NOT NULL default '0',
+#  user_custompage text NOT NULL,
+#  user_background varchar(255) NOT NULL default '',
+#  user_friends text NOT NULL,
+#  user_friends_request text NOT NULL,
+#  user_settings varchar(50) NOT NULL default '',
+#  user_simple int(1) NOT NULL default '1',
+#  user_lastviewed text NOT NULL,
+#  user_totalviews int(10) NOT NULL default '0',
+#  user_lastupdated int(11) NOT NULL default '0',
+#  user_mp3 text NOT NULL,
+#  PRIMARY KEY  (user_id)
+#);
+#
 CREATE TABLE IF NOT EXISTS  euser (
   user_id int(5) NOT NULL default '0',
   user_custompage text NOT NULL,
   user_background varchar(255) NOT NULL default '',
-  user_friends text NOT NULL,
-  user_friends_request text NOT NULL,
-  user_settings varchar(50) NOT NULL default '',
+  user_settings int(10) NOT NULL default '0',
   user_simple int(1) NOT NULL default '1',
   user_lastviewed text NOT NULL,
   user_totalviews int(10) NOT NULL default '0',
   user_lastupdated int(11) NOT NULL default '0',
-  user_mp3 text NOT NULL,
   PRIMARY KEY  (user_id)
 );
 # --------------------------------------------------------
@@ -30,6 +43,16 @@ CREATE TABLE  IF NOT EXISTS euser_memberlist (
 # Initial data for table `euser_memberlist`
 #
 # INSERT INTO euser_memberlist VALUES ('','|username|email|','');
+#
+# --------------------------------------------------------
+#
+# Table structure for table `euser_friends`
+#
+CREATE TABLE IF NOT EXISTS  euser (
+  user_id int(5) NOT NULL default '0',
+  friend_id int(5) NOT NULL default '0',
+  PRIMARY KEY  (user_id, friend_id)
+);
 # --------------------------------------------------------
 #
 # Table structure for table `euser_commments`
@@ -56,6 +79,15 @@ CREATE TABLE  IF NOT EXISTS euser_vids (
   vid_embed text NOT NULL,
   vid_added varchar(55) NOT NULL default '',
   PRIMARY KEY  (vid_id)
+);
+# --------------------------------------------------------
+#
+# Table structure for table `euser_mp3`
+#
+CREATE TABLE IF NOT EXISTS  euser_mp3 (
+  mp3_id int(5) NOT NULL default '0',
+  mp3_embed text NOT NULL,
+  PRIMARY KEY  (user_id)
 );
 # --------------------------------------------------------
 #
