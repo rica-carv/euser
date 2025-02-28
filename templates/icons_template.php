@@ -26,8 +26,9 @@ define('IMAGE_visits', 				"{GLYPH:type=fa-sign-in}");
 define('IMAGE_lastvisit', 			"{GLYPH:type=fa-hourglass}");
 define('IMAGE_chat', 				"{GLYPH:type=fa-commenting}");
 define('IMAGE_comment', 			"{GLYPH:type=fa-comment}");
-define('IMAGE_images', 				"{GLYPH:type=fa-photo}");
-define('IMAGE_videos', 				"{GLYPH:type=fa-facetime-video}");
+define('IMAGE_friends', 			"{GLYPH:type=fa-user-group}");
+define('IMAGE_images', 				"{GLYPH:type=fa-images}");
+define('IMAGE_videos', 				"{GLYPH:type=fa-film}");
 define('IMAGE_forum', 				"{GLYPH:type=fa-comments-o}");
 define('IMAGE_news', 				"{GLYPH:type=fa-newspaper-o}");
 define('IMAGE_new', 				"{GLYPH:type=fa-certificate}");
@@ -35,12 +36,16 @@ define('IMAGE_upload', 				"{GLYPH:type=fa-upload}");
 define('IMAGE_logout', 				"{GLYPH:type=fa-sign-out}");
 define('IMAGE_admin', 				"{GLYPH:type=fa-cogs}");
 define('IMAGE_settings', 			"{GLYPH:type=fa-pen-to-square}");
-define('IMAGE_friends', 			"{GLYPH:type=fa-user-circle}");
 define('IMAGE_addfriend', 			"{GLYPH:type=fa-user-plus}");
-define('IMAGE_colourkey', 			"{GLYPH:type=fa-info-circle}");
+define('IMAGE_colourkey', 			"{GLYPH:type=fa-circle-info}");
 define('IMAGE_user', 				"{GLYPH:type=fa-user}");
 define('IMAGE_users', 				"{GLYPH:type=fa-users}");
 define('IMAGE_guest', 			    "{GLYPH:type=fa-user-secret}");
+
+define('IMAGE_download', 			"{GLYPH:type=fa-download}");
+define('IMAGE_download_up',			"{GLYPH:type=fa-upload}");
+define('IMAGE_links', 				"{GLYPH:type=fa-link}");
+
 } else {
 
 // Thread info

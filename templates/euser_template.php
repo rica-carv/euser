@@ -41,10 +41,12 @@ $EUSER_TEMPLATE['caption'] =	"<a href='{EUSER_SETTINGS:link}' title='{EUSER_SETT
 */
 $EUSER_WRAPPER['caption']['USER_LOGINNAME'] = " ({---})"; // LOGIN_NAME só aparece se quem estiver a ver for admin
 
+$EUSER_WRAPPER['caption']['USER_ID'] = " #{---}&nbsp;"; // LOGIN_NAME só aparece se quem estiver a ver for admin
+
 $EUSER_TEMPLATE['caption'] =	"
     <div class='row'>
       <div class='col'>
-        <h1>{LAN=USER_50}&nbsp;#{USER_ID}&nbsp;: {USER_NAME}{USER_LOGINNAME}</h1>
+        <h1>{LAN=USER_50}&nbsp;{USER_ID}: {USER_NAME}{USER_LOGINNAME}</h1>
       </div>
       <div class='col-auto pull-end text-end'>
         <div class='pager user-view-nextprev'>
@@ -97,13 +99,13 @@ $EUSER_WRAPPER['main']['EUSER_COMMENTS:caption'] = "<li><a class='tab-comments n
 $EUSER_WRAPPER['main']['EUSER_FRIENDS:caption'] = "<li><a class='tab-friends nav-link' data-bs-toggle='tab' href='#euser-friends'>{---}</a></li>";
 $EUSER_WRAPPER['main']['EUSER_IMAGES:caption'] = '<li><a class="tab-images nav-link" data-bs-toggle="tab" href="#euser-images">{---}</a></li>';
 $EUSER_WRAPPER['main']['EUSER_VIDEOS:caption'] = '<li><a class="tab-videos nav-link" data-bs-toggle="tab" href="#euser-videos">{---}</a></li>';
-$EUSER_WRAPPER['main']['EUSER_IMAGES:'] = "<div id='euser_images' class='tab-pane fade panel-body'>{---}</div>";
-$EUSER_WRAPPER['main']['EUSER_VIDEOS:'] = "<div id='euser_videos' class='tab-pane fade panel-body'>{---}</div>";
+$EUSER_WRAPPER['main']['EUSER_FRIENDS:'] = "<div id='euser-friends' class='tab-pane fade panel-body'>{---}</div>";
+$EUSER_WRAPPER['main']['EUSER_IMAGES:'] = "<div id='euser-images' class='tab-pane fade panel-body'>{---}</div>";
+$EUSER_WRAPPER['main']['EUSER_VIDEOS:'] = "<div id='euser-videos' class='tab-pane fade panel-body'>{---}</div>";
 
 
 //$EUSER_WRAPPER['main']['EUSER_COMMENTS:'] = "<div id='euser_comments' class='tab-pane fade panel-body'>{---}</div>";
 $EUSER_WRAPPER['main']['PROFILE_COMMENTS'] = "<div id='euser_comments' class='tab-pane fade panel-body'>{---}</div>";
-$EUSER_WRAPPER['main']['EUSER_FRIENDS:'] = "<div id='euser_friends' class='tab-pane fade panel-body'>{---}</div>";
 
 	// View shortcode wrappers.
 	$USER_WRAPPER['main']['USER_COMMENTPOSTS']      = '<div class="col-xs-12 col-md-4">{LAN=USER_68}</div><div class="col-xs-12 col-md-8">{---} ( {USER_COMMENTPER}% )</div>';
@@ -116,7 +118,7 @@ $EUSER_WRAPPER['main']['EUSER_FRIENDS:'] = "<div id='euser_friends' class='tab-p
   
 $EUSER_TEMPLATE['main'] =	'
   {EUSER_WARN}
-	<div class="user-profile row">
+	<div class="euser-profile row">
     <div class="col-md-12">
 	    <div class="panel panel-default panel-profile">
 	      <div class="panel-body">
@@ -133,19 +135,25 @@ $EUSER_TEMPLATE['main'] =	'
 	          </div>
             </div>
             <div class="col ps-0">
+
               <div class="tabbed-menu">
                 <div class="tabbed-menu-body">
                   <div class="tabs-wrapper">
-                    <ul class="nav nav-tabs" role="tablist">
-                      <li><a class="tab-home active nav-link" data-bs-toggle="tab" href="#euser-home">{LAN=EUSERPROFILE_1}</a></li>
-                      <li><a class="tab-1 nav-link" data-bs-toggle="tab" href="#euser-t1">{LAN=USET_7}</a></li>
+                  <div class="card with-nav-tabs bg-light">
+                  <div class="card-header">
+                                    <ul class="nav nav-tabs" role="tablist">
+                      <li><a class="tab-home active nav-link" data-bs-toggle="tab" href="#euser-home">{LAN=LAN_418}</a></li>
+                      <li><a class="tab-1 nav-link" data-bs-toggle="tab" href="#euser-t1">{LAN=EUSERPROFILE_1}</a></li>
                       {EUSER_FRIENDS:caption}
                       {EUSER_IMAGES:caption}
                       {EUSER_VIDEOS:caption}
                       <div class="col">
-                        {EUSER_SETTINGS:class="btn btn-sm btn-primary float-end"}
+                        {EUSER_SETTINGS:class=btn btn-sm float-end}
                       </div>
                       </ul>
+                    </div>
+                  	<div class="card-body bg-white p-0">
+
                     <div class="tab-content container">
                       <div id="euser-home" class="tab-pane fade in active show" role="tabpanel">
                         <div class="d-flex row rows-col-2">
@@ -181,6 +189,8 @@ $EUSER_TEMPLATE['main'] =	'
                       {EUSER_IMAGES:}
                       {EUSER_VIDEOS:}
                     </div>
+                    </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -192,10 +202,14 @@ $EUSER_TEMPLATE['main'] =	'
               <div class="tabbed-menu">
                 <div class="tabbed-menu-body">
                   <div class="tabs-wrapper">
+                  <div class="card with-nav-tabs bg-info">
+                  <div class="card-header">
                     <ul class="nav nav-tabs" role="tablist">
                       <li><a class="tab-resumo active nav-link" data-bs-toggle="tab" href="#euser-resumo">{LAN=EUSERPROFILE_4}</a></li>
                       {EUSER_PLUGINS:caption}
                     </ul>
+                    </div>
+                  	<div class="card-body bg-white p-0">
                     <div class="tab-content container m-0 mw-100">
                       <div id="euser-resumo" class="tab-pane fade in active show" role="tabpanel">
                       {EUSER_PLUGINS:resume}
@@ -204,11 +218,12 @@ $EUSER_TEMPLATE['main'] =	'
                     </div>
                   </div>
                 </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="col">
-            {USER_ADDONS}
             {USER_EXTENDED_ALL}
           </div>
         </div>
@@ -318,17 +333,40 @@ $EUSER_TEMPLATE['forum_caption'] =	"<li><a class='tab-forum nav-link' data-bs-to
 $EUSER_TEMPLATE['forum_no'] =	IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>";
 */
 
-$EUSER_TEMPLATE['friends_caption'] =	PROFILE_13."&nbsp;<span class='badge'>[x]</span>";
-$EUSER_TEMPLATE['friends_no'] =	IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>";
+$EUSER_TEMPLATE['friends_caption'] =	PROFILE_13."&nbsp;<span class='badge'>{count}</span>";
+$EUSER_TEMPLATE['friends_no'] =	"<div class='container p-4'><div class='card'>
+      <div class='card-body alert alert-warning mb-0 text-center'>
+".IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>
+      </div></div>
+    </div>
+";
+//$EUSER_TEMPLATE['friends_no'] =	IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>";
 
-$EUSER_TEMPLATE['images_caption'] =	PROFILE_14."&nbsp;<span class='badge'>[x]</span>";
-$EUSER_TEMPLATE['images_no'] =	IMAGE_images."&nbsp;<i>".PROFILE_163."</i>";
+$EUSER_TEMPLATE['images_caption'] =	PROFILE_14."&nbsp;<span class='badge'>{count}</span>";
+$EUSER_TEMPLATE['images_no'] =	"<div class='container p-4'><div class='card'>
+      <div class='card-body alert alert-warning mb-0 text-center'>
+{txt}
+      </div></div>
+    </div>
+";
+//$EUSER_TEMPLATE['images_no'] =	IMAGE_images."&nbsp;<i>".PROFILE_163."</i>";
 
-$EUSER_TEMPLATE['videos_caption'] =	PROFILE_113."&nbsp;<span class='badge'>[x]</span>";
-$EUSER_TEMPLATE['videos_no'] =	IMAGE_videos."&nbsp;<i>".PROFILE_118."</i>";
+$EUSER_TEMPLATE['videos_caption'] =	PROFILE_113."&nbsp;<span class='badge'>{count}</span>";
+$EUSER_TEMPLATE['videos_no'] =	"<div class='container p-4'><div class='card'>
+      <div class='card-body alert alert-warning mb-0 text-center'>
+".IMAGE_videos."&nbsp;<i>".PROFILE_118."</i>
+      </div></div>
+    </div>
+";
+//$EUSER_TEMPLATE['videos_no'] =	IMAGE_videos."&nbsp;<i>".PROFILE_118."</i>";
 
-$EUSER_TEMPLATE['plugins_caption'] =	"<li><a class='tab-[plg]] nav-link' title='[ttl]' data-bs-toggle='tab' href='#euser-[plg]'>[txt]&nbsp;<small><span class='badge'>[x]</span></small></a></li>";
-$EUSER_TEMPLATE['plugins_no'] =	IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>";
+$EUSER_TEMPLATE['plugins_caption'] =	"<li><a class='tab-{plg} nav-link' title='{ttl}' data-bs-toggle='tab' href='#euser-{plg}'>{txt}&nbsp;<small><span class='badge'>{count}</span></small></a></li>";
+$EUSER_TEMPLATE['plugins_no'] =	"<div class='container p-4'><div class='card'>
+      <div class='card-body alert alert-warning mb-0 text-center'>
+".IMAGE_friends."&nbsp;<i>".PROFILE_30."</i>
+      </div></div>
+    </div>
+";
 // Isto só mostra uma linha com os doados e eventualmente um link....
 $EUSER_TEMPLATE['plugins_resume_s']  = '
   <div class="d-flex row rows-col-2">
@@ -345,7 +383,7 @@ $EUSER_TEMPLATE['plugins_resume_e']  = '
 ';
 $EUSER_TEMPLATE['plugins']  = '
 <div id="euser-{PLG}" class="tab-pane fade" role="tabpanel">
-  <div class="container pt-4">
+  <div class="container p-4">
     <div class="card">
       <div class="card-body alert alert-warning mb-0 text-center">
         EM CONSTRUÇÃO
@@ -356,6 +394,10 @@ $EUSER_TEMPLATE['plugins']  = '
 
 $EUSER_TEMPLATE['plugins_forum']  = '
 <div id="euser-forum" class="tab-pane fade in" role="tabpanel">
+
+{EUSER_FORUM}
+
+
   <div class="container pt-4">
     <div class="card">
       <div class="card-body alert alert-warning mb-0 text-center">

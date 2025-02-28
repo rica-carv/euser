@@ -20,27 +20,35 @@ echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>";
 var_dump (class_exists('user_shortcodes'));
 */
 //var_dump ($euser_pref);
-require_once(e_CORE."shortcodes/batch/user_shortcodes.php");
+//trait core_user_sc {
+//	function __construct()
+//	{
+		require_once(e_CORE."shortcodes/batch/user_shortcodes.php");
+//	}
 //include_once(e_PLUGIN . "euser/shortcodes/euser_trait.php");
-
+//}
 class plugin_euser_user_shortcodes extends user_shortcodes
+//class plugin_euser_user_shortcodes extends e_shortcode
 {
-//	use Euser_global_info;
+//	use core_user_sc;
+	//	use Euser_global_info;
 
 	function __construct()
 	{
 				$this->sql = e107::getDb(); 
 				$this->tp = e107::getParser();
 //        $this->template = e107::getTemplate('euser', 'whatsnew_menu');
-        $this->euser_pref = e107::getPlugPref('euser');
+//        $this->var['euser_pref'] = e107::getPlugPref('euser');
+//$this->var['euser_pref'] = $this->var['user_data']['user_settings'];
         
     		$this->sql->select("euser", "*", "user_id='".$this->var['user_id']."' ");
-    		$this->euser_data = $this->sql->fetch();
-
+//    		$this->euser_data = $this->sql->fetch();
+    		$this->var['euser_data'] = $this->sql->fetch();
+			
 	}
 
 // Override shortcodes originais do user	
-  // Provisório, até o pull ser aprovado....
+  // Provisório, até o pull ser aprovado.... PS: Qual pull?
 	function sc_user_jump_link($parm) 
 	{
 		global $full_perms;
@@ -99,14 +107,15 @@ class plugin_euser_user_shortcodes extends user_shortcodes
 	}
 
   //redefino aqui a user_addons, porque não faz bem o que eu quero, mais por causa do template aplicado.......
-	function sc_user_addons($parm='')
+/*	function sc_user_addons($parm='')
 	{
   // É quase uma cópia do USER_ADDONS, mas ao contrário, não precisa do ficheiro e_euser.php no plugin...
   //Primeiro copiamos o USER_addons, mas com umas pequenas alterações...
   // Vamos ver de plugins que tenham o e_user....
       global $euser_template;
   		$data 		= e107::getAddonConfig('e_user',null,'profile',$this->var);
-  	if(empty($data))
+//		var_dump($data);
+	if(empty($data))
 		{
 			return;
 		}
@@ -116,20 +125,19 @@ class plugin_euser_user_shortcodes extends user_shortcodes
 			foreach($val as $v)
 			{
 				$value = vartrue($v['url']) ? "<a href=\"".$v['url']."\">".$v['text']."</a>" : $v['text'];		
-//        var_dump ($plugin);
+//       var_dump ($value);
 				$array = array(
 					'EUSER_ADDON_ICON' => constant(IMAGE_.$plugin),
 					'EUSER_ADDON_LABEL' => $v['label'],
 					'EUSER_ADDON_TEXT' => $value
 				);
-				$text .= $this->tp->parseTemplate($euser_template['plugins'], true, $array);
+				$text .= $this->tp->simpleParse($euser_template['plugins'], $array);
 			}		
 		}
 //        var_dump ($text);
-
 		return $text;			
   }
-
+*/
 //public function user_avatar_shortcode($parm=null) //TODO new function $tp->toAvatar(); so full 
 //public function user_picture_shortcode($parm=null) //TODO new function $tp->toAvatar(); so full arrays can be passed to it. 
 //public function sc_user_picture($parm=null) //TODO new function $tp->toAvatar(); so full 
@@ -158,6 +166,14 @@ function sc_user_sendpm($parm=null)
 
 		return $tp->parseTemplate("{SENDPM:".$parms_str.'}');
 
+	}
+}
+
+function sc_user_id($parm='')
+{
+	if(ADMIN && getperms("4"))
+	 {
+		return $this->var['user_id'];
 	}
 }
 
@@ -190,7 +206,7 @@ function sc_user_sendpm($parm=null)
 //					return "<a href='".e_BASE."usersettings.php' title='".PROFILE_360."'".($parm['class']?" class=".$parm['class']."":"").">".($text?:IMAGE_settings."&nbsp;".PROFILE_360)."</a>";
 				} elseif (ADMIN && getperms("4")) {
 ////					$text .= "<tr><td colspan='2' style='width:100%' class='forumheader'><center><a href='euser_settings.php?uid=".$this->var['user_id']."'>".PROFILE_29."</a></center></td></tr>";
-					$url = "euser_settings.php?page=settings&uid=".$this->var['user_id'];
+					$url = "euser_settings.php?page=settings&id.".$this->var['user_id'];
 //					$title = PROFILE_29;
           $title = LAN_USER_39;
           $text = LAN_EDIT;
@@ -200,7 +216,7 @@ function sc_user_sendpm($parm=null)
     if (isset($parm['link'])){return $url;}
     if (isset($parm['title'])){return $title;}
 
-        return $this->tp->parseTemplate("<a href='".$url."' title='".$title."'".($parm['class']?" class=".$parm['class']."":"").">".IMAGE_settings."&nbsp;".$text."</a>");
+        return (ADMIN?"<div class='text-bg-warning float-end p-1'>Mods:":null).$this->tp->parseTemplate("<a href='".$url."' title='".$title."' class='btn-primary ".($parm['class']??null)."'>".IMAGE_settings."&nbsp;".$text."</a>").(ADMIN?"</div>":null);
 
   }
   
@@ -214,9 +230,9 @@ function sc_user_sendpm($parm=null)
 	function sc_euser_bgimage($parm='')
 	{
     // pref bgimage não está no plugin.xml
-	if ($this->euser_pref['bgimage'] == 'Yes') {
+	if ($this->var['euser_pref']['bgimage'] == 'Yes') {
 //		$sql->mySQLresult = @mysql_query("SELECT user_background FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
-		$bg = $this->euser_data;
+		$bg = $this->var['euser_data'];
 		if ($bg['user_background'] != '') {
 			if (eregi('http', $bg['user_background'])) {
 			return "<body background='".$bg['user_background']."'>";
@@ -230,7 +246,7 @@ function sc_user_sendpm($parm=null)
 	function sc_euser_avatarminw($parm='')
 	{
 //    global $euser_pref;
-    return $this->euser_pref['avatar_width'];
+    return $this->var['euser_pref']['avatar_width'];
   }
 ///// NÃO USO, É PARA SAIR ????????????????
 /*
@@ -260,14 +276,15 @@ foreach($doc->getElementsByTagName('img') as $image){
 	function sc_euser_addfriend($parm='')
 	{
 //    var_dump ($parm);
-  	if ($this->euser_pref['friends']) {
+// Depois também tenho de por aqui o check pessoal de cada utilizador....
+  	if ($this->var['euser_pref']['friends']) {
 // Porque se repete isto? É código original...		
-		if ($this->euser_pref['user_tracking'] == "session") {
-			$ulang = $_SESSION['e107language_'.$this->euser_pref['cookie_name']];
+		if ($this->var['euser_pref']['user_tracking'] == "session") {
+			$ulang = $_SESSION['e107language_'.$this->var['euser_pref']['cookie_name']];
 		} else {
-			$ulang = $_COOKIE['e107language_'.$this->euser_pref['cookie_name']];
+			$ulang = $_COOKIE['e107language_'.$this->var['euser_pref']['cookie_name']];
 		}
-		if ($this->euser_pref['user_tracking'] == "session") {
+		if ($this->var['euser_pref']['user_tracking'] == "session") {
 			$ulang = $_SESSION['e107_language'];
 		} else {
 			$ulang = $_COOKIE['e107_language'];
@@ -277,10 +294,10 @@ foreach($doc->getElementsByTagName('img') as $image){
     $sql->mySQLresult = @mysql_query("SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
 		$settings = $sql->db_Fetch();
 */
-//		$settings = $this->euser_data;
+//		$settings = $this->var['euser_data'];
 
-		$friendb = explode("|", $this->euser_data['user_friends']);
-		$friendb1 = explode("|", $this->euser_data['user_friends_request']);
+		$friendb = explode("|", $this->var['euser_data']['user_friends']);
+		$friendb1 = explode("|", $this->var['euser_data']['user_friends_request']);
 		if (USER && $this->var['user_id'] != USERID && !in_array(USERID, $friendb) && !in_array(USERID, $friendb1)) {
 //			$text .= "<a href='euser.php?id=".$this->var['user_id']."&add' style=\"text-decoration: none;\" title='".PROFILE_16."'><img src='images/buttons/".e_LANGUAGE."_addfriend.png' border='0'></a>";
     // TEMPLATIZAR?
@@ -306,11 +323,43 @@ foreach($doc->getElementsByTagName('img') as $image){
 
 	function sc_euser_plugins($parm='')
 	{
-  // É quase uma cópia do USER_ADDONS, mas ao contrário, não precisa do ficheiro e_euser.php no plugin...
-  //Primeiro copiamos o USER_addons, mas com umas pequenas alterações...
-	    global $euser_template;
+  
+// É quase uma cópia do USER_ADDONS, mas ao contrário, não precisa do ficheiro e_euser.php no plugin...
+//Primeiro copiamos o USER_addons, mas com umas pequenas alterações...
+$data 		= e107::getAddonConfig('e_user',null,'profile',$this->var);
+/*
+	echo "<pre>";
+var_dump($data);
+echo "</pre>";
+*/
+/*
+	if(empty($data))
+		{
+			return;
+		}
+//--		$text = '';	
+		foreach($data as $plugin=>$val)
+		{
+			foreach($val as $v)
+			{
+				$value = vartrue($v['url']) ? "<a href=\"".$v['url']."\">".$v['text']."</a>" : $v['text'];		
+//       var_dump ($value);
+				$array = array(
+					'EUSER_ADDON_ICON' => constant(IMAGE_.$plugin),
+					'EUSER_ADDON_LABEL' => $v['label'],
+					'EUSER_ADDON_TEXT' => $value
+				);
+				$text .= $this->tp->simpleParse($euser_template['plugins'], $array);
+			}		
+		}
+//        var_dump ($text);
+//		return $text;			
+//  }
+*/
 
-		$data = array(
+		global $euser_template;
+
+		$edata = array(
 			'news' => array ('label'=>ONLINEINFO_LIST_1,'title'=>PROFILE_38,'table'=>'news','count_field'=>'news_author', 'count_data'=>$this->var['user_id']),
 			'download_up' => array ('label'=>EUSERPROFILE_2,'title'=>ADMIN_PROFILE_134,'table'=>'download','count_field'=>'download_author', 'count_data'=>$this->var['user_name']),
 			'download' => array ('label'=>ONLINEINFO_LIST_17,'title'=>PROFILE_27,'table'=>'download_requests','count_field'=>'download_request_userid', 'count_data'=>$this->var['user_id']),
@@ -321,11 +370,17 @@ foreach($doc->getElementsByTagName('img') as $image){
 		);
 //		Falta o chatbox
 //		$captions = '';	
-
+/*
+echo "<pre>";
+var_dump($edata);
+echo "</pre>";
+*/
 //--		$text = '';	
-		foreach($data as $plugin=>$val)
+		foreach($edata as $plugin=>$val)
 		{
-//			var_dump ($plugin);
+//			var_dump($data[$plugin][0]['url']);
+			$val['url'] = $val['url']??$data[$plugin][0]['url'];
+//			var_dump($val['url']);
 /*
 			var_dump ($plugin);
 			var_dump (e107::getPref('profile_'.$plugin));
@@ -355,7 +410,8 @@ foreach($doc->getElementsByTagName('img') as $image){
 //        var_dump ($plugin);
 //			$captions.= $this->tp->parseTemplate($tmpl, TRUE, $this);
 			$captions.= $this->tp->parseTemplate(
-			$this->tp->lanVars($euser_template['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant(IMAGE_.$plugin)." ".$val['label'],'x'=>($usercount>0?$usercount:NULL))),
+//			$this->tp->lanVars($euser_template['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant(IMAGE_.$plugin)." ".$val['label'],'x'=>($usercount>0?$usercount:NULL))),
+			$this->tp->simpleParse($euser_template['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant(IMAGE_.$plugin)." ".$val['label'],'count'=>($usercount>0?$usercount:NULL))),
 			TRUE, $this);
 		}
 //		echo "<pre>";		var_dump ($captions);echo "</pre>";
@@ -409,7 +465,1248 @@ foreach($doc->getElementsByTagName('img') as $image){
     }
   }
 
+  function sc_euser_forum($parm='')
+  {
+//      var_dump ($parm['percent']);
+  if(($totalnews = $this->sql->count("news"))>0)
+  {
+	$usernews = $this->sql->count("news","(*)","where news_author=".$this->var['user_id']);
+//			$text .= "<TR><td {$main_colspan} style='width:100%' class='forumheader3'><span style='float:left'><img src='images/news.png'>&nbsp;".PROFILE_38."&nbsp;&nbsp;</span><span style='float:right; text-align:right'>{$usernews} ( ".(($usernews!=0)?round(($usernews/$totalnews)*100,2):"0")."% )</td></TR>";
+	//var_dump ($parm['ratio']);
+	if (isset($parm['percent'])){return (($usernews!=0)?round(($usernews/$totalnews)*100,2):"0");}
+
+//      var_dump ($totalnews);
+//      var_dump ($usernews);
+//		  return ($usernews?:"0");
+return '
+
+
+
+<!---->
+<div class="top-section stats-section" bis_skin_checked="1">
+  <h3 class="stats-title">Stats</h3>
+  <ul>
+    <li class="stats-days-visited">
+      
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">108</span>
+  </span>
+  <span class="label">
+    <!---->
+    days visited
+  </span>
+</div>
+
+    </li>
+    <li class="stats-time-read">
+      
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value" title="about 16 hours (all time)">
+      16h
+          </span>
+  <span class="label">
+    <!---->
+    read time
+  </span>
+</div>
+
+    </li>
+      <li class="stats-recent-read">
+        
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value" title="about 4 hours (in the last 60 days)">
+      4h
+          </span>
+  <span class="label">
+    <!---->
+    recent read time
+  </span>
+</div>
+
+      </li>
+    <li class="stats-topics-entered">
+      
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">207</span>
+  </span>
+  <span class="label">
+    <!---->
+    topics viewed
+  </span>
+</div>
+
+    </li>
+    <li class="stats-posts-read">
+      
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number" title="3,121">3.1k</span>
+  </span>
+  <span class="label">
+    <!---->
+    posts read
+  </span>
+</div>
+
+    </li>
+      <li class="stats-likes-given linked-stat">
+        <a id="ember829" class="ember-view" href="/en/d4/u/CONAN-1505/activity/likes-given">
+          
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">135</span>
+  </span>
+  <span class="label">
+    <svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+    given
+  </span>
+</div>
+
+        </a>
+      </li>
+    <li class="stats-likes-received">
+      
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">263</span>
+  </span>
+  <span class="label">
+    <svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+    received
+  </span>
+</div>
+
+    </li>
+<!---->          <li class="stats-topic-count linked-stat">
+        <a id="ember830" class="ember-view" href="/en/d4/u/CONAN-1505/activity/topics">
+          
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">37</span>
+  </span>
+  <span class="label">
+    <!---->
+    topics created
+  </span>
+</div>
+
+        </a>
+      </li>
+      <li class="stats-post-count linked-stat">
+        <a id="ember831" class="ember-view" href="/en/d4/u/CONAN-1505/activity/replies">
+          
+<div class="user-stat" bis_skin_checked="1">
+  <span class="value">
+      <span class="number">160</span>
+  </span>
+  <span class="label">
+    <!---->
+    posts created
+  </span>
+</div>
+
+        </a>
+      </li>
+    <!----><!----><!---->
+  </ul>
+</div>
+
+<!---->
+
+<div class="top-section replies-and-topics-section" bis_skin_checked="1">
+
+<div class="top-sub-section replies-section pull-left" bis_skin_checked="1">
+<h3 class="stats-title">Top Replies</h3>
+
+    <ul>
   
+    <li id="ember833" class="ember-view"><div data-topic-id="186712" id="ember834" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-iv-new-direction-eliminates-player-choice/186712" class="title" data-topic-id="186712">Diablo IV - new direction eliminates player choice</a>
+</div>
+
+<div class="num posts-map posts heatmap-med topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-med" title="56 replies, very high like to post ratio, jump to the first or last post…" aria-label="56 replies, very high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">56</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-iv-new-direction-eliminates-player-choice/186712" class="b-age" title="Created: Aug 31, 2024 10:50 pm">
+<span class="relative-date" data-time="1725141044911" data-format="tiny">Aug 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember835" class="ember-view"><div data-topic-id="214003" id="ember836" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/wth-has-this-game-become/214003" class="title" data-topic-id="214003">WTH Has This Game Become?</a>
+</div>
+
+<div class="num posts-map posts heatmap-high topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-high" title="65 replies, extremely high like to post ratio, jump to the first or last post…" aria-label="65 replies, extremely high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">65</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/wth-has-this-game-become/214003" class="b-age" title="Created: Feb 1, 2025 2:39 pm">
+<span class="relative-date" data-time="1738420763247" data-format="tiny">18d</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember837" class="ember-view"><div data-topic-id="210611" id="ember838" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-4-gets-alot-of-undeserved-hate/210611" class="title" data-topic-id="210611">Diablo 4 gets alot of undeserved hate</a>
+</div>
+
+<div class="num posts-map posts heatmap-high topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-high" title="161 replies, extremely high like to post ratio, jump to the first or last post…" aria-label="161 replies, extremely high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">161</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-4-gets-alot-of-undeserved-hate/210611" class="b-age" title="Created: Dec 23, 2024 8:23 am">
+<span class="relative-date" data-time="1734942183599" data-format="tiny">Dec 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember839" class="ember-view"><div data-topic-id="210414" id="ember840" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/d4-is-more-fun-than-poe/210414" class="title" data-topic-id="210414">D4 is more fun than PoE</a>
+</div>
+
+<div class="num posts-map posts heatmap-med topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-med" title="494 replies, very high like to post ratio, jump to the first or last post…" aria-label="494 replies, very high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">494</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/d4-is-more-fun-than-poe/210414" class="b-age" title="Created: Dec 19, 2024 6:25 am">
+<span class="relative-date" data-time="1734589551182" data-format="tiny">Dec 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember841" class="ember-view"><div data-topic-id="210017" id="ember842" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="title" data-topic-id="210017">Diablo 4 second expansion rumors/predictions</a>
+</div>
+
+<div class="num posts-map posts heatmap-low topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-low" title="171 replies, high like to post ratio, jump to the first or last post…" aria-label="171 replies, high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">171</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="b-age" title="Created: Dec 11, 2024 7:52 pm">
+<span class="relative-date" data-time="1733946759311" data-format="tiny">Dec 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember843" class="ember-view"><div data-topic-id="210017" id="ember844" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="title" data-topic-id="210017">Diablo 4 second expansion rumors/predictions</a>
+</div>
+
+<div class="num posts-map posts heatmap-low topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-low" title="171 replies, high like to post ratio, jump to the first or last post…" aria-label="171 replies, high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">171</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="b-age" title="Created: Dec 11, 2024 7:52 pm">
+<span class="relative-date" data-time="1733946759311" data-format="tiny">Dec 2024</span>
+</a>
+</div></div></li>
+  
+</ul>
+<p>
+  <a id="ember845" class="ember-view more" href="/en/d4/u/CONAN-1505/activity/replies">
+    More Replies
+  </a>
+</p>
+
+
+</div>
+
+
+
+<div class="top-sub-section topics-section pull-right" bis_skin_checked="1">
+<h3 class="stats-title">Top Topics</h3>
+
+    <ul>
+  
+    <li id="ember847" class="ember-view"><div data-topic-id="210017" id="ember848" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="title" data-topic-id="210017">Diablo 4 second expansion rumors/predictions</a>
+</div>
+
+<div class="num posts-map posts heatmap-low topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-low" title="171 replies, high like to post ratio, jump to the first or last post…" aria-label="171 replies, high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">171</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-4-second-expansion-rumorspredictions/210017" class="b-age" title="Created: Dec 11, 2024 7:52 pm">
+<span class="relative-date" data-time="1733946759311" data-format="tiny">Dec 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember849" class="ember-view"><div data-topic-id="186810" id="ember850" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/are-capping-the-number-paragon-boards-a-bad-idea/186810" class="title" data-topic-id="186810">Are capping the number Paragon boards a bad idea?</a>
+</div>
+
+<div class="num posts-map posts  topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts " title="187 replies, jump to the first or last post…" aria-label="187 replies, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">187</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/are-capping-the-number-paragon-boards-a-bad-idea/186810" class="b-age" title="Created: Sep 1, 2024 3:23 pm">
+<span class="relative-date" data-time="1725200629404" data-format="tiny">Sep 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember851" class="ember-view"><div data-topic-id="212963" id="ember852" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/d4-needs-an-endgame-20-and-other-things/212963" class="title" data-topic-id="212963">D4 needs an Endgame 2.0 and other things</a>
+</div>
+
+<div class="num posts-map posts heatmap-low topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-low" title="57 replies, high like to post ratio, jump to the first or last post…" aria-label="57 replies, high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">57</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/d4-needs-an-endgame-20-and-other-things/212963" class="b-age" title="Created: Jan 26, 2025 6:50 am">
+<span class="relative-date" data-time="1737874204320" data-format="tiny">24d</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember853" class="ember-view"><div data-topic-id="187997" id="ember854" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/diablo-4-20-is-wway-too-easy/187997" class="title" data-topic-id="187997">Diablo 4 2.0 is W\way too easy</a>
+</div>
+
+<div class="num posts-map posts heatmap-low topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-low" title="60 replies, high like to post ratio, jump to the first or last post…" aria-label="60 replies, high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">60</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/diablo-4-20-is-wway-too-easy/187997" class="b-age" title="Created: Sep 5, 2024 10:11 pm">
+<span class="relative-date" data-time="1725570667355" data-format="tiny">Sep 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember855" class="ember-view"><div data-topic-id="208813" id="ember856" class="latest-topic-list-item category-pc-general-discussion ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/how-d4-can-be-saved/208813" class="title" data-topic-id="208813">How D4 can be saved</a>
+</div>
+
+<div class="num posts-map posts heatmap-med topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-med" title="44 replies, very high like to post ratio, jump to the first or last post…" aria-label="44 replies, very high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">44</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/how-d4-can-be-saved/208813" class="b-age" title="Created: Nov 30, 2024 8:47 pm">
+<span class="relative-date" data-time="1732999642982" data-format="tiny">Nov 2024</span>
+</a>
+</div></div></li>
+  
+  
+    <li id="ember857" class="ember-view"><div data-topic-id="215244" id="ember858" class="latest-topic-list-item category-pc-general-discussion visited ember-view" bis_skin_checked="1"><!---->
+<div class="b-topic-line title-and-reply-count" bis_skin_checked="1">
+<div class="b-topic-link main-link" bis_skin_checked="1">
+<!---->
+<a href="/en/d4/t/when-will-blizzard-release-their-roadmap/215244/19" class="title" data-topic-id="215244">When will Blizzard release their Roadmap?</a>
+</div>
+
+<div class="num posts-map posts heatmap-med topic-list-data" bis_skin_checked="1">
+<button class="btn-link posts-map badge-posts heatmap-med" title="37 replies, very high like to post ratio, jump to the first or last post…" aria-label="37 replies, very high like to post ratio, jump to the first or last post…">
+<svg class="fa d-icon d-icon-blizzard-chat svg-icon blizzard-reply-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-chat"></use></svg>
+
+<span class="number">37</span>
+</button>
+</div>
+
+</div>
+
+<div class="b-topic-line category-and-age" bis_skin_checked="1">
+<a href="/en/d4/c/pc-general-discussion/5" class="b-category-small d-link has-description">
+<img alt="" src="//assets-d4usen-blz-prod-us.s3.dualstack.us-west-2.amazonaws.com/original/1X/08ca0713052fefde0d376ddafaf4fee49eee6966.png">
+<span class="b-category-label">PC General Discussion</span>
+</a>
+
+<a href="/en/d4/t/when-will-blizzard-release-their-roadmap/215244/19" class="b-age" title="Created: Feb 10, 2025 5:03 pm">
+<span class="relative-date" data-time="1739206998109" data-format="tiny">9d</span>
+</a>
+</div></div></li>
+  
+</ul>
+<p>
+  <a id="ember859" class="ember-view more" href="/en/d4/u/CONAN-1505/activity/topics">
+    More Topics
+  </a>
+</p>
+
+
+</div>
+
+</div>
+
+<div class="top-section links-and-replied-to-section" bis_skin_checked="1">
+
+<div class="top-sub-section links-section pull-left" bis_skin_checked="1">
+<h3 class="stats-title">Top Links</h3>
+
+    <p>No links yet.</p>
+
+</div>
+
+
+
+<div class="top-sub-section summary-user-list replied-section pull-right" bis_skin_checked="1">
+<h3 class="stats-title">Most Replied To</h3>
+
+  <div id="ember860" class="ember-view" bis_skin_checked="1">  <ul>
+  
+    <li id="ember861" class="ember-view"><div data-username="Brophog-1113" id="ember862" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Brophog-1113" data-user-card="Brophog-1113" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://d3sh8v238hy4ki.cloudfront.net/en/d4/plugins/discourse-blizzard-plugin/images/avatars/d4/default.png" class="avatar" title="Brophog"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Brophog-1113" data-user-card="Brophog-1113">
+    <span class="username">
+      Brophog
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">4</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember864" class="ember-view"><div data-username="Lazyloaf-1219" id="ember865" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Lazyloaf-1219" data-user-card="Lazyloaf-1219" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blte8f71bdf2ad7f6d3/666b75c3e039607643609b54/Avatar_Spiritborn.png" class="avatar" title="Lazyloaf"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Lazyloaf-1219" data-user-card="Lazyloaf-1219">
+    <span class="username">
+      Lazyloaf
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">4</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember867" class="ember-view"><div data-username="Assos-2772" id="ember868" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Assos-2772" data-user-card="Assos-2772" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltb9a8e91c30e407c3/6411cea4ac3a6d53dc63984c/Avatar_Lilith.png" class="avatar" title="Assos"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Assos-2772" data-user-card="Assos-2772">
+    <span class="username">
+      Assos
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember870" class="ember-view"><div data-username="haters-1528" id="ember871" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/haters-1528" data-user-card="haters-1528" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltac0b940ba4b815e9/6411cea42abf90675a48506a/Avatar_Necromancer.png" class="avatar" title="haters"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/haters-1528" data-user-card="haters-1528">
+    <span class="username">
+      haters
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember873" class="ember-view"><div data-username="shadowcat-1769" id="ember874" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/shadowcat-1769" data-user-card="shadowcat-1769" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blt073add365f8dcd85/6411cea468c5766288a16a6b/Avatar_Inarius.png" class="avatar" title="shadowcat"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/shadowcat-1769" data-user-card="shadowcat-1769">
+    <span class="username">
+      shadowcat
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember876" class="ember-view"><div data-username="Pereg-1907" id="ember877" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Pereg-1907" data-user-card="Pereg-1907" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blt073add365f8dcd85/6411cea468c5766288a16a6b/Avatar_Inarius.png" class="avatar" title="Pereg"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Pereg-1907" data-user-card="Pereg-1907">
+    <span class="username">
+      Pereg
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-reply svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#blizzard-reply-all"></use></svg>
+<span class="replies"><span class="number">2</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<div class="top-section most-liked-section" bis_skin_checked="1">
+
+<div class="top-sub-section summary-user-list liked-by-section pull-left" bis_skin_checked="1">
+<h3 class="stats-title">Most Liked By</h3>
+
+  <div id="ember879" class="ember-view" bis_skin_checked="1">  <ul>
+  
+    <li id="ember880" class="ember-view"><div data-username="OSLEK-11552" id="ember881" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/OSLEK-11552" data-user-card="OSLEK-11552" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blt4de8c5e6439fa146/64120b2a3df55e65c02aa4cb/default-avatar.png" class="avatar" title="OSLEK"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/OSLEK-11552" data-user-card="OSLEK-11552">
+    <span class="username">
+      OSLEK
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">9</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember883" class="ember-view"><div data-username="Aza-21763" id="ember884" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Aza-21763" data-user-card="Aza-21763" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltb9a8e91c30e407c3/6411cea4ac3a6d53dc63984c/Avatar_Lilith.png" class="avatar" title="Aza"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Aza-21763" data-user-card="Aza-21763">
+    <span class="username">
+      Aza
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">8</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember886" class="ember-view"><div data-username="Mars-1713" id="ember887" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Mars-1713" data-user-card="Mars-1713" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://d3sh8v238hy4ki.cloudfront.net/en/d4/plugins/discourse-blizzard-plugin/images/avatars/d4/default.png" class="avatar" title="Mars"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Mars-1713" data-user-card="Mars-1713">
+    <span class="username">
+      Mars
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">7</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember889" class="ember-view"><div data-username="Plüsch-21507" id="ember890" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Plüsch-21507" data-user-card="Plüsch-21507" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://d3sh8v238hy4ki.cloudfront.net/en/d4/plugins/discourse-blizzard-plugin/images/avatars/d4/default.png" class="avatar" title="Plüsch"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Plüsch-21507" data-user-card="Plüsch-21507">
+    <span class="username">
+      Plüsch
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">7</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember892" class="ember-view"><div data-username="RICACARV-2905" id="ember893" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/RICACARV-2905" data-user-card="RICACARV-2905" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blt073add365f8dcd85/6411cea468c5766288a16a6b/Avatar_Inarius.png" class="avatar" title="RICACARV"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/RICACARV-2905" data-user-card="RICACARV-2905">
+    <span class="username">
+      RICACARV
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">5</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember895" class="ember-view"><div data-username="Wukong-1593" id="ember896" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Wukong-1593" data-user-card="Wukong-1593" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/blt4de8c5e6439fa146/64120b2a3df55e65c02aa4cb/default-avatar.png" class="avatar" title="Wukong"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Wukong-1593" data-user-card="Wukong-1593">
+    <span class="username">
+      Wukong
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">4</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+</ul>
+</div>
+
+</div>
+
+
+
+<div class="top-sub-section summary-user-list liked-section pull-right" bis_skin_checked="1">
+<h3 class="stats-title">Most Liked</h3>
+
+  <div id="ember898" class="ember-view" bis_skin_checked="1">  <ul>
+  
+    <li id="ember899" class="ember-view"><div data-username="Urza-1177" id="ember900" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Urza-1177" data-user-card="Urza-1177" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltac0b940ba4b815e9/6411cea42abf90675a48506a/Avatar_Necromancer.png" class="avatar" title="Urza"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Urza-1177" data-user-card="Urza-1177">
+    <span class="username">
+      Urza
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember902" class="ember-view"><div data-username="TexConway-1649" id="ember903" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/TexConway-1649" data-user-card="TexConway-1649" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://d3sh8v238hy4ki.cloudfront.net/en/d4/plugins/discourse-blizzard-plugin/images/avatars/d4/default.png" class="avatar" title="TexConway"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/TexConway-1649" data-user-card="TexConway-1649">
+    <span class="username">
+      TexConway
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember905" class="ember-view"><div data-username="Indian-2161" id="ember906" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Indian-2161" data-user-card="Indian-2161" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltac0b940ba4b815e9/6411cea42abf90675a48506a/Avatar_Necromancer.png" class="avatar" title="Indian"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Indian-2161" data-user-card="Indian-2161">
+    <span class="username">
+      Indian
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">3</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember908" class="ember-view"><div data-username="Ichewith-1598" id="ember909" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Ichewith-1598" data-user-card="Ichewith-1598" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltf55b0f9c830d22ab/6411cea4583a5b674fbce25d/Avatar_Barbarian.png" class="avatar" title="Ichewith"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Ichewith-1598" data-user-card="Ichewith-1598">
+    <span class="username">
+      Ichewith
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">2</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember911" class="ember-view"><div data-username="Salvus-1893" id="ember912" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Salvus-1893" data-user-card="Salvus-1893" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://images.blz-contentstack.com/v3/assets/blte85736493d5417c5/bltf55b0f9c830d22ab/6411cea4583a5b674fbce25d/Avatar_Barbarian.png" class="avatar" title="Salvus"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Salvus-1893" data-user-card="Salvus-1893">
+    <span class="username">
+      Salvus
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">2</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+  
+    <li id="ember914" class="ember-view"><div data-username="Vukotlak-2201" id="ember915" class="user-info small ember-view" bis_skin_checked="1">  <div class="user-image" bis_skin_checked="1">
+<div class="user-image-inner" bis_skin_checked="1">
+  <a href="/en/d4/u/Vukotlak-2201" data-user-card="Vukotlak-2201" aria-hidden="true"><img loading="lazy" alt="" width="48" height="48" src="https://d3sh8v238hy4ki.cloudfront.net/en/d4/plugins/discourse-blizzard-plugin/images/avatars/d4/default.png" class="avatar" title="Vukotlak"></a>
+  <!---->
+</div>
+</div>
+<div class="user-detail" bis_skin_checked="1">
+<div class="name-line" bis_skin_checked="1">
+  <a href="/en/d4/u/Vukotlak-2201" data-user-card="Vukotlak-2201">
+    <span class="username">
+      Vukotlak
+    </span>
+    <span class="name">
+      
+    </span>
+  </a>
+<!---->    <!---->
+</div>
+<div class="title" bis_skin_checked="1"></div>
+<div class="details" bis_skin_checked="1">
+  
+<svg class="fa d-icon d-icon-heart svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#heart"></use></svg>
+<span class="likes"><span class="number">2</span></span>
+
+</div>
+</div>
+
+<!----></div></li>
+  
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<div class="top-section top-categories-section" bis_skin_checked="1">
+  
+<div class="top-sub-section summary-category-list pull-left" bis_skin_checked="1">
+<h3 class="stats-title">Top Categories</h3>
+
+    <table>
+      <thead>
+        <th class="category-link"></th>
+        <th class="topic-count">Topics</th>
+        <th class="reply-count">Replies</th>
+      </thead>
+      <tbody>
+          <tr>
+            
+              <td class="category-link">
+                <a class="badge-category__wrapper " style="--category-badge-color: #0088CC;--category-badge-text-color: #FFFFFF;" href="/en/d4/c/pc-general-discussion/5"><span data-category-id="5" data-drop-close="true" class="badge-category"><span class="badge-category__name">PC General Discussion</span></span></a>
+              </td>
+              <td class="topic-count">
+                  <a id="ember918" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23pc-general-discussion">
+20
+</a>
+
+              </td>
+              <td class="reply-count">
+                  <a id="ember920" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23pc-general-discussion">
+123
+</a>
+
+              </td>
+            
+          </tr>
+          <tr>
+            
+              <td class="category-link">
+                <a class="badge-category__wrapper " style="--category-badge-color: #0088CC;--category-badge-text-color: #FFFFFF;" href="/en/d4/c/bug-report/7"><span data-category-id="7" data-drop-close="true" class="badge-category"><span class="badge-category__name">PC Bug Report</span></span></a>
+              </td>
+              <td class="topic-count">
+                  <a id="ember922" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23bug-report">
+11
+</a>
+
+              </td>
+              <td class="reply-count">
+                  <a id="ember924" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23bug-report">
+27
+</a>
+
+              </td>
+            
+          </tr>
+          <tr>
+            
+              <td class="category-link">
+                <a class="badge-category__wrapper " style="--category-badge-color: #0088CC;--category-badge-text-color: #FFFFFF;" href="/en/d4/c/ptr-feedback/23"><span data-category-id="23" data-drop-close="true" class="badge-category"><span class="badge-category__name">PTR Feedback</span></span></a>
+              </td>
+              <td class="topic-count">
+                  <a id="ember926" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23ptr-feedback">
+6
+</a>
+
+              </td>
+              <td class="reply-count">
+                  <a id="ember928" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23ptr-feedback">
+6
+</a>
+
+              </td>
+            
+          </tr>
+          <tr>
+            
+              <td class="category-link">
+                <a class="badge-category__wrapper " style="--category-badge-color: #0088CC;--category-badge-text-color: #FFFFFF;" href="/en/d4/c/necromancer/17"><span data-category-id="17" data-drop-close="true" class="badge-category"><span class="badge-category__name">Necromancer</span></span></a>
+              </td>
+              <td class="topic-count">
+                  <a id="ember930" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23necromancer">
+1
+</a>
+
+              </td>
+              <td class="reply-count">
+                  –
+
+              </td>
+            
+          </tr>
+          <tr>
+            
+              <td class="category-link">
+                <a class="badge-category__wrapper " style="--category-badge-color: #0088CC;--category-badge-text-color: #FFFFFF;" href="/en/d4/c/share-your-creations/20"><span data-category-id="20" data-drop-close="true" class="badge-category"><span class="badge-category__name">Share Your Creations</span></span></a>
+              </td>
+              <td class="topic-count">
+                  –
+
+              </td>
+              <td class="reply-count">
+                  <a id="ember934" class="ember-view" href="/en/d4/search?q=%40CONAN-1505%20%23share-your-creations">
+1
+</a>
+
+              </td>
+            
+          </tr>
+      </tbody>
+    </table>
+  
+</div>
+
+</div>
+
+<!---->
+
+
+
+
+
+
+
+
+
+';
+  }
+}
+
 	function sc_euser_uploads($parm='')
 	{
     if(($totaluploads = $this->sql->count("download"))>0)
@@ -449,17 +1746,18 @@ foreach($doc->getElementsByTagName('img') as $image){
 
 	function sc_euser_mp3($parm='')
 	{
-			if ($this->euser_data['user_mp3'] != "" && $euser_pref['mp3enabled'] && !isset($_GET['page'])) {
+		// O mp3 passou paara uma tabela separaada, isto depois tem de ser modificado
+			if ($this->var['euser_data']['user_mp3'] != "" && $euser_pref['mp3enabled'] && !isset($_GET['page'])) {
 //--			$sql->mySQLresult = @mysql_query("SELECT user_mp3 FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
 //--			$mp3 = $sql->db_Fetch();
 //			if ($mp3['user_mp3'] != "" && $euser_pref['mp3enabled'] == "ON" && !isset($_GET['page'])) {
-				$type = substr(strrchr($this->euser_data['user_mp3'], '.'), 1);
-				if(strpos($this->euser_data['user_mp3'], "http://") === false && strpos($this->euser_data['user_mp3'], "https://") === false && strpos($this->euser_data['user_mp3'], "ftp://") === false) {
+				$type = substr(strrchr($this->var['euser_data']['user_mp3'], '.'), 1);
+				if(strpos($this->var['euser_data']['user_mp3'], "http://") === false && strpos($this->var['euser_data']['user_mp3'], "https://") === false && strpos($this->var['euser_data']['user_mp3'], "ftp://") === false) {
 					$mp3file = "usermp3/".$this->var['user_id'].".".$type;
-					$mp3display = str_replace("_", " ", $this->euser_data['user_mp3']);
+					$mp3display = str_replace("_", " ", $this->var['euser_data']['user_mp3']);
 				} else {
-					$mp3file = $this->euser_data['user_mp3'];
-					$mp3break = explode("/", $this->euser_data['user_mp3']);
+					$mp3file = $this->var['euser_data']['user_mp3'];
+					$mp3break = explode("/", $this->var['euser_data']['user_mp3']);
 					$mp3display = str_replace("_", " ", end($mp3break));
 				}
 				// Zene lejatszasa
@@ -490,14 +1788,14 @@ foreach($doc->getElementsByTagName('img') as $image){
 */
 					}
 //				}
-				if ($this->euser_pref['mp3_autoplay']) {
+				if ($this->var['euser_pref']['mp3_autoplay']) {
 					$profile_mp3_autoplay = "&autoplay=1";
 				}
-				if ($this->euser_pref['mp3_loop']) {
+				if ($this->var['euser_pref']['mp3_loop']) {
 					$profile_mp3_loop = "&loop=1";
 				}
-				if ($this->euser_pref['mp3_volume']) {
-					$profile_mp3_volume = $this->euser_pref['mp3_volume'];
+				if ($this->var['euser_pref']['mp3_volume']) {
+					$profile_mp3_volume = $this->var['euser_pref']['mp3_volume'];
 					if ($profile_mp3_volume > 200) $profile_mp3_volume = 200;
 					$profile_mp3_volume = "&volume=".$profile_mp3_volume."";
 				}
@@ -562,7 +1860,7 @@ foreach($doc->getElementsByTagName('img') as $image){
 //---				}
 //---			}
 //			if ($euser_pref['commentson'] == "ON" || $euser_pref['commentson'] == "") {
-//---			if ($this->euser_pref['commentson']) {
+//---			if ($this->var['euser_pref']['commentson']) {
 
 //        var_dump ($parm['caption']);
 //        global $euser_template;
@@ -893,7 +2191,7 @@ foreach($doc->getElementsByTagName('img') as $image){
 //			var_dump ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "");
 
 //--			if ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "") {
-			if ($this->euser_pref['friends']) {
+//			if ($this->var['euser_pref']['friends']) {
 
 //---        global $euser_template;
 //        var_dump ($euser_template);
@@ -974,7 +2272,7 @@ define(UPROF, "");
 					$text .= "<br/><table width='100%' ><tr><td class='forumheader' colspan='3' ><div class='smallblacktext'><a href='".e_SELF."?".e_QUERY."#top' onclick=\"window.scrollTo(0,0);\">".PROFILE_271."</a></div></td></tr></table>";
 				}
 */
-			}
+//			}
 }
 
   }
@@ -1014,7 +2312,7 @@ define(UPROF, "");
 				}
 			}
 //			if ($euser_pref['pics'] == "ON" || $euser_pref['pics'] == "") {
-			if ($this->euser_pref['pics']) {
+			if ($this->var['euser_pref']['pics']) {
 
 //--$text.="<div class='virtualpage4".(($_GET['page'] == images)?"":" hidepiece")."'>";
 // Carrego o ficheiro para no futuro ter uma hipótese de reoordenar como eu quiser isto...
@@ -1714,7 +3012,7 @@ if (e_LANGUAGE == "English") {
 				}
 			}
 //--			if ($euser_pref['videos'] == "ON" || $euser_pref['videos'] == "") {
-			if ($this->euser_pref['videos']) {
+			if ($this->var['euser_pref']['videos']) {
 
 //--        global $euser_template;
 //        var_dump ($euser_template);

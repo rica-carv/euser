@@ -189,7 +189,7 @@ define("ONLINEINFO_LIST_20", "Bugtracker");
 define("ONLINEINFO_LIST_21", "Conteúdos"); 
 define("ONLINEINFO_LIST_22", "Fotografias"); 
 define("ONLINEINFO_LIST_23", "Livro de visitas"); 
-define("ONLINEINFO_LIST_24", "Perfil do Utilizador"); 
+define("ONLINEINFO_LIST_24", "Perfil do Utilizador (EUSERPROFILE_101)"); // Passou para o EUSERPROFILE_101
 define("ONLINEINFO_LIST_25", "não foi fornecida."); 
 define("ONLINEINFO_LIST_26", " acrescentar: "); 
 define("ONLINEINFO_LIST_27", " Título: "); 
@@ -1134,8 +1134,41 @@ define("PROFILE_CP_164", "Listas:");
 define("PROFILE_CP_118", "Utilizador ainda não tem listas.");
 
 
-define("EUSERPROFILE_1", "Informação geral");
+//---------------------------------------------- LANS DEFINITIVAS, BASICAMENTE É SÓ AS QUE VOU USAR NO EUSER...
+define("EUSERPROFILE_1", "Informação social");
 define("EUSERPROFILE_2", "Ficheiros enviados");
 define("EUSERPROFILE_3", "Hiperligações");
 define("EUSERPROFILE_4", "Resumo actividade");
 define("EUSERPROFILE_5", "Forum");
+define("EUSERPROFILE_6", "Aviso apenas para administradores:[br]As secções [b][x][/b] estão ligadas.");
+
+define("EUSERPROFILE_10", "Definições de segurança do perfil"); //Ex PROFILE_190
+define("EUSERPROFILE_11", "Estatísticas do perfil"); //Ex PROFILE_148
+define("EUSERPROFILE_12", "Quem pode ver a minha informação pessoal:"); //Ex PROFILE_102 PROFILE_102a
+define("EUSERPROFILE_13", "Quem pode ver os meus amigos:"); //Ex PROFILE_249
+define("EUSERPROFILE_14", "Quem pode ver os comentarios do meu perfil:"); //Ex PROFILE_254 PROFILE_254a
+define("EUSERPROFILE_15", "Quem pode comentar o meu perfil:"); //Ex PROFILE_103 PROFILE_103a
+define("EUSERPROFILE_16", "Quem pode ver as imagens do meu perfil:"); //Ex PROFILE_247 PROFILE_247a
+define("EUSERPROFILE_17", "Quem pode comentar as minhas imagens:"); //Ex PROFILE_106 PROFILE_106a
+define("EUSERPROFILE_18", "Quem pode ver os videos do meu perfil:"); //Ex PROFILE_248 PROFILE_248a
+define("EUSERPROFILE_19", "Quem pode comentar os meus videos"); //Ex PROFILE_116 PROFILE_116a
+define("EUSERPROFILE_20", "Quem pode ouvir a musica do meu perfil:"); //Ex PROFILE_255 PROFILE_255a
+define("EUSERPROFILE_21", "Geral");
+define("EUSERPROFILE_22", "Enviar-me uma mensagem privada quando for solicitado um pedido de amizade?"); //Ex PROFILE_122
+define("EUSERPROFILE_23", "Enviar-me um email quando for solicitado um pedido de amizade?"); //Ex PROFILE_122a
+define("EUSERPROFILE_24", "Exibir botão 'Pedir amizade' nos meus paineis de informação (forum, noticias, etc.)"); // Ex PROFILE_111
+
+define("EUSERPROFILE_101", "Configurações do perfil do Utilizador");
+define("EUSERPROFILE_102", "Preferências do perfil");
+define("EUSERPROFILE_103", "Configurar musica do perfil"); //Ex PROFILE_166, PROFILE_404
+
+// O core já tem isto, não vou usar... define("EUSERPROFILE_110", "Apagar Avatar<br><i>(Restaurar para a imagem por defeito)</i>"); //Ex PROFILE_110
+define("EUSERPROFILE_110", "Configurar avatar");
+
+define("EUSERPROFILE_130", "Amigos"); //Ex-PROFILE_13
+define("EUSERPROFILE_131", "Utilizadores registados");
+define("EUSERPROFILE_132", "Visitantes"); //Ex-ONLINENOW_4 EUSER_LOGIN_MENU_L56
+
+define("EUSERPROFILE_140", "Imagens"); //Ex-PROFILE_14
+
+define("EUSERPROFILE_150", "Videos"); //Ex-PROFILE_113
