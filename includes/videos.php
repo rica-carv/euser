@@ -21,6 +21,11 @@
 | GNU General Public License (http://gnu.org).
 +---------------------------------------------------------------+
 */
+
+//$this->var['euser_pref'] = e107::getPlugPref('euser');
+
+if (!$this->var['euser_pref']['videos']) { return;}
+
 //----if (!defined('e107_INIT')) { exit; }
 require_once("handlers/video_handler.php");
 //$text .= "<br/>";
@@ -51,8 +56,8 @@ $sql->mySQLresult = @mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE 
 $vidnumrows = $sql->db_Rows();
 
 // MULTIPAGES INFO
-if ($this->euser_pref['apcomments'] != '') {
-	$rowsPerPage = $this->euser_pref['apcomments'];
+if ($this->var['euser_pref']['apcomments'] != '') {
+	$rowsPerPage = $this->var['euser_pref']['apcomments'];
 } else {
 	$rowsPerPage = 5;
 }
@@ -104,8 +109,8 @@ if ($pageNum < $maxPage) {
 }
 // END OF MULTIPAGES
 //------------------------------------------
-		if ($this->euser_pref['maxvidcomment'] != '') {
-			$maxvidcomment = $this->euser_pref['maxvidcomment'];
+		if ($this->var['euser_pref']['maxvidcomment'] != '') {
+			$maxvidcomment = $this->var['euser_pref']['maxvidcomment'];
 		} else {
 			$maxvidcomment = 50;
 		}
@@ -138,7 +143,7 @@ if ($pageNum < $maxPage) {
 			//e107_0.8 compatible
 			if(file_exists(e_HANDLER."level_handler.php")){
 				require_once(e_HANDLER."level_handler.php");
-				$ldata = get_level($from['user_id'], $from['user_forums'], $from['user_comments'], $from['user_chats'], $from['user_visits'], $from['user_join'], $from['user_admin'], $from['user_perms'], $this->euser_pref);
+				$ldata = get_level($from['user_id'], $from['user_forums'], $from['user_comments'], $from['user_chats'], $from['user_visits'], $from['user_join'], $from['user_admin'], $from['user_perms'], $this->var['euser_pref']);
 			} else {
 				//
 			}
@@ -182,7 +187,7 @@ if ($pageNum < $maxPage) {
 				$av = avatar($av);
 				$text .= "".$from['user_customtitle']."<br/><br/><a href='euser.php?id=".$com['com_by']."'><img src='".$av."' border='1' ".$avwidth." ".$avheight."  alt='' /></a>";
 			}
-			if ($this->euser_pref['user_warn_support'] == "Yes" AND $fromext['user_warn'] !='null' AND $fromext['user_warn'] !='') {
+			if ($this->var['euser_pref']['user_warn_support'] == "Yes" AND $fromext['user_warn'] !='null' AND $fromext['user_warn'] !='') {
 				$text .= "<br/><img src=\"".THEME_ABS."images/warn/".$fromext['user_warn'].".png\">";
 			}
 			$text .= "<br/>$from_level<br/><div class='smallblacktext'>".PROFILE_270."$from_join<br/>".PROFILE_272.$fromext['user_location']."</div></td>";
@@ -221,16 +226,16 @@ if ($pageNum < $maxPage) {
 		$cpbox .= "</td></tr>";
 		// Check member settings
 		if ($break[4] == 1 && $this->var['user_id'] != USERID) {
-			if ((!in_array(USERID, $friendb)) && ($this->euser_pref['friends'] == "ON" || $this->euser_pref['friends'] == "")) {
+			if ((!in_array(USERID, $friendb)) && ($this->var['euser_pref']['friends'] == "ON" || $this->var['euser_pref']['friends'] == "")) {
 				$text .= "<tr><td>".$username." ".PROFILE_107a."</td></tr></table></form>";
-			} else if ($this->euser_pref['friends'] != "ON") {
+			} else if ($this->var['euser_pref']['friends'] != "ON") {
 				$text .= "<tr><td>".$username." ".PROFILE_107d."</td></tr></table></form>";
 			} else {
 				$text .= $cpbox;
 			$text .= "</td></tr><tr><td><br/><br/>
 				<input type='hidden' name='id' value='".$this->var['user_id']."'>
 				<input type='hidden' name='vid' value='".$_GET['vid']."'>";
-				if ($this->euser_pref['buttontype'] == "Yes") {
+				if ($this->var['euser_pref']['buttontype'] == "Yes") {
 					$text .= "<input type='image' name='post_comment' onmouseover='this.src=\"images/buttons/".e_LANGUAGE."_comment_over.gif\"' onmouseout='this.src=\"images/buttons/".e_LANGUAGE."_comment.gif\"' src='images/buttons/".e_LANGUAGE."_comment.gif' >";
 					} else {
 				$text .= "<input type='submit' name='post_comment' value='".PROFILE_208."' class='button'>";
@@ -242,7 +247,7 @@ if ($pageNum < $maxPage) {
 			$text .= "</td></tr><tr><td><br/><br/>
 				<input type='hidden' name='id' value='".$this->var['user_id']."'>
 				<input type='hidden' name='vid' value='".$_GET['vid']."'>";
-				if ($this->euser_pref['buttontype'] == "Yes") {
+				if ($this->var['euser_pref']['buttontype'] == "Yes") {
 					$text .= "<input type='image' name='post_comment' onmouseover='this.src=\"images/buttons/".e_LANGUAGE."_comment_over.gif\"' onmouseout='this.src=\"images/buttons/".e_LANGUAGE."_comment.gif\"' src='images/buttons/".e_LANGUAGE."_comment.gif' >";
 					} else {
 				$text .= "<input type='submit' name='post_comment' value='".PROFILE_208."' class='button'>";
@@ -261,18 +266,28 @@ if ($pageNum < $maxPage) {
 	$vids = $sql->db_Rows();
 */
 	$this->sql->select("euser_vids", "vid_id, vid_name, vid_desc, vid_embed", "vid_uid='".$this->var['user_id']."' ORDER BY vid_added DESC");
-				$vids = $this->sql->row;
+	$vids = $this->sql->row;
 
-        global $euser_template;
+//	if ($vids==0 && (strpos( e_PAGE, "euser_settings")===false)) { return;}
+	if ($vids==0 && e_PAGE!="euser_settings.php") { return;}
+//        global $euser_template;
+//        var_dump ((int) $vids);
+//		var_dump(array('count'=>($vids>0?$vids:((strpos( e_PAGE, "euser_settings")!==false)?(int)$vids:NULL))));
 //        var_dump ($euser_template);
-        $euser_template['videos_caption'] = $this->tp->lanVars($euser_template['videos_caption'], array('x'=>($vids>0?$vids:NULL)));
-        
-                if (isset($parm['caption'])){return $this->tp->parseTemplate($euser_template['videos_caption'], TRUE, $this);}
-
+$euser_template = e107::getTemplate('euser');
+//        $euser_template['videos_caption'] = $this->tp->lanVars($euser_template['videos_caption'], array('count'=>($vids>0?$vids:NULL)));
+/*        
+                if (isset($parm['caption'])){
+					return $this->tp->parseTemplate($this->tp->simpleParse($euser_template['videos_caption'], array('count'=>($vids>0?$vids:((strpos( e_PAGE, "euser_settings")!==false)?(int)$vids:NULL)))), TRUE, $this);
+				}
+*/
+                if (isset($parm['caption'])){
+					return $this->tp->parseTemplate($this->tp->simpleParse($euser_template['videos_caption'], array('count'=>($vids>0?$vids:(e_PAGE=="euser_settings.php"?(int)$vids:NULL)))), TRUE, $this);
+				}
 
 	if ($vids == 0) {
 //--		$text .= "<table width='100%' class='fborder'><tr><td class='forumheader' colspan='4'><img src='images/videos.png'><i>".PROFILE_118."</i></td></tr></table>";
-          $text .=$this->tp->parseTemplate($euser_template['videos_no'], TRUE, $user_sc);
+          $text .=$this->tp->parseTemplate($euser_template['videos_no'], TRUE, $this);
 
 
 	} else {
@@ -324,4 +339,3 @@ if ($pageNum < $maxPage) {
 	}
 }
 return $text;
-?>

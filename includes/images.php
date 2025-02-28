@@ -21,6 +21,11 @@
 | GNU General Public License (http://gnu.org).
 +---------------------------------------------------------------+
 */
+//$this->var['euser_pref'] = e107::getPlugPref('euser');
+
+if (!$this->var['euser_pref']['pics']) { return null;}
+//return null;
+//global $euser_template;
 
 				$picdir = "userimages/".$this->var['user_id']."/";
 				$picthumbdir = "userimages/".$this->var['user_id']."/thumbs";
@@ -44,12 +49,21 @@ if(!function_exists("countpicFiles")) {
 
 //				$numpicfiles = countpicFiles($picdir);
 				$numpicfiles = countpicFiles($picdir) -2;
+//				if ($numpicfiles<1 && (strpos( e_PAGE, "euser_settings")===false)) { return;}
+				if ($numpicfiles<1 && e_PAGE!="euser_settings.php") { return;}
+				$euser_template = e107::getTemplate('euser');
 
-        global $euser_template;
-
-        $euser_template['images_caption'] = $this->tp->lanVars($euser_template['images_caption'], array('x'=>($numpicfiles>0?$numpicfiles:NULL)));
-        
-        if (isset($parm['caption'])){return $this->tp->parseTemplate($euser_template['images_caption'], TRUE, $this);}
+				//$euser_template['images_caption'] = $this->tp->simpleParse($euser_template['images_caption'], array('COUNT'=>($numpicfiles>0?$numpicfiles:NULL)));
+//				var_dump($numpicfiles);
+				//var_dump($parm);
+/*
+				if (isset($parm['caption'])){
+					return $this->tp->parseTemplate($this->tp->simpleParse($euser_template['images_caption'], array('count'=>($numpicfiles>0?$numpicfiles:((strpos( e_PAGE, "euser_settings")!==false)?$numpicfiles:NULL)))), TRUE, $this);
+				}
+*/
+				if (isset($parm['caption'])){
+					return $this->tp->parseTemplate($this->tp->simpleParse($euser_template['images_caption'], array('count'=>($numpicfiles>0?$numpicfiles:(e_PAGE=="euser_settings.php"?$numpicfiles:NULL)))), TRUE, $this);
+				}
 
 //          var_dump (file_exists($picthumbdir));
 //          var_dump (($numpicfiles<3?PROFILE_163:$numpicfiles."&nbsp;".PROFILE_14a));
@@ -63,7 +77,7 @@ if(!function_exists("countpicFiles")) {
 */
 //--						$text .= "<table width='100%' class='fborder'><tr><td class='forumheader' colspan='4'><img src='images/images.png' style='vertical-align:middle'>&nbsp;<i>".(($numpicfiles < 3)?PROFILE_163:$numpicfiles."&nbsp;".PROFILE_14a)."</i></td></tr><tr><td>";
 //--        $text .= (($numpicfiles < 3)?"":"<p/>");
-						$text .= IMAGE_images."&nbsp;".($numpicfiles<3?PROFILE_163:$numpicfiles."&nbsp;".PROFILE_14a);
+						$txt .= IMAGE_images."&nbsp;".($numpicfiles<3?PROFILE_163:$numpicfiles."&nbsp;".PROFILE_14a);
 
 				}
 
@@ -76,11 +90,12 @@ if(!function_exists("countpicFiles")) {
 					}
 */
 //--						$text .= "<table width='100%' class='fborder'><tr><td class='forumheader' colspan='4'><img src='images/images.png'><i>".(($numpicfiles < 2)?PROFILE_163:PROFILE_14a)."</i></td></tr></table>".(($numpicfiles < 3)?"":"<br>");
-						$text .= IMAGE_images."&nbsp;".(($numpicfiles < 2)?PROFILE_163:PROFILE_14a)."<br>".(($numpicfiles < 3)?"":"<br>");
-					
-					
+						$txt .= IMAGE_images."&nbsp;".(($numpicfiles < 2)?PROFILE_163:PROFILE_14a)."<br>".(($numpicfiles < 3)?"":"<br>");
 					
 				}
+				$text = $this->tp->parseTemplate($this->tp->simpleParse($euser_template['images_no'], array('txt'=>$txt)), TRUE, $this);
+
+//PARA REMODELAR E VERIFICAR DAQUI PARA BAIXO.....
 				if (isset($_GET['album']) && isset($_GET['pic'])) {
 					if ($_GET['album'] != "root") {
 						$dir = "userimages/".$this->var['user_id']."/".$_GET['album']."/";
@@ -95,7 +110,7 @@ if(!function_exists("countpicFiles")) {
 						while (false !== ($filename = readdir($handle))) {
 							$file_list[] = array('name' => $filename, 'size' => filesize($dir."/".$filename), 'mtime' => filemtime($dir."/".$filename));
 						}
-if ($this->euser_pref['userpic_order'] == 'ASC' || $this->euser_pref['userpic_order'] == '') {
+if ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') {
 						usort($file_list, create_function('$a, $b', "return strcmp(\$a['mtime'], \$b['mtime']);"));
 } else {
 						usort($file_list, create_function('$b, $a', "return strcmp(\$a['mtime'], \$b['mtime']);"));
@@ -118,7 +133,7 @@ foreach($file_list as $one_file) {
 }
 					$aof = 0;
 					if (file_exists($dir."/only_friends")) $aof = 1;
-					if ((in_array(USERID, $friendb) && ($this->euser_pref['friends'] == "ON" || $this->euser_pref['friends'] == "") && USER) || !file_exists("".$dir."/only_friends") || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
+					if ((in_array(USERID, $friendb) && ($this->var['euser_pref']['friends'] == "ON" || $this->var['euser_pref']['friends'] == "") && USER) || !file_exists("".$dir."/only_friends") || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
 						$split = explode(".", $_GET['pic']);
 						$counter=0;
 						foreach($split as $string) {
@@ -144,10 +159,10 @@ foreach($file_list as $one_file) {
 						$kepmeret = getimagesize("".$dir.$_GET['pic']."");
 						$kep_sz = $kepmeret[0]+30;
 						$kep_m = $kepmeret[1]+30;
-						if ($this->euser_pref['picviewsize'] == '') {
+						if ($this->var['euser_pref']['picviewsize'] == '') {
 							$picviewsize = '600';
 						} else {
-							$picviewsize = $this->euser_pref['picviewsize'];
+							$picviewsize = $this->var['euser_pref']['picviewsize'];
 						}
 
 if ($prev_pic) {
@@ -171,28 +186,28 @@ $text .= '<table style="text-align: left; width: 100%; margin-left: auto; margin
 
 
 
-						if ($this->euser_pref['lightview'] == 'Yes' && $this->euser_pref['cl_widget_ver'] != ''){
+						if ($this->var['euser_pref']['lightview'] == 'Yes' && $this->var['euser_pref']['cl_widget_ver'] != ''){
 							if ($kep_sz<$picviewsize+31) {
 //								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/><br/>";
 								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/>";
 							} else {
 								$text .= "<center><a href='".$dir.$_GET['pic']."' class=\"lightview\" title='".$username.": ::".str_replace("_", " ", $picname)."'><img src='".$dir.$_GET['pic']."' width='$picviewsize'></a><br/>".str_replace("_", " ", $picname)."a</center>";
 							}
-						} else if ($this->euser_pref['lightwindowbox'] == 'Yes' && (file_exists(e_PLUGIN."lightwindow/js/lightwindow.js"))){
+						} else if ($this->var['euser_pref']['lightwindowbox'] == 'Yes' && (file_exists(e_PLUGIN."lightwindow/js/lightwindow.js"))){
 							if ($kep_sz<$picviewsize+31) {
 //								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/><br/>";
 								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/>";
 							} else {
 								$text .= "<center><a href='".$dir.$_GET['pic']."' class=\"lightwindow\" title='".$_GET['pic']."'><img src='".$dir.$_GET['pic']."' width='$picviewsize'></a><br/>".str_replace("_", " ", $picname)."</center>";
 							}
-						} else if ($this->euser_pref['lightbox'] == 'Yes' && $this->euser_pref['lightb_enabled'] == '1'){
+						} else if ($this->var['euser_pref']['lightbox'] == 'Yes' && $this->var['euser_pref']['lightb_enabled'] == '1'){
 							if ($kep_sz<$picviewsize+31) {
 //								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/><br/>";
 								$text .= "<center><img src='".$dir.$_GET['pic']."'><br>".str_replace("_", " ", $picname)."</center><br/>";
 							} else {
 								$text .= "<center><a href='".$dir.$_GET['pic']."' rel=\"lightbox[roadtrip]\" title='".$_GET['pic']."'><img src='".$dir.$_GET['pic']."' width='$picviewsize'></a><br/>".str_replace("_", " ", $picname)."</center>";
 							}
-						} else if ($this->euser_pref['clearbox'] == 'Yes'){
+						} else if ($this->var['euser_pref']['clearbox'] == 'Yes'){
 							echo '
 								<script language="JavaScript" src="clearbox/js/clearbox.js" type="text/javascript" charset="iso-8859-2"></script>
 								<link rel="stylesheet" href="clearbox/css/clearbox.css" rel="stylesheet" type="text/css"/>
@@ -252,8 +267,8 @@ $text .= '</td>
 						$sql->mySQLresult = @mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."'");
 						$picnumrows = $sql->db_Rows();
 						// MULTIPAGES INFO
-						if ($this->euser_pref['apcomments'] != '') {
-							$rowsPerPage = $this->euser_pref['apcomments'];
+						if ($this->var['euser_pref']['apcomments'] != '') {
+							$rowsPerPage = $this->var['euser_pref']['apcomments'];
 						} else {
 							$rowsPerPage = 5;
 						}
@@ -300,8 +315,8 @@ $text .= '</td>
 						}
 						// END OF MULTIPAGES
 	
-						if ($this->euser_pref['maxpiccomment'] != '') {
-							$maxpiccomment = $this->euser_pref['maxpiccomment'];
+						if ($this->var['euser_pref']['maxpiccomment'] != '') {
+							$maxpiccomment = $this->var['euser_pref']['maxpiccomment'];
 						} else {
 							$maxpiccomment = 50;
 						}
@@ -333,7 +348,7 @@ $text .= '</td>
 								//e107_0.8 compatible
 								if(file_exists(e_HANDLER."level_handler.php")){
 									require_once(e_HANDLER."level_handler.php");
-									$ldata = get_level($from['user_id'], $from['user_forums'], $from['user_comments'], $from['user_chats'], $from['user_visits'], $from['user_join'], $from['user_admin'], $from['user_perms'], $this->euser_pref);
+									$ldata = get_level($from['user_id'], $from['user_forums'], $from['user_comments'], $from['user_chats'], $from['user_visits'], $from['user_join'], $from['user_admin'], $from['user_perms'], $this->var['euser_pref']);
 								} else {
 									//
 								}
@@ -380,7 +395,7 @@ $text .= '</td>
 									$av = avatar($av);
 									$text .= "".$from['user_customtitle']."<br/><br/><a href='euser.php?id=".$com['com_by']."'><img src='".$av."' border='1' ".$avwidth." ".$avheight."  alt='' /></a>";
 								}
-								if ($this->euser_pref['user_warn_support'] == "Yes" AND $fromext['user_warn'] !='null' AND $fromext['user_warn'] !='') {
+								if ($this->var['euser_pref']['user_warn_support'] == "Yes" AND $fromext['user_warn'] !='null' AND $fromext['user_warn'] !='') {
 									$text .= "<br/><img src=\"".THEME_ABS."images/warn/".$fromext['user_warn'].".png\">";
 								}
 								$text .= "<br/>$from_level<br/><div class='smallblacktext'>".PROFILE_270."$from_join<br/>".PROFILE_272.$fromext['user_location']."</div></td>";
@@ -420,15 +435,15 @@ $text .= '</td>
 								$cpbox .= "</td></tr>";
 								// Check member settings
 								if ($break[2] == 1 && $this->var['user_id'] != USERID) {
-									if ((!in_array(USERID, $friendb)) && ($this->euser_pref['friends'] == "ON" || $this->euser_pref['friends'] == "")) {
+									if ((!in_array(USERID, $friendb)) && ($this->var['euser_pref']['friends'] == "ON" || $this->var['euser_pref']['friends'] == "")) {
 										$text .= "<tr><td>".$username." ".PROFILE_107b."</td></tr></table></form>";
-									} else if ($this->euser_pref['friends'] != "ON") {
+									} else if ($this->var['euser_pref']['friends'] != "ON") {
 										$text .= "<tr><td>".$username." ".PROFILE_107c."</td></tr></table></form>";
 									} else {
 										$text .= $cpbox;
 										///comment küldése
 										$text .= "</td></tr><tr><td><br/><br/><input type='hidden' name='id' value='".$this->var['user_id']."'><input type='hidden' name='pic' value='".$_GET['pic']."'><input type='hidden' name='picfull' value='".$_GET['album']."/".$_GET['pic']."'><input type='hidden' name='picname' value='".$picname[0]."'><input type='hidden' name='txtfile' value='".$data."'>";
-										if ($this->euser_pref['buttontype'] == "Yes") {
+										if ($this->var['euser_pref']['buttontype'] == "Yes") {
 											$text .= "<input type='image' name='post_comment' onmouseover='this.src=\"images/buttons/".e_LANGUAGE."_comment_over.gif\"' onmouseout='this.src=\"images/buttons/".e_LANGUAGE."_comment.gif\"' src='images/buttons/".e_LANGUAGE."_comment.gif' >";
 										} else {
 										$text .= "<input type='submit' name='post_comment' value='".PROFILE_208."' class='button'>";
@@ -438,7 +453,7 @@ $text .= '</td>
 									$text .= $cpbox;
 									///comment küldése
 									$text .= "</td></tr><tr><td><br/><br/><input type='hidden' name='id' value='".$this->var['user_id']."'><input type='hidden' name='pic' value='".$_GET['pic']."'><input type='hidden' name='picfull' value='".$_GET['album']."/".$_GET['pic']."'><input type='hidden' name='picname' value='".$picname[0]."'><input type='hidden' name='txtfile' value='".$data."'>";
-									if ($this->euser_pref['buttontype'] == "Yes") {
+									if ($this->var['euser_pref']['buttontype'] == "Yes") {
 										$text .= "<input type='image' name='post_comment' onmouseover='this.src=\"images/buttons/".e_LANGUAGE."_comment_over.gif\"' onmouseout='this.src=\"images/buttons/".e_LANGUAGE."_comment.gif\"' src='images/buttons/".e_LANGUAGE."_comment.gif' >";
 									} else {
 										$text .= "<input type='submit' name='post_comment' value='".PROFILE_208."' class='button'>";
@@ -453,7 +468,7 @@ $text .= '</td>
 				} elseif (isset($_GET['album']) && !isset($_GET['pic'])) {
 					$text .= "<a href='euser.php?id=".$this->var['user_id']."&page=".$_GET['page']."'><< ".PROFILE_34."</a><br/>";
 					$dir = "userimages/".$this->var['user_id']."/".$_GET['album']."/";
-					if ((in_array(USERID, $friendb) && ($this->euser_pref['friends'] == "ON" || $this->euser_pref['friends'] == "") && USER) || !file_exists("".$dir."/only_friends") || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
+					if ((in_array(USERID, $friendb) && ($this->var['euser_pref']['friends'] == "ON" || $this->var['euser_pref']['friends'] == "") && USER) || !file_exists("".$dir."/only_friends") || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
 						if (file_exists($dir)) {
 							// IF glob has been disabled by your host then uncomment the above function and comment out the next 2 lines.
 							$empty = (count(glob("$dir/*")) === 0) ? 'TRUE' : 'FALSE';
@@ -462,8 +477,8 @@ $text .= '</td>
 								$text .= "<br/><i>".PROFILE_123."</i>";
 							} else {
 								$column = 1;
-								if ($this->euser_pref['piccol']) {
-									$profile_piccol = $this->euser_pref['piccol'];
+								if ($this->var['euser_pref']['piccol']) {
+									$profile_piccol = $this->var['euser_pref']['piccol'];
 								} else {
 									$profile_piccol = 3;
 								}
@@ -477,7 +492,7 @@ $text .= '</td>
 						while (false !== ($filename = readdir($handle))) {
 							$file_list[] = array('name' => $filename, 'size' => filesize($dir."/".$filename), 'mtime' => filemtime($dir."/".$filename));
 						}
-if ($this->euser_pref['userpic_order'] == 'ASC' || $this->euser_pref['userpic_order'] == '') {
+if ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') {
 						usort($file_list, create_function('$a, $b', "return strcmp(\$a['mtime'], \$b['mtime']);"));
 } else {
 						usort($file_list, create_function('$b, $a', "return strcmp(\$a['mtime'], \$b['mtime']);"));
@@ -564,7 +579,7 @@ if (e_LANGUAGE == "English") {
 						while (false !== ($filename = readdir($handle))) {
 							$file_list[] = array('name' => $filename, 'size' => filesize($dir."/".$filename), 'mtime' => filemtime($dir."/".$filename));
 						}
-if ($this->euser_pref['userpic_order'] == 'ASC' || $this->euser_pref['userpic_order'] == '') {
+if ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') {
 						usort($file_list, create_function('$a, $b', "return strcmp(\$a['mtime'], \$b['mtime']);"));
 } else {
 						usort($file_list, create_function('$b, $a', "return strcmp(\$a['mtime'], \$b['mtime']);"));
@@ -577,8 +592,8 @@ if ($this->euser_pref['userpic_order'] == 'ASC' || $this->euser_pref['userpic_or
 //					if ($handle = opendir($dir)) {
 						$col = 0;
 						$piccol = 0;
-						if ($this->euser_pref['piccol']) {
-							$profile_piccol = $this->euser_pref['piccol'];
+						if ($this->var['euser_pref']['piccol']) {
+							$profile_piccol = $this->var['euser_pref']['piccol'];
 						} else {
 							$profile_piccol = 3;
 						}
@@ -659,7 +674,7 @@ if (e_LANGUAGE == "English") {
 										$imageurl = "src='userimages/".$this->var['user_id']."/".$file."/".$firstimage."' width='100' ";
 									}
 									//Albums:
-									if ((in_array(USERID, $friendb) && ($this->euser_pref['friends'] == "ON" || $this->euser_pref['friends'] == "") && USER) || $aof != 1 || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
+									if ((in_array(USERID, $friendb) && ($this->var['euser_pref']['friends'] == "ON" || $this->var['euser_pref']['friends'] == "") && USER) || $aof != 1 || $this->var['user_id'] == USERID || (ADMIN && getperms("4"))) {
 /*
 										if ($count == 0) {
 											$text .="<td width='".$profile_piccol_p."%'><center><a href='euser.php?id=".$this->var['user_id']."&page=images&album=".$file."'  style=\"text-decoration: none;\"><img src='images/folder.png' width='64' style='padding:5px;border-style:outset;border-width:1px'><br/>".str_replace("_", " ", $file)."</a><br/><br/>".$count." ".($count == 1 ? PROFILE_134 : PROFILE_135)."<br/><br/></center></td>";
@@ -694,4 +709,3 @@ if (e_LANGUAGE == "English") {
 */
 				}
 return $text;
-?>
