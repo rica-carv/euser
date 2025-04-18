@@ -668,3 +668,10 @@ define("LAN_ADMIN_5", "Standard");
 define("LAN_ADMIN_6", "Mini"); 
 define("LAN_ADMIN_7", "Tipo do menu Info Online: "); 
 
+//-----------------------------------------------------------------------
+//---- LANS DEFINITIVAS, BASICAMENTE É SÓ AS QUE VOU USAR NO EUSER... ---
+//-----------------------------------------------------------------------
+define("LAN_EUSER_ADMIN_1", "Sistema Amigos"); //Ex LAN_EUSER_ADMIN_400
+define("LAN_EUSER_ADMIN_2", "Secção Membros"); //Ex LAN_EUSER_ADMIN_006
+define("LAN_EUSER_ADMIN_3", "Secção Informação"); //Ex LAN_EUSER_ADMIN_007
+define("LAN_EUSER_ADMIN_4", "Definições cores");   //Ex LAN_EUSER_001007

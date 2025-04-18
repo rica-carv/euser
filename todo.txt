@@ -20,7 +20,7 @@ Quando funcionar, também arranjar um shortcode para o chamar para ter um failsaf
 - Fazer os languages na V2.0 do e107
 - Agrupar os icones só num ficheiro, e alterá-los todos para um mesmo estilo
 - Verificar a integração com o menu de icones do login_mini_menu (onlineinfo_menu), principalmente memberlist e amigos...
-- Transformar na tabela dos amigos aquilo separado por | em commas (CSV)
+- Transformar na tabela dos amigos aquilo separado por | em commas (CSV). Não, vai passar para uma tabela nova….
 
 
 - Criar um plugin para limpar a pasta de plugins de plugins não instalados / usados....

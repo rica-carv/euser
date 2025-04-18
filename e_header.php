@@ -14,8 +14,8 @@ if (!defined('e107_INIT')) { exit; }
 //	e107::css('news','news_carousel.css');
 //}
 
-$lan_file = e_PLUGIN.'euser/languages/'.e_LANGUAGE.'.php';
-include_once(file_exists($lan_file) ? $lan_file : e_PLUGIN.'euser/languages/English.php');
+///////$lan_file = e_PLUGIN.'euser/languages/'.e_LANGUAGE.'.php';
+///////include_once(file_exists($lan_file) ? $lan_file : e_PLUGIN.'euser/languages/English.php');
 //include_once(e_PLUGIN."euser/functions.php");
 include_once(e_PLUGIN.'euser/euser_class.php');
 

@@ -48,7 +48,7 @@ var_dump (e_PAGE == "user.php");
 //  if ($euser_pref['redirect_usersettings'] && e_PAGE == "usersettings.php" && e_QUERY != "update") {
 //	var_dump(check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update");
 //	exit;
-		if (check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update") {
+		if (check_class($euser_pref['memberprofile_edit']) && (defined('e_PAGE')?e_PAGE:"") == "usersettings.php" && e_QUERY != "update") {
 //  if (e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "usersettings.php" && e_QUERY != "update") {
   $_uid = is_numeric(e_QUERY) ? intval(e_QUERY) : "";
 	if ($_uid != '') {
@@ -63,7 +63,7 @@ var_dump (e_PAGE == "user.php");
 
 //  if ($euser_pref['redirect_usersettings'] && e_PAGE == "user.php") {
 //  var_dump (e_QUERY);
-  if (check_class($euser_pref['memberprofile_view']) && e_PAGE == "user.php" && e_QUERY) {
+  if (check_class($euser_pref['memberprofile_view']) && (defined('e_PAGE')?e_PAGE:"") == "user.php" && e_QUERY) {
 //  if (e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "user.php") {
 // Para quê reinventar a roda e transformar isto para um $GET?????
 /*
@@ -90,7 +90,7 @@ var_dump (e_PAGE == "user.php");
 //   var_dump($euser_pref['memberlist_access']);
 //   var_dump(e_PAGE == "user.php");
 //   var_dump(!e_QUERY);
-   if ($euser_pref['memberlist_access'] && e_PAGE == "user.php" && !e_QUERY) {
+   if ($euser_pref['memberlist_access'] && (defined('e_PAGE')?e_PAGE:"") == "user.php" && !e_QUERY) {
 //   if (e107::getPlugPref('euser','memberlist') == "Yes" && !$lnk) {
     e107::redirect(e_PLUGIN."euser/euser_memberlist.php");
 //		header("Location: ".e_PLUGIN."euser/euser.php");
@@ -108,7 +108,7 @@ var_dump (e_PAGE == "user.php");
 		}
   }
 */
-  if (e_PAGE == "users.php") {
+  if ((defined('e_PAGE')?e_PAGE:"") == "users.php") {
 	if ($_POST['useraction'] == "deluser") {
     e107::redirect(e_PLUGIN."euser/admin_menu.php?page=deluser&deluser_id=".intval($_POST['userid']));
 //		header("Location: ".e_PLUGIN."euser/admin_menu.php?page=deluser&deluser_id=".intval($_POST['userid'])."");

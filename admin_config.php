@@ -127,19 +127,19 @@ class euser_adminArea extends e_admin_dispatcher
 //		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
 //		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
 		'main/prefs'			=> array('caption'=> LAN_PREFS, 'perm' => 'P'),
-		'friends/prefs'			=> array('caption'=> LAN_EUSER_ADMIN_400, 'perm' => 'P'),
+		'friends/prefs'			=> array('caption'=> LAN_EUSER_ADMIN_1, 'perm' => 'P'),
 
-		'opt1'              => array('header'=> LAN_EUSER_ADMIN_006),
+		'opt1'              => array('header'=> LAN_EUSER_ADMIN_2),
 
-		'profile/prefs'			=> array('caption'=> LAN_EUSER_0013, 'perm' => 'P'),
-		'memberlist/prefs'			=> array('caption'=> LAN_EUSER_0029, 'perm' => 'P'),
+		'profile/prefs'			=> array('caption'=> LAN_USER_50, 'perm' => 'P'), 
+		'memberlist/prefs'			=> array('caption'=> LAN_EUSER_500, 'perm' => 'P'),
 //		'main/opt1'              => array('divider'=>true),
-		'opt2'              => array('header'=> LAN_EUSER_ADMIN_007),
-		'whatsnew/prefs'			=> array('caption'=> LAN_EUSER_400, 'perm' => 'P'),
+		'opt2'              => array('header'=> LAN_EUSER_ADMIN_3),
+		'whatsnew/prefs'			=> array('caption'=> LAN_EUSER_501, 'perm' => 'P'),
 //		'main/opt2'              => array('divider'=>true),
-		'online/prefs'			=> array('caption'=> LAN_EUSER_104, 'perm' => 'P'),
+		'online/prefs'			=> array('caption'=> LAN_EUSER_502, 'perm' => 'P'),
 //		'main/opt3'              => array('divider'=>true),
-		'color/prefs'			=> array('caption'=> LAN_EUSER_001007, 'perm' => 'P'),
+		'color/prefs'			=> array('caption'=> LAN_EUSER_ADMIN_4, 'perm' => 'P'),
 //		'color/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
 
 		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
@@ -309,9 +309,11 @@ class euser_friends_form_ui extends e_admin_form_ui
 
 	function fr_req_sendpm($curVal,$mode)
 	{
+/*
 var_dump ($_POST);
 echo "<hr>";
 var_dump (e107::getPlugPref('euser'));		
+*/
 		$frm = e107::getForm();
 		
     $text .= '<div class="pull-left">';
@@ -1644,6 +1646,3 @@ require_once(e_ADMIN."auth.php");
 e107::getAdminUI()->runPage();
 
 require_once(e_ADMIN."footer.php");
-exit;
-
-?>

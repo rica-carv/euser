@@ -40,12 +40,6 @@ CREATE TABLE  IF NOT EXISTS euser_memberlist (
 );
 # --------------------------------------------------------
 #
-# Initial data for table `euser_memberlist`
-#
-# INSERT INTO euser_memberlist VALUES ('','|username|email|','');
-#
-# --------------------------------------------------------
-#
 # Table structure for table `euser_friends`
 #
 CREATE TABLE IF NOT EXISTS  euser (

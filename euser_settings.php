@@ -56,7 +56,7 @@ $replace = array('getScBatch(\'user_settings\', \'euser\', \'user_settings\')',
 'getTemplate(\'euser\', \'euser_settings\');',
 '(\'euser_settings',
 'Template',
-'$caption = (USERID?e107::getParser()->simpleParse($USERSETTINGS_EDIT_CAPTION, array_change_key_case(e107::user(USERID), CASE_UPPER)):EUSERPROFILE_101);',
+'$caption = (USERID?e107::getParser()->simpleParse($USERSETTINGS_EDIT_CAPTION, array_change_key_case(e107::user(USERID), CASE_UPPER)):LAN_EUSER_101);',
 'return $this->renderForm($changedUserData);',
 'protected $template =',
 'protected $sc =',
@@ -79,7 +79,7 @@ $replace = array('getScBatch(\'user_settings\', \'euser\', \'user_settings\')',
 'getTemplate(\'euser\', \'euser_settings\');',
 '(\'euser_settings',
 'Template',
-'$caption = (USERID?e107::getParser()->simpleParse($USERSETTINGS_EDIT_CAPTION, array_change_key_case(e107::user(USERID), CASE_UPPER)):EUSERPROFILE_101);',
+'$caption = (USERID?e107::getParser()->simpleParse($USERSETTINGS_EDIT_CAPTION, array_change_key_case(e107::user(USERID), CASE_UPPER)):LAN_EUSER_101);',
 'protected $template =',
 'protected $sc =',
 '= $template[\'edit_caption\']',
@@ -2506,10 +2506,10 @@ if ($euser_pref['userpic_order'] == 'ASC' || $euser_pref['userpic_order'] == '')
 if(ADMIN)
 {
 //	var_dump($euser_pref['friends']);
-	$sections = $euser_pref['friends']?EUSERPROFILE_130.", ":null;
-	$sections .= $euser_pref['pics']?EUSERPROFILE_140.", ":null;
-	$sections .= $euser_pref['videos']?EUSERPROFILE_150:null;
-	$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(EUSERPROFILE_6, true), array('x'=>$sections)).'</div>';
+	$sections = $euser_pref['friends']?LAN_EUSER_130.", ":null;
+	$sections .= $euser_pref['pics']?LAN_EUSER_140.", ":null;
+	$sections .= $euser_pref['videos']?LAN_EUSER_150:null;
+	$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(LAN_EUSER_6, true), array('x'=>$sections)).'</div>';
 }
 */
 $adminwarn = $this->adminwarn($euser_pref);
@@ -2625,8 +2625,8 @@ echo "</pre>";
 	echo "</pre>";
 */
 	// Setup validation strings
-//	$userMethods->userVettingInfo['user_settings'] = array('niceName'=> EUSERPROFILE_102, 'fieldType' => 'string', 'vetMethod' => '0', 'vetParam' => '', 'srcName' => 'eprefs', 'dataType' => '1');
-//	$userMethods->userVettingInfo['mp3_embed'] = array('niceName'=> EUSERPROFILE_103, 'fieldType' => 'string', 'vetMethod' => '0', 'vetParam' => '', 'srcName' => 'mp3');	// mp3			
+//	$userMethods->userVettingInfo['user_settings'] = array('niceName'=> LAN_EUSER_102, 'fieldType' => 'string', 'vetMethod' => '0', 'vetParam' => '', 'srcName' => 'eprefs', 'dataType' => '1');
+//	$userMethods->userVettingInfo['mp3_embed'] = array('niceName'=> LAN_EUSER_103, 'fieldType' => 'string', 'vetMethod' => '0', 'vetParam' => '', 'srcName' => 'mp3');	// mp3			
 //	var_dump ($userMethods->userVettingInfo);
 //exit;
 // Tenho de depois por aqui o proprio validate meu
@@ -2685,7 +2685,7 @@ function render_caption(){
 	echo "</pre>";
 */
 /*
-	return (USERID?e107::getParser()->simpleParse($this->template['edit_caption'], array_change_key_case(e107::user(USERID), CASE_UPPER)):EUSERPROFILE_101);
+	return (USERID?e107::getParser()->simpleParse($this->template['edit_caption'], array_change_key_case(e107::user(USERID), CASE_UPPER)):LAN_EUSER_101);
 //	$caption = (isset($USERSETTINGS_EDIT_CAPTION)) ? $USERSETTINGS_EDIT_CAPTION : LAN_USET_39;
 	//$eusersettings_sc->setVars($user_data);
 //	return e107::getParser()->simpleParse($this->template['edit_caption'], array_change_key_case(e107::user($_GET['uid']??USERID), CASE_UPPER));

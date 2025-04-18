@@ -141,6 +141,8 @@ require_once(HEADERF);
 e107::getTemplate('euser', 'icons');
 
 //var_dump ("sadklasdlçjksakldj");
+// Passar para usar a msg?       echo $msg->render();
+
 if (!e107::isInstalled('euser')) {
 	$ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2a);
 	require_once(FOOTERF);
@@ -787,12 +789,14 @@ echo "<hr><hr>";
 if(ADMIN)
 {
 //	var_dump($euser_pref['friends']);
-	$sections = $euser_pref['friends']?EUSERPROFILE_130.", ":null;
-	$sections .= $euser_pref['pics']?EUSERPROFILE_140.", ":null;
-	$sections .= $euser_pref['videos']?EUSERPROFILE_150:null;
-	$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(EUSERPROFILE_6, true), array('x'=>$sections)).'</div>';
+	$sections = $euser_pref['friends']?LAN_EUSER_130.", ":null;
+	$sections .= $euser_pref['pics']?LAN_EUSER_140.", ":null;
+	$sections .= $euser_pref['videos']?LAN_EUSER_150:null;
+	$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(LAN_EUSER_6, true), array('x'=>$sections)).'</div>';
 }
 */
+// mudar para usar msg...       echo $msg->render();
+
 	include_once(e_PLUGIN . "euser/includes/euser_trait.php");
 	$adminwarn = (new class { use Euser_admin_info; })::adminwarn($euser_pref);
 

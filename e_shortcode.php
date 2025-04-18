@@ -35,14 +35,13 @@ class euser_shortcodes extends e_shortcode
 	use Euser_global_info;
 	protected $tp;
 
+	protected $sql;
+
 	function __construct()
 	{
-	
 		$this->sql = e107::getDb();
-
 		$this->tp = e107::getParser();
 	}
-
 
 	/*----------------------------- 
   PM SHORTCODE 
@@ -125,7 +124,8 @@ function sc_pm_nav($parm='')
 	
 	  $pm = new private_message;
 	
-	  $glyph  = empty($parm['glyph']) ? 'fa-paper-plane' : $parm['glyph'];
+//	  $glyph  = empty($parm['glyph']) ? 'fa-paper-plane' : $parm['glyph'];
+	  $glyph  = empty($parm['glyph']) ? 'fa-message' : $parm['glyph'];
 	  $class  = empty($parm['class']) ? 'sendpm btn btn-sm btn-light' : $parm['class'];
 	
 	
@@ -868,7 +868,8 @@ var_dump ($parms['text']);
 //      $text .= "<li class='divider'><hr class='dropdown-divider'></li>";
 //      $text .= "<li class='dropdown-item'>" . $pmButton . "</li>";
 // E chamar directamente a função? não ?
-return $this->tp->parseTemplate("{SENDPM: user=" . key($uinfo) . "&glyph=envelope}");
+return $this->tp->parseTemplate("{SENDPM: user=" . key($uinfo) . "}");
+////////////return $this->sc_sendpm(array('user'=>key($uinfo)));
 //    }
 
     // $text .= "<li><a href='".e_PLUGIN_ABS."pm/pm.php?send.{$this->postInfo['post_user']}'>".$tp->toGlyph('envelope')." ".LAN_FORUM_2036." </a></li>";

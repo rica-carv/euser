@@ -189,7 +189,7 @@ define("ONLINEINFO_LIST_20", "Bugtracker");
 define("ONLINEINFO_LIST_21", "Conteúdos"); 
 define("ONLINEINFO_LIST_22", "Fotografias"); 
 define("ONLINEINFO_LIST_23", "Livro de visitas"); 
-define("ONLINEINFO_LIST_24", "Perfil do Utilizador (EUSERPROFILE_101)"); // Passou para o EUSERPROFILE_101
+define("ONLINEINFO_LIST_24", "Perfil do Utilizador (LAN_EUSER_101)"); // Passou para o LAN_EUSER_101
 define("ONLINEINFO_LIST_25", "não foi fornecida."); 
 define("ONLINEINFO_LIST_26", " acrescentar: "); 
 define("ONLINEINFO_LIST_27", " Título: "); 
@@ -1133,42 +1133,56 @@ define("PROFILE_CP_113", "Listas");
 define("PROFILE_CP_164", "Listas:");
 define("PROFILE_CP_118", "Utilizador ainda não tem listas.");
 
+//-----------------------------------------------------------------------
+//---- LANS DEFINITIVAS, BASICAMENTE É SÓ AS QUE VOU USAR NO EUSER... ---
+//-----------------------------------------------------------------------
+// LAN'S perfil utilizador
+define("LAN_EUSER_1", "Informação social");
+define("LAN_EUSER_2", "Ficheiros enviados");
+define("LAN_EUSER_3", "Hiperligações");
+define("LAN_EUSER_4", "Resumo actividade");
+define("LAN_EUSER_5", "Forum");
+define("LAN_EUSER_6", "Aviso apenas para administradores:[br]As secções [b][x][/b] estão ligadas.");
+// LAN'S editor perfil utilizador
+define("LAN_EUSER_101", "Configurações do perfil do Utilizador");
+define("LAN_EUSER_102", "Preferências do perfil");
+define("LAN_EUSER_103", "Configurar musica do perfil"); //Ex PROFILE_166, PROFILE_404
 
-//---------------------------------------------- LANS DEFINITIVAS, BASICAMENTE É SÓ AS QUE VOU USAR NO EUSER...
-define("EUSERPROFILE_1", "Informação social");
-define("EUSERPROFILE_2", "Ficheiros enviados");
-define("EUSERPROFILE_3", "Hiperligações");
-define("EUSERPROFILE_4", "Resumo actividade");
-define("EUSERPROFILE_5", "Forum");
-define("EUSERPROFILE_6", "Aviso apenas para administradores:[br]As secções [b][x][/b] estão ligadas.");
+// O core já tem isto, não vou usar... define("LAN_EUSER_110", "Apagar Avatar<br><i>(Restaurar para a imagem por defeito)</i>"); //Ex PROFILE_110
+define("LAN_EUSER_109", "Configurar avatar");
 
-define("EUSERPROFILE_10", "Definições de segurança do perfil"); //Ex PROFILE_190
-define("EUSERPROFILE_11", "Estatísticas do perfil"); //Ex PROFILE_148
-define("EUSERPROFILE_12", "Quem pode ver a minha informação pessoal:"); //Ex PROFILE_102 PROFILE_102a
-define("EUSERPROFILE_13", "Quem pode ver os meus amigos:"); //Ex PROFILE_249
-define("EUSERPROFILE_14", "Quem pode ver os comentarios do meu perfil:"); //Ex PROFILE_254 PROFILE_254a
-define("EUSERPROFILE_15", "Quem pode comentar o meu perfil:"); //Ex PROFILE_103 PROFILE_103a
-define("EUSERPROFILE_16", "Quem pode ver as imagens do meu perfil:"); //Ex PROFILE_247 PROFILE_247a
-define("EUSERPROFILE_17", "Quem pode comentar as minhas imagens:"); //Ex PROFILE_106 PROFILE_106a
-define("EUSERPROFILE_18", "Quem pode ver os videos do meu perfil:"); //Ex PROFILE_248 PROFILE_248a
-define("EUSERPROFILE_19", "Quem pode comentar os meus videos"); //Ex PROFILE_116 PROFILE_116a
-define("EUSERPROFILE_20", "Quem pode ouvir a musica do meu perfil:"); //Ex PROFILE_255 PROFILE_255a
-define("EUSERPROFILE_21", "Geral");
-define("EUSERPROFILE_22", "Enviar-me uma mensagem privada quando for solicitado um pedido de amizade?"); //Ex PROFILE_122
-define("EUSERPROFILE_23", "Enviar-me um email quando for solicitado um pedido de amizade?"); //Ex PROFILE_122a
-define("EUSERPROFILE_24", "Exibir botão 'Pedir amizade' nos meus paineis de informação (forum, noticias, etc.)"); // Ex PROFILE_111
+define("LAN_EUSER_110", "Definições de segurança do perfil"); //Ex PROFILE_190
+define("LAN_EUSER_111", "Estatísticas do perfil"); //Ex PROFILE_148
+define("LAN_EUSER_112", "Quem pode ver a minha informação pessoal:"); //Ex PROFILE_102 PROFILE_102a
+define("LAN_EUSER_113", "Quem pode ver os meus amigos:"); //Ex PROFILE_249
+define("LAN_EUSER_114", "Quem pode ver os comentarios do meu perfil:"); //Ex PROFILE_254 PROFILE_254a
+define("LAN_EUSER_115", "Quem pode comentar o meu perfil:"); //Ex PROFILE_103 PROFILE_103a
+define("LAN_EUSER_116", "Quem pode ver as imagens do meu perfil:"); //Ex PROFILE_247 PROFILE_247a
+define("LAN_EUSER_117", "Quem pode comentar as minhas imagens:"); //Ex PROFILE_106 PROFILE_106a
+define("LAN_EUSER_118", "Quem pode ver os videos do meu perfil:"); //Ex PROFILE_248 PROFILE_248a
+define("LAN_EUSER_119", "Quem pode comentar os meus videos"); //Ex PROFILE_116 PROFILE_116a
+define("LAN_EUSER_120", "Quem pode ouvir a musica do meu perfil:"); //Ex PROFILE_255 PROFILE_255a
+define("LAN_EUSER_121", "Geral");
+define("LAN_EUSER_122", "Enviar-me uma mensagem privada quando for solicitado um pedido de amizade?"); //Ex PROFILE_122
+define("LAN_EUSER_123", "Enviar-me um email quando for solicitado um pedido de amizade?"); //Ex PROFILE_122a
+define("LAN_EUSER_124", "Exibir botão 'Pedir amizade' nos meus paineis de informação (forum, noticias, etc.)"); // Ex PROFILE_111
 
-define("EUSERPROFILE_101", "Configurações do perfil do Utilizador");
-define("EUSERPROFILE_102", "Preferências do perfil");
-define("EUSERPROFILE_103", "Configurar musica do perfil"); //Ex PROFILE_166, PROFILE_404
+// LAN'S secção AMIGOS
+define("LAN_EUSER_130", "Amigos"); //Ex-PROFILE_13
+define("LAN_EUSER_131", "Utilizadores registados");
+define("LAN_EUSER_132", "Visitantes"); //Ex-ONLINENOW_4 EUSER_LOGIN_MENU_L56
 
-// O core já tem isto, não vou usar... define("EUSERPROFILE_110", "Apagar Avatar<br><i>(Restaurar para a imagem por defeito)</i>"); //Ex PROFILE_110
-define("EUSERPROFILE_110", "Configurar avatar");
+// LAN'S secção IMAGENS
+define("LAN_EUSER_140", "Imagens"); //Ex-PROFILE_14
 
-define("EUSERPROFILE_130", "Amigos"); //Ex-PROFILE_13
-define("EUSERPROFILE_131", "Utilizadores registados");
-define("EUSERPROFILE_132", "Visitantes"); //Ex-ONLINENOW_4 EUSER_LOGIN_MENU_L56
+// LAN'S secção VIDEOS
+define("LAN_EUSER_150", "Videos"); //Ex-PROFILE_113
 
-define("EUSERPROFILE_140", "Imagens"); //Ex-PROFILE_14
+//Outras LAN's
+define("LAN_EUSER_500", "Lista de membros"); //Ex LAN_EUSER_0029
+define("LAN_EUSER_501", "Novidades"); //Ex LAN_EUSER_400
+define("LAN_EUSER_502", "Ligado"); //Ex LAN_EUSER_104
+//Ex LAN_EUSER_001007
 
-define("EUSERPROFILE_150", "Videos"); //Ex-PROFILE_113
+
+

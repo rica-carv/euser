@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e107Plugin name="Euser - E107 Extended User" lan="EUSER_FULL_NAME" version="0.1.0b" date="2025-02-05" compatibility="2.0" installRequired="true" xhtmlcompliant="true" >
-	<author name="Ricardo Carvalho (based on several plugins)" email="selo.fan@gmail.com" url="http://selospt.tk" />
-	<description lan="LAN_EUSER_DESC">E107 Extended user management area, based in e107 old plugins (see readme.txt for details)</description>
+	<author name="rica-carv" email="selo.fan@gmail.com" url="https://github.com/rica-carv" />
+		<description lan="LAN_EUSER_DESC">E107 Extended user management area, based in e107 old plugins (see readme.txt for details)</description>
 	<keywords>
 		<word>enhancement</word>
 		<word>user</word>

@@ -264,11 +264,11 @@ define("LAN_EUSER_ADMIN_627", "Loginname");     //LAN_USER_02
 //define("LAN_EUSER_ADMIN_628", "E-mail address");
 define("LAN_EUSER_ADMIN_628", "Birth date");   // Data de nascimento
 //define("LAN_EUSER_ADMIN_629", "Registration Date");
-define("LAN_EUSER_ADMIN_629", "Country");   // País
+define("LAN_EUSER_ADMIN_629", "Country");   // Paï¿½s
 //define("LAN_EUSER_ADMIN_630", "Last visit");
 define("LAN_EUSER_ADMIN_630", "Website");   // Site
 //define("LAN_EUSER_ADMIN_631", "Number of visits");
-define("LAN_EUSER_ADMIN_631", "Language");    // Língua
+define("LAN_EUSER_ADMIN_631", "Language");    // Lï¿½ngua
 
 define("LAN_EUSER_ADMIN_632", "Time Zone");
 define("LAN_EUSER_ADMIN_633", "IP-Address");
@@ -305,15 +305,15 @@ define("LAN_EUSER_ADMIN_656", "Most viewed profiles");
 define("LAN_EUSER_ADMIN_657", "Most Friend");
 define("LAN_EUSER_ADMIN_658", "Display administrators in the top of lists");
 
-define("LAN_EUSER_ADMIN_659", "AIM");    // Endereço AIM
-define("LAN_EUSER_ADMIN_660", "ICQ");    // Número ICQ
-define("LAN_EUSER_ADMIN_661", "MSN");    // Endereço MSN
-define("LAN_EUSER_ADMIN_662", "Yahoo");    // Endereço Yahoo
+define("LAN_EUSER_ADMIN_659", "AIM");    // Endereï¿½o AIM
+define("LAN_EUSER_ADMIN_660", "ICQ");    // Nï¿½mero ICQ
+define("LAN_EUSER_ADMIN_661", "MSN");    // Endereï¿½o MSN
+define("LAN_EUSER_ADMIN_662", "Yahoo");    // Endereï¿½o Yahoo
 
-// Há aqui muitas LANS que estão no core... Troca-se? não...
+// Hï¿½ aqui muitas LANS que estï¿½o no core... Troca-se? nï¿½o...
 
 // Passar para o config do menu PM
-// Código do admin   . Tenho de ir á pesca da função   Create_sound_dropdown
+// Cï¿½digo do admin   . Tenho de ir ï¿½ pesca da funï¿½ï¿½o   Create_sound_dropdown
 /*
 <tr>
 <td class="forumheader3">'.ONLINEINFO_LOGIN_MENU_A64.'</td>
@@ -348,7 +348,7 @@ define("ONLINEINFO_IPB_A13", "Auto Hide IPB Forum: ");
 define("ONLINEINFO_LOGIN_dropdown_A1", "Yes");
 define("ONLINEINFO_LOGIN_dropdown_A2", "No");
 
-// Não usados no config, passou a ser definido via template...
+// Nï¿½o usados no config, passou a ser definido via template...
 //define("EUSER_LOGIN_MENU_A3", "Caption: ");
 //define("EUSER_LOGIN_MENU_A4", "default: Online Info");
 //define("EUSER_LOGIN_MENU_A5", "Put ");
@@ -927,4 +927,7 @@ define("ADMIN_PROFILE_213", "Top list enabled");
 //define("ADMIN_PROFILE_245", "Indavideo");
 define("ADMIN_PROFILE_246", "Check video file access<br/><i>Recommended option: Yes</i>");
 define("ADMIN_PROFILE_247", "User pictures sorted by default");
-?>
+
+
+// redefino tudo a partir daqui....
+
