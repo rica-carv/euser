@@ -37,7 +37,10 @@ trait Euser_global_info {
 		} elseif (strpos(e_PAGE, "euser") !== false) {
 			$sc = e107::getScBatch('user', 'euser', 'user');
 //			$uid = $_GET['id'];
-			$uinfo[$sc->var['user_id']] = $sc->var['user_name'];
+//var_dump($sc);
+//var_dump($sc->getVars());
+//echo "<hr>";
+			$uinfo[$sc->getVars()['user_id']] = $sc->getVars()['user_name'];
 		}
 /*
 		echo "<pre>";
@@ -48,14 +51,14 @@ trait Euser_global_info {
 		  var_dump($this->var);
 		  echo "</pre>";
 */
-		if (!$uinfo) {
+//		if (!$uinfo) {
 
-		}
+//		}
 		
 //		  return ($parm=='name'?$unm:$uid);
 		// vou passar ausar um array
 //		  return array($uid => $uname);
-		  return $uinfo;
+		  return ($uinfo??null);
 	}
 
 }
@@ -68,12 +71,12 @@ trait Euser_admin_info {
 		{
 			$tp = e107::getParser();
 			//	var_dump($euser_pref['friends']);
-			$sections = $euser_pref['friends']?EUSERPROFILE_130.", ":null;
-			$sections .= $euser_pref['pics']?EUSERPROFILE_140.", ":null;
-			$sections .= $euser_pref['videos']?EUSERPROFILE_150:null;
-			$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(EUSERPROFILE_6, true), array('x'=>$sections)).'</div>';
+			$sections = $euser_pref['friends']?LAN_EUSER_130.", ":null;
+			$sections .= $euser_pref['pics']?LAN_EUSER_140.", ":null;
+			$sections .= $euser_pref['videos']?LAN_EUSER_150:null;
+			$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(LAN_EUSER_6, true), array('x'=>$sections)).'</div>';
 		}
-		return $adminwarn;
+		return ($adminwarn??null);
 	}
 }
 
