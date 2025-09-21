@@ -1,4 +1,3 @@
 <?php
-define("LAN_EUSER_FULLNAME", "Euser - E107 Utilizadores (Extensão)");
-define("LAN_EUSER_DESC", "Uma área extendida de Gerenciador de Utilizadores. (baseada em diversos plugins antigos)");
-
+define("LAN_PLUGIN_PHILLIS_PAGE_NAME","Filatelia - Listas");
+define("LAN_PLUGIN_PHILLIS_DESCRIPTION","Este plugin é um sistema de Listas Filatélico com todos os recursos.");

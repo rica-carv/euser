@@ -1,3 +1,4 @@
 <?php
-define("LAN_EUSER_FULLNAME", "Euser - Extended user");
-define("LAN_EUSER_DESC", "Extended user management area (based on several old plugins)");
+// O LAN_PLUGIN_PHILLIS_PAGE_NAME tem de ficar, por causa dos títulos da página nos browsers
+define("LAN_PLUGIN_PHILLIS_PAGE_NAME","Phil (Lists)");
+define("LAN_PLUGIN_PHILLIST_DESCRIPTION","This plugin is a fully featured Philatelic List system.");
