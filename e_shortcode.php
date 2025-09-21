@@ -29,6 +29,7 @@ else
 }
 */
 e107::getTemplate('euser', 'icons');
+e107::coreLan('admin', true);
 
 class euser_shortcodes extends e_shortcode
 {
@@ -708,6 +709,9 @@ echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>";
 echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>";
 var_dump ($parms['text']);
 */
+//var_dump ($uinfo);
+//var_dump ($check);
+//var_dump (current($uinfo));
 	if ($parms['class']){
 		$text = ( $check > 0 )?'euseron':'euseroff';
 	} elseif ($parms['text']==2){

@@ -1,37 +1,41 @@
 /*
 CSS FOR EUSER.PHP MAIN FILE
 */
-
-.panel-profile .panel-body .tab-content div[class^='col'], .panel-profile .panel-body .tab-content div[class*=' col']{
+/*
+.euser-profile .card-body .tab-content div[class^='col'], .euser-profile .card-body .tab-content div[class*=' col']{
 	padding: 6px 10px;
 }
-.panel-profile .panel-body .tab-content .row > :nth-child(n+3){
+.euser-profile .card-body .tab-content .row > :nth-child(n+3){
 	border-top: 1px solid rgba(170,170,170,0.35);
 }
-.panel-profile .panel-body .tab-content div.row {
+.euser-profile .card-body .tab-content div.row {
 	border:unset;
     padding: unset;
 }
+*/
 /*
-.panel-profile .panel-body .tab-content > .active div {
+.card-profile .card-body .tab-content > .active div {
 	display:unset;
 }
 */
-.panel-profile .panel-body .tab-content {
+.euser-profile .card-body .tab-content {
 	display: flex;
 }
-.panel-profile .panel-body .tab-content > .tab-pane {
+.euser-profile .card-body .tab-content > .tab-pane {
 	display: block; /* undo "display: none;" */
 	visibility: hidden;
 	margin-right: -100%;
 	width: 100%;
 }
-.panel-profile .panel-body .tab-content > .active {
+.euser-profile .card-body .tab-content > .active {
 	visibility: visible;
 }
-.panel-profile div.euseroff img.user-avatar{
+.euser-profile div.euseroff img.user-avatar{
 	border-color: gray;
 	filter: grayscale(1);
+}
+.euser-profile div.euseron img.user-avatar{
+	border-color: rgb(0, 102, 0) !important;
 }
 
 /*

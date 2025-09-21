@@ -108,6 +108,7 @@ define("e_PAGETITLE", TITLE_PROFILE_1);
 $euser_pref = e107::getPlugPref('euser');
 
 $WYSIWYG = $euser_pref['wysiwyg'];
+/*
 if ($_GET['page'] == comments) {
 $e_wysiwyg = "user_comment";
 }
@@ -117,7 +118,17 @@ $e_wysiwyg = "user_picture_comment";
 if ($_GET['page'] == videos) {
 $e_wysiwyg = "user_video_comment";
 }
-require_once(HEADERF);
+*/
+if ($_GET['page'] == 'comments') {
+	$e_wysiwyg = "user_comment";
+	}
+	if ($_GET['page'] == 'images') {
+	$e_wysiwyg = "user_picture_comment";
+	}
+	if ($_GET['page'] == 'videos') {
+	$e_wysiwyg = "user_video_comment";
+	}
+	require_once(HEADERF);
 
 // Não funciona, por enquanto... e107::getTemplate('euser', 'icons');
 /*
@@ -165,7 +176,8 @@ if (!$euser_pref['plug_installed']['euser']) {
 }
 */
 //var_dump ($_GET['id']);
-$sql_codes = array(SELECT,INSERT,INTO,WHERE,DISTINCT,UPDATE,DELETE,TRUNCATE,TABLE,ORDER,JOIN,UNION,CONCAT,FROM,LIKE);
+//$sql_codes = array(SELECT,INSERT,INTO,WHERE,DISTINCT,UPDATE,DELETE,TRUNCATE,TABLE,ORDER,JOIN,UNION,CONCAT,FROM,LIKE);
+$sql_codes = array("SELECT","INSERT","INTO","WHERE","DISTINCT","UPDATE","DELETE","TRUNCATE","TABLE","ORDER","JOIN","UNION","CONCAT","FROM","LIKE");
 $sql_codes_count = 0;
 foreach($sql_codes as $sql_code) {
 	if (preg_match("/".$sql_code."/i", e_QUERY)) {
@@ -798,7 +810,8 @@ if(ADMIN)
 // mudar para usar msg...       echo $msg->render();
 
 	include_once(e_PLUGIN . "euser/includes/euser_trait.php");
-	$adminwarn = (new class { use Euser_admin_info; })::adminwarn($euser_pref);
+//	use Euser_admin_info;
+	$adminwarn = (new class { use Euser_admin_info; })->adminwarn($euser_pref);
 
 //	$adminwarn = $this->adminwarn($euser_pref);
 
@@ -2602,7 +2615,7 @@ $getdata?$sql->update("euser", "user_lastviewed='".$array."', user_totalviews=us
 			$break = explode("[||]", $html);
 		}
 	}
-        euser_tablerender($text."</div>", 0);
+        euser_tablerender($text, 0);
 //		$display = $tp->parseTemplate($text, TRUE, $user_sc);
 //		$ns->tablerender("",$display);
 } else {

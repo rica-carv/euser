@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Euser - E107 Extended/Enhanced User" lan="EUSER_FULL_NAME" version="0.1.0b" date="2025-02-05" compatibility="2.3" installRequired="true" xhtmlcompliant="true" >
+	<author name="rica-carv" email="selo.fan@gmail.com" url="https://github.com/rica-carv" />
+		<description lan="LAN_EUSER_DESC">E107 Extended user management area, based in e107 old plugins (see readme.txt for details)</description>
+	<keywords>
+		<word>enhancement</word>
+		<word>user</word>
+		<word>info</word>
+	</keywords>
+	<category>users</category>
+	<copyright>Copyright SelosPT Selospt.tk, Licensed under GPL (http://www.gnu.org/licenses/gpl.txt)</copyright>
+	<readMe>readme.txt</readMe>
+	<adminLinks>
+		<link url='admin_config.php' description='LAN_CONFIGURE' icon='images/euser.png' iconSmall='images/euser.png' primary='true' >LAN_CONFIGURE</link>	
+	</adminLinks>
+	<pluginPrefs>
+<!--		start prefs all_menu -->
+		<pref name="remembersections">1</pref>
+		<pref name="logindiag">0</pref>
+ 		<pref name="avatar">1</pref>
+		<pref name="deleteme">0</pref>
+<!--		end prefs all_menu -->
+
+<!--		start prefs online & online_menu -->
+		<pref name="detailedview">1</pref>
+		<pref name="botchecker">1</pref>
+		<pref name="ipchecker">1</pref>
+		<pref name="hideguest">1</pref>
+		<pref name="hideusers">1</pref>
+		<pref name="useravatar">1</pref>
+		<pref name="guestinfo">1</pref>
+		<pref name="showicons">1</pref>
+		<pref name="showadmin">1</pref>
+<!-- DEPRECATED! SETUP VIA TEMPLATE/CSS
+		<pref name="bordercolor">#000000</pref>
+		<pref name="backcolor">#474642</pref>
+		<pref name="usernamefontsize">10</pref>
+-->
+
+		<pref name="show_memberlist">0</pref>
+  	<pref name="online_caption"></pref>
+<!--		end prefs online & online_menu -->
+
+<!--		start prefs whatsnew & whatsnew_menu -->
+		<pref name="whatsnewpage">1</pref>
+
+		<pref name="showregusers">e_UC_MEMBER</pref>
+		<pref name="autohideregusers">0</pref>
+<!-- Deprecated, irrelevant, SET BY THE COLOR ITSELF...				<pref name="flashtext">0</pref>  -->
+		<pref name="flashcolor">red</pref>
+<!-- Deprecated, irrelevant, SET BY ICONTYPE...				<pref name="new_icon">1</pref>  -->
+		<pref name="new_icontype">new.gif</pref>
+		<pref name="hideifnonew">0</pref>
+		<pref name="hideadminarea">1</pref>
+		<pref name="autohideadminarea">0</pref>
+
+<!-- Deprecated, irrelevant, SET BY NUMBER TO DISPLAY...		<pref name="shownews">1</pref> -->
+		<pref name="shownewsnum">50</pref>
+<!-- Deprecated, irrelevant, SET BY NUMBER TO DISPLAY...				<pref name="content">0</pref> -->
+		<pref name="contentnum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="members">1</pref> -->
+		<pref name="usersnum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="showcomments">0</pref> -->
+		<pref name="commentsnum">100</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="forum">1</pref> -->
+		<pref name="forumnum">100</pref>
+		<pref name="forumsummary">0</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="downloads">0</pref> -->
+		<pref name="downloadsnum">30</pref>
+
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="chatbox">1</pref> -->
+		<pref name="chatboxnum">100</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="chatboxII">0</pref> -->
+    <pref name="chatboxIInum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="coppermine">0</pref> -->
+		<pref name="copperminenum">30</pref>
+		<pref name="copperminecommentsnum">30</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="guestbook">0</pref> -->
+		<pref name="guestbooknum">100</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="youtube">0</pref> -->
+		<pref name="youtubenum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="kroozearcade">0</pref> -->
+		<pref name="kroozearcadenum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="kroozearcadetop">0</pref> -->
+		<pref name="kroozearcadetopnum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="links">1</pref> -->
+		<pref name="linksnum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="bugtracker3">0</pref> -->
+		<pref name="bugtracker3commentsnum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="joke">0</pref> -->
+  	<pref name="jokenum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="blog">0</pref> -->
+  	<pref name="blognum">50</pref>
+<!-- Deprecated, irrelevant..., SET BY NUMBER TO DISPLAY				<pref name="suggestions">0</pref> -->
+  	<pref name="suggestionsnum">50</pref>
+<!--		end prefs whatsnew & whatsnew_menu -->
+
+<!--		start prefs colorkey -->
+  	<pref name="onoffcolour">1</pref>
+  	<pref name="headadminactive">1</pref>
+  	<pref name="adminactive">1</pref>
+  	<pref name="memactive">1</pref>
+  	<pref name="modactive">1</pref>
+<!--		end prefs colorkey -->
+
+<!--		start prefs -->
+		<pref name="lastupdate_filter">253</pref>
+		<pref name="updatedtotal_col">4</pref>
+		<pref name="updateddirection">v</pref>
+		<pref name="updatedtotal">3</pref>
+		<pref name="buttontype">0</pref>
+		<pref name="user_warn_support">0</pref>
+    <pref name="redirect">0</pref>
+		<pref name="unreg">0</pref>
+		<pref name="unreg_save">0</pref>
+<!--		end prefs -->
+
+<!--		start prefs friends -->
+		<pref name="friends">1</pref>
+		<pref name="frcol">4</pref>
+		<pref name="fr_req_sendpm">0</pref>
+		<pref name="fr_req_sendpm_all">0</pref>
+		<pref name="fr_req_sendemail">0</pref>
+		<pref name="fr_req_sendemail_all">0</pref>
+<!--		end prefs friends -->
+
+<!--		start prefs user profile -->
+<!-- Deprecated, irrelevant..., SET BY NEW PREF						<pref name="redirect_usersettings">1</pref> -->
+  	<pref name="memberprofile_view">253</pref>
+  	<pref name="memberprofile_edit">253</pref>
+		<pref name="stats">1</pref>
+<!--		end prefs user profile -->
+<!--		start prefs user profile comments -->
+		<pref name="commentson">1</pref>
+		<pref name="maxpcomment">100</pref>
+		<pref name="maxpiccomment">50</pref>
+		<pref name="maxvidcomment">50</pref>
+		<pref name="apcomments">5</pref>
+		<pref name="comments_spy_num">50</pref>
+		<pref name="comments_spy">254</pref>
+		<pref name="comments_spy_pic_size">145</pref>
+<!--		end prefs user profile comments -->
+<!--		start prefs user profile pics -->
+		<pref name="pics">1</pref>
+		<pref name="maxalbumnumber">6</pref>
+		<pref name="maxpicnumber">20</pref>
+		<pref name="piccol">3</pref>
+		<pref name="maxuploadsize">10000</pref>
+		<pref name="indmaxuploadsize">2000</pref>
+		<pref name="private_albums">0</pref>
+		<pref name="accents">0</pref>
+		<pref name="user_image">100</pref>
+		<pref name="imagick_support">0</pref>
+		<pref name="picviewsize">600</pref>
+		<pref name="lightbox">0</pref>
+		<pref name="lightwindowbox">0</pref>
+		<pref name="lightview">0</pref>
+		<pref name="clearbox">0</pref>
+		<pref name="imagewidth">200</pref>
+		<pref name="imageheight"></pref>
+		<pref name="avatarwidth">64</pref>
+		<pref name="avatarheight"></pref>
+<!--		end prefs user profile picss -->
+<!--		start prefs user profile videos -->
+		<pref name="videos">1</pref>
+		<pref name="maxnovids">6</pref>
+		<pref name="videowidth">640</pref>
+		<pref name="youtube">1</pref>
+		<pref name="vimeo">1</pref>
+		<pref name="metacafe">1</pref>
+		<pref name="indavideo">1</pref>
+<!--		end prefs user profile videos -->
+<!--		start prefs user profile music -->
+		<pref name="mp3enabled">1</pref>
+		<pref name="mp3">Both</pref>
+		<pref name="mp3size">8000</pref>
+		<pref name="mp3_autoplay">0</pref>
+		<pref name="mp3_loop">0</pref>
+		<pref name="mp3_volume">160</pref>
+<!--		end prefs user profile music -->
+    
+<!-- Deprecated, irrelevant..., SET BY CORE PREF memberlist_access:                         $full_perms = getperms("0") || check_class(varset($pref['memberlist_access'], 253));                                    		<pref name="allowguests">253</pref>-->
+<!--		end prefs user profile -->
+
+<!--		start prefs member list -->
+<!-- Deprecated, irrelevant..., SET BY NEW PREF								<pref name="redirect">1</pref> -->
+  	<pref name="memberlist_access">253</pref>
+<!-- Deprecated, irrelevant..., SET BY CORE PREF memberlist_access:                         $full_perms = getperms("0") || check_class(varset($pref['memberlist_access'], 253));        		<pref name="memberlist_accept">253</pref>
+-->
+		<pref name="memberlist_direction">user_name</pref>
+		<pref name="memberlist_order">ASC</pref>
+		<pref name="memberlist_bcard">line</pref>
+		<pref name="bcard_css">auto</pref>
+		<pref name="bcard_column">3</pref>
+		<pref name="memberlist_class"></pref>
+		<pref name="memberlist_color_up"></pref>
+		<pref name="memberlist_color_down"></pref>
+		<pref name="memberlist_addtofriend">0</pref>
+		<pref name="memberlist_column_avatar">1</pref>
+		<pref name="memberlist_column_online">1</pref>
+		<pref name="memberlist_column_realname"></pref>
+		<pref name="memberlist_column_loginname"></pref>
+		<pref name="memberlist_column_email">1</pref>
+		<pref name="memberlist_column_join">1</pref>
+		<pref name="memberlist_column_lastvisit">1</pref>
+		<pref name="memberlist_column_visits">1</pref>
+		<pref name="memberlist_column_timezone"></pref>
+		<pref name="memberlist_column_userip"></pref>
+<!--
+################# Settings adicionais
+		<pref name="memberlist_column_aim"></pref>
+		<pref name="memberlist_column_birth"></pref>
+		<pref name="memberlist_column_country"></pref>
+		<pref name="memberlist_column_website"></pref>
+		<pref name="memberlist_column_icq"></pref>
+		<pref name="memberlist_column_language"></pref>
+		<pref name="memberlist_column_location"></pref>
+		<pref name="memberlist_column_msn"></pref>
+		<pref name="memberlist_column_yahoo"></pref>
+-->
+		<pref name="memberlist_filter">0</pref>
+		<pref name="member_info">0</pref>
+		<pref name="memberlist_forum_info">1</pref>
+		<pref name="memberlist_comment_1_info">1</pref>
+		<pref name="memberlist_comment_info">1</pref>
+		<pref name="memberlist_pic_info">1</pref>
+		<pref name="memberlist_vid_info">1</pref>
+		<pref name="memberlist_mp3_info">1</pref>
+		<pref name="member_ext_search">1</pref>
+		<pref name="user_search_username">1</pref>
+		<pref name="user_search_realname"></pref>
+		<pref name="user_search_loginname"></pref>
+		<pref name="user_search_email">1</pref>
+<!--
+################# Settings adicionais
+		<pref name="user_search_aim"></pref>
+		<pref name="user_search_birth"></pref>
+		<pref name="user_search_country"></pref>
+		<pref name="user_search_website"></pref>
+		<pref name="user_search_icq"></pref>
+		<pref name="user_search_language"></pref>
+		<pref name="user_search_location"></pref>
+		<pref name="user_search_msn"></pref>
+		<pref name="user_search_yahoo"></pref>
+-->
+		<pref name="user_search_ip"></pref>
+		<pref name="user_search_groupname"></pref>
+		<pref name="top_class">254</pref>
+		<pref name="top_bcard_column">1</pref>
+		<pref name="top_x">20</pref>
+		<pref name="top_level"></pref>
+		<pref name="top_forums"></pref>
+		<pref name="top_comments"></pref>
+		<pref name="top_chatbox"></pref>
+		<pref name="top_rate"></pref>
+		<pref name="top_profile"></pref>
+		<pref name="top_friends"></pref>
+		<pref name="top_noadmin">1</pref>
+<!--		end prefs member list -->
+
+
+<!-- ##### OLD PLUGINS PREFERENCES, TO BE REMOVED??? ##### -->
+		<pref name="memberlist">No</pref>
+		<pref name="check_video">Yes</pref>
+		<pref name="userpic_order"></pref>
+<!--
+		prefs menus
+-->
+    <pref name="caption">[Welcome User]</pref>
+		<pref name="amigo">e_UC_MEMBER</pref>
+		<pref name="amigo_hide">1</pref>
+
+		<pref name="formatbdays">1</pref>
+		<pref name="width">95%</pref>
+		<pref name="showforum">e_UC_MEMBER</pref>
+		<pref name="forumno">10</pref>
+
+		<pref name="hideuserrating">1</pref>
+		<pref name="userratingno">10</pref>
+		<pref name="ibfuse">0</pref>
+		<pref name="ibfprefix">ibf_</pref>
+		<pref name="ibflocation">forums</pref>
+		<pref name="ibftime">1</pref>
+		<pref name="ibfshownum">30</pref>
+<!--    <pref name="ibfpm">0</pref> -->
+		<pref name="flashchatuse">0</pref>
+		<pref name="flashchatprefix">e107_</pref>
+		<pref name="flashchatlocation">chat</pref>
+		<pref name="flashchatwindow">e107</pref>
+		<pref name="flashchatshow">e_UC_MEMBER</pref>
+		<pref name="ibfautohide">1</pref>
+<!--		<pref name="showpmmsg">1</pref> -->
+		<pref name="fontsize">10</pref>
+		<pref name="admincolour">#ff00ff</pref>
+		<pref name="memcolour">#000000</pref>
+		<pref name="modcolour">#008000</pref>
+		<pref name="gallery2use">1</pref>
+		<pref name="gallery2prefix">g2_</pref>
+		<pref name="gallery2location">gallery2</pref>
+		<pref name="gallery2window">e107</pref>
+		<pref name="gallery2shownum">10</pref>
+		<pref name="smfuse">0</pref>
+		<pref name="smfprefix">smf_</pref>
+		<pref name="smflocation">smf</pref>
+		<pref name="smfwindow">e107</pref>
+		<pref name="smfshownum">50</pref>
+		<pref name="sound">none</pref>
+
+		<pref name="bavatar">0</pref>
+
+		<pref name="headadmincolour">#ff0000</pref>
+	<pref name="sa_coppermineuse">0</pref>
+	<pref name="sa_coppermineprefix">cpg_</pref>
+	<pref name="sa_copperminelocation">cpg</pref>
+	<pref name="sa_copperminewindow">e107</pref>
+	<pref name="sa_coppermineshownum">50</pref>
+	<pref name="statActivate">1</pref>
+
+
+
+<!--	teste PREF, A APAGAR.... -->
+	<pref name="menu"><![CDATA[array ( 
+			'headadminactive' => 1, 
+			'adminactive' => 1, 
+			'memactive' => 1, 
+)]]></pref>
+
+<!--	<pref name="loginmenutype">Standard</pref> -->
+	</pluginPrefs>
+	<management>
+	</management>
+</e107Plugin>

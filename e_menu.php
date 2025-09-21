@@ -136,7 +136,7 @@ $fields['deleteme']['writeParms']['post'] = "</div>&nbsp;".euser_admin::label_in
 
 
 //e107::getTemplate('euser', 'dashboard_menu', null, 'front');
-var_dump (e107::getTemplate('euser', 'dashboard_menu', null, 'front'));
+//var_dump (e107::getTemplate('euser', 'dashboard_menu', null, 'front'));
 //var_dump (e107::getThemeInfo('front'));
 //var_dump (e107::getTemplate('euser', 'dashboard_menu', null, false));
 //var_dump (e107::getTemplate('euser', 'dashboard_menu'));
@@ -1211,7 +1211,7 @@ require_once(e_ADMIN.'footer.php');
 
 function getEmbedMenus($menuarray) {
 //  var_dump ($menuarray);
-var_dump($pref['sitetheme']);
+//var_dump($pref['sitetheme']);
   $contents = array();
   $startDelimiter = "{EUSER_EMBEDMENU:";
   $endDelimiter = "}";

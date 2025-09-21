@@ -138,7 +138,7 @@ $tp = e107::getParser();
 if(!deftrue('BOOTSTRAP')){
 //If ($euser_pref['loginmenutype']==0){//define(OIM_TYPE, "micro");
 //define(OIM_TYPE, "mini");
-var_dump ("-NON BOOTSTRAP EUSER ALL MENU-");
+//var_dump ("-NON BOOTSTRAP EUSER ALL MENU-");
 
 // se o bootstrap não estiver definido (se não for um tema boostrap), carrega o javascript
 //--->if(!deftrue('BOOTSTRAP'))
