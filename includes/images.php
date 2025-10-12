@@ -579,11 +579,30 @@ if (e_LANGUAGE == "English") {
 						while (false !== ($filename = readdir($handle))) {
 							$file_list[] = array('name' => $filename, 'size' => filesize($dir."/".$filename), 'mtime' => filemtime($dir."/".$filename));
 						}
+/*
 if ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') {
 						usort($file_list, create_function('$a, $b', "return strcmp(\$a['mtime'], \$b['mtime']);"));
 } else {
 						usort($file_list, create_function('$b, $a', "return strcmp(\$a['mtime'], \$b['mtime']);"));
 }
+*/
+/*
+if ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') {
+    usort($file_list, function($a, $b) {
+        return $a['mtime'] <=> $b['mtime'];
+    });
+} else {
+    usort($file_list, function($a, $b) {
+        return $b['mtime'] <=> $a['mtime'];
+    });
+}
+*/
+$order = ($this->var['euser_pref']['userpic_order'] == 'ASC' || $this->var['euser_pref']['userpic_order'] == '') ? 1 : -1;
+
+usort($file_list, function($a, $b) use ($order) {
+    return $order * ($a['mtime'] <=> $b['mtime']);
+});
+
 						closedir($handle);
 
 //					}

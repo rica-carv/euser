@@ -300,7 +300,7 @@ function sc_user_extended_all($parm=null)
     if (isset($parm['link'])){return $url;}
     if (isset($parm['title'])){return $title;}
 
-        return (ADMIN?"<div class='text-bg-warning float-end p-1'>Mods:":null).$this->tp->parseTemplate("<a href='".$url."' title='".$title."' class='btn-primary ".($parm['class']??null)."'>".IMAGE_settings."&nbsp;".$text."</a>").(ADMIN?"</div>":null);
+        return $text?(ADMIN?"<div class='text-bg-warning float-end p-1'>Mods:":null).$this->tp->parseTemplate("<a href='".$url."' title='".$title."' class='btn-primary ".($parm['class']??null)."'>".IMAGE_settings."&nbsp;".$text."</a>").(ADMIN?"</div>":null):false;
 
   }
   

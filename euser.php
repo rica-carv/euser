@@ -296,9 +296,12 @@ $full_perms = getperms("0") || check_class(varset($pref['memberlist_access'], 25
 // Uso o pref do core, o original, var $pref...
 //	if ($id != USERID && !check_class(varset($pref['memberlist_access'], 253))) {
 // Uso o pref do plugin em lugar do do core, é menos confuso...
+    $msg = e107::getMessage();
 	if ($id != USERID && !check_class($euser_pref['memberlist_access'])) {
 //		$ns->tablerender(IMAGE_alert,PROFILE_2);
-		$ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2);
+//		$ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2);
+        $msg->adderror(PROFILE_2);
+		echo $msg->render();
 		require_once(FOOTERF);
 		exit;
 	}
@@ -875,8 +878,9 @@ echo "<hr><hr>";
 
 	// Check member settings - NO Admin & NO Friends
 	if (!USERID == ADMIN || !USER) {
-		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_settings FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
-		$settings = $sql->db_Fetch();
+//		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_settings FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
+		$settings = $sql->retrieve("euser", "user_friends, user_settings", "user_id='".$id."'");
+//		$settings = $sql->fetch();
 		$break = explode("|",$settings['user_settings']);
 		$friendb = explode("|", $settings['user_friends']);
 }

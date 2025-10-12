@@ -126,6 +126,10 @@ echo "</pre>";
 
 	
 	function euser_init(&$curVal){
+
+// Se chegou aqui, $q está sanitizado para o formato que aceitas.
+// Usa-o em segurança (quando for necessário extrair partes, cast para int, etc.)
+
 //		$this->init();
 /*
 echo "EUSER_SETTINGS<pre>";
@@ -171,6 +175,81 @@ echo "</pre>";
 //$text = $tmpl['main'];
 //$text .= $us->euser_init();
 
+if (!e107::isInstalled('euser')) {
+	$ns->tablerender(LAN_ERROR,"<div style='text-align:center'><div class='alert alert-dangere alert-block' style='text-align:center'>".PROFILE_2a."</div></div>");
+	require_once(FOOTERF);
+	exit;
+}
+
+/* CHECK e_QUERY ANTIGO.....
+$sql_codes = array(SELECT,INSERT,INTO,WHERE,DISTINCT,UPDATE,DELETE,TRUNCATE,TABLE,ORDER,JOIN,UNION,CONCAT,FROM,LIKE);
+$sql_codes_count = 0;
+foreach($sql_codes as $sql_code) {
+	if (preg_match("/".$sql_code."/i", e_QUERY)) {
+		$sql_codes_count++;
+	}
+	if (preg_match("/".$sql_code."/i", preg_replace("'([\S,\d]{2})'e", "chr(hexdec('\\1'))", e_QUERY))) {
+		$sql_codes_count++;
+	}
+}
+
+if ($sql_codes_count >= 2) {
+		$ns->tablerender(LAN_ERROR,"<div style='text-align:center'><div class='alert alert-dangere alert-block' style='text-align:center'>".PROFILE_2a."</div></div>");
+		require_once(FOOTERF);
+		exit;
+}
+*/
+//var_dump (e_QUERY);
+// validação única e simples de e_QUERY antes de continuar
+$raw = defined('e_QUERY') ? (string) e_QUERY : ($_SERVER['QUERY_STRING'] ?? '');
+$q = trim($raw);
+
+// 1) limite de tamanho
+if (strlen($q) > 300) {
+    $ns->tablerender(LAN_ERROR, "<div class='alert alert-danger'>Query inválida (tamanho).</div>");
+    require_once(FOOTERF);
+    exit;
+}
+
+// 2) remover control chars
+$q = preg_replace('/[[:cntrl:]]+/', '', $q);
+
+// 3) desfazer entidades e decodificar URL repetidamente (protege double-encoding)
+$q = html_entity_decode($q, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+$prev = null; $iter = 0;
+while ($q !== $prev && $iter++ < 4) {
+    $prev = $q;
+    $q = rawurldecode($q);
+}
+
+// 4) permitir apenas caracteres razoáveis (ajusta se precisares de mais)
+if (!preg_match('/^[A-Za-z0-9\-\._\/\?&=%:]*$/', $q)) {
+    $ns->tablerender(LAN_ERROR, "<div class='alert alert-danger'>Query contém caracteres proibidos.</div>");
+    require_once(FOOTERF);
+    exit;
+}
+
+// 5) whitelist de padrões aceites (ajusta conforme rotas do teu plugin)
+$allowed = [
+    '(?:index|list|recent)',                         // index, list, recent
+    '(?:view|edit)\/[nuos]\.\d+',                    // view/n.123  edit/u.45
+    'page\/\d+',                                     // page/2
+    '[nuos]\.\d+',                                   // n.123
+	'page=[A-Za-z0-9_-]+&id\.\d+',       // <-- permite page=settings&id.3
+    'search\?[A-Za-z0-9%_\-\+]+(?:=[A-Za-z0-9%_\-\+]+)?(?:&[A-Za-z0-9%_\-\+]+(?:=[A-Za-z0-9%_\-\+]+)?)*' // search?q=...
+];
+
+$ok = !e_QUERY?true:false;
+foreach ($allowed as $pat) {
+    if (preg_match('#^' . $pat . '$#i', $q)) { $ok = true; break; }
+}
+
+if (!$ok) {
+    $ns->tablerender(LAN_ERROR, "<div class='alert alert-danger'>Query não reconhecida.</div>");
+    require_once(FOOTERF);
+    exit;
+}
+
 
 //e107_0.8 compatible
 /*
@@ -213,28 +292,13 @@ define("e_PAGETITLE", TITLE_PROFILE_2);
 //$alert_icon = "<img src='images/alert.png' title='!' />";
 
 //if (!$euser_pref['plug_installed']['euser']) {
+/*
 if (!e107::isInstalled('euser')) {
 	$ns->tablerender(LAN_ERROR,"<div style='text-align:center'><div class='alert alert-dangere alert-block' style='text-align:center'>".PROFILE_2a."</div></div>");
 	require_once(FOOTERF);
 	exit;
 }
-
-$sql_codes = array(SELECT,INSERT,INTO,WHERE,DISTINCT,UPDATE,DELETE,TRUNCATE,TABLE,ORDER,JOIN,UNION,CONCAT,FROM,LIKE);
-$sql_codes_count = 0;
-foreach($sql_codes as $sql_code) {
-	if (preg_match("/".$sql_code."/i", e_QUERY)) {
-		$sql_codes_count++;
-	}
-	if (preg_match("/".$sql_code."/i", preg_replace("'([\S,\d]{2})'e", "chr(hexdec('\\1'))", e_QUERY))) {
-		$sql_codes_count++;
-	}
-}
-
-if ($sql_codes_count >= 2) {
-		$ns->tablerender(LAN_ERROR,"<div style='text-align:center'><div class='alert alert-dangere alert-block' style='text-align:center'>".PROFILE_2a."</div></div>");
-		require_once(FOOTERF);
-		exit;
-}
+*/
 
 // Isto nunca acontece porque o usersettings.php já resolveu se não for user...
 /*

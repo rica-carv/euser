@@ -50,7 +50,7 @@ $EUSER_TEMPLATE['caption'] =	"
       </div>
       <div class='col-auto pull-end text-end'>
         <div class='pager user-view-nextprev'>
-    	    {USER_JUMP_LINK:prev&class=btn btn-default}{USER_JUMP_LINK:next&class=btn btn-default}
+    	    {USER_JUMP_LINK:prev&class=btn btn-default}{EUSER_SETTINGS:class=btn btn-sm me-2}{USER_JUMP_LINK:next&class=btn btn-default}
         </div>
       </div>
     </div>
@@ -152,9 +152,6 @@ $EUSER_TEMPLATE['main'] =	'
                         {EUSER_FRIENDS:caption}
                         {EUSER_IMAGES:caption}
                         {EUSER_VIDEOS:caption}
-                        <div class="col">
-                          {EUSER_SETTINGS:class=btn btn-sm float-end}
-                        </div>
                       </ul>
                     </div>
 
@@ -163,11 +160,11 @@ $EUSER_TEMPLATE['main'] =	'
                         <!-- Tab: Home -->
                         <div id="euser-home" class="tab-pane fade in active show" role="tabpanel">
                           <div class="d-flex row row-cols-2 p-2">
+                            <div class="col-xs-12 col-md-4">{LAN=USER_02}:</div>
+                            <div class="col-xs-12 col-md-8">{USER_NAME}{USER_LOGINNAME}</div>
+
                             <div class="col-xs-12 col-md-4">{LAN=USER_63}</div>
                             <div class="col-xs-12 col-md-8">{USER_REALNAME}</div>
-
-                            <div class="col-xs-12 col-md-4">{LAN=USER_02}:</div>
-                            <div class="col-xs-12 col-md-8">{USER_LOGINNAME}</div>
 
                             <div class="col-xs-12 col-md-4">{LAN=USER_60}</div>
                             <div class="col-xs-12 col-md-8">{USER_EMAIL}</div>

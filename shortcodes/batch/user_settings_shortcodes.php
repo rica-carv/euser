@@ -21,12 +21,15 @@ var_dump (class_exists('user_shortcodes'));
 */
 //var_dump ($euser_pref);
 require_once(e_CORE."shortcodes/batch/usersettings_shortcodes.php");
-include_once(e_PLUGIN . "euser/shortcodes/euser_trait.php");
+include_once(e_PLUGIN . "euser/includes/euser_trait.php");
 
 class plugin_euser_user_settings_shortcodes extends usersettings_shortcodes
 {
 	use Euser_info;
-
+protected $tp;
+protected $sql;
+protected $post_max_info;
+protected $euser_privprefs;
 //	public $var;
 
 	function __construct()
@@ -82,7 +85,49 @@ function sc_avatar_remote($parm = null)
 
 //	return e107::getForm()->avatarpicker('image', $this->var['user_image'], array('upload' => 1));
 //	return e107::getParser()->toAvatar($this->var['user_image']);
-	return $this->avatarpicker('image', e107::getParser()->toAvatar($this->var['user_image'], array('type'=>'url')), array('upload' => 1));
+//	return $this->avatarpicker('image', e107::getParser()->toAvatar($this->var['user_image'] ?? '', array('type'=>'url')), array('upload' => 1));
+
+// prepara user_image seguro para passar a toAvatar()
+$userImageRaw = $this->var['user_image'] ?? '';
+
+// 1) se for array já ok
+if (is_array($userImageRaw)) {
+    $userData = $userImageRaw;
+} else {
+    // 2) se for uma string serializada, tenta desserializar com segurança
+    $userData = [];
+    if (is_string($userImageRaw) && $userImageRaw !== '') {
+        // tenta unserialize com supressão de warnings
+        $maybe = @unserialize($userImageRaw);
+        if (is_array($maybe)) {
+            $userData = $maybe;
+        } else {
+            // 3) se for "plain string" considera-a como user_image
+            $userData = ['user_image' => (string)$userImageRaw];
+        }
+    } else {
+        // vazio -> array vazio (toAvatar espera array)
+        $userData = [];
+    }
+}
+
+// Garante que exista a chave usada internamente (algumas versões esperam 'user_image' ou 'user_avatar')
+if (!isset($userData['user_image']) && isset($userData['user_avatar'])) {
+    $userData['user_image'] = $userData['user_avatar'];
+}
+
+// chama toAvatar de forma segura (captura erros)
+try {
+    // passar array como primeiro argumento, segundo argumento com opções
+    $avatarUrl = e107::getParser()->toAvatar($userData, ['type' => 'url']);
+} catch (\Throwable $e) {
+    // fallback seguro: devolve string vazia ou avatar padrão
+    error_log('toAvatar() erro: '.$e->getMessage());
+    $avatarUrl = '';
+}
+
+return $this->avatarpicker('image', $avatarUrl, ['upload' => 1]);
+
 }
 
 public function avatarpicker($name, $curVal='', $options=array())
@@ -671,8 +716,18 @@ return require("includes/videos.php");
 //			$getdata = $sql->fetch();
 //			$sql->select("euser", "user_lastviewed, user_totalviews","user_id='{$id}'");
 //			$euser_data = $sql->fetch();
+/*
 		$data = unserialize($this->var['euser_data']['user_lastviewed']);
 		$total = count($data);
+*/
+$raw = $this->var['euser_data']['user_lastviewed'] ?? '';
+$data = $raw ? @unserialize($raw) : [];
+
+if (!is_array($data)) {
+    $data = [];
+}
+
+$total = count($data);
 		$place = 1;
 		$text .= "<b>".PROFILE_142."</b><br/>";
 		if ($total == 0 || $data == "") {
