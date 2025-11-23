@@ -297,10 +297,10 @@ public function avatarpicker($name, $curVal='', $options=array())
 //		$options[4]['label'] = LAN_ALL;
 //		array_walk();
 		
-//		var_dump ($this->var['euser_pref']['friends']);
+//		var_dump ($this->var['euser_pref']['friend_sys']);
 /*
 		return ($this->var['euser_pref'][$var])?"<div class='d-inline-flex'>"."<span>".
-		($this->var['euser_pref']['friends']?e107::getForm()->checkbox($name.'_fr', 0, $this->euser_privprefs[$name.'_fr'], array('label' => LAN_EUSER_130)).
+		($this->var['euser_pref']['friend_sys']?e107::getForm()->checkbox($name.'_fr', 0, $this->euser_privprefs[$name.'_fr'], array('label' => LAN_EUSER_130)).
 		"</span><span class='ps-2'>":"").
 		e107::getForm()->checkbox($name.'_us', 0, $this->euser_privprefs[$name.'_us'], array('label' => LAN_EUSER_131)).
 		"</span><span class='ps-2'>".
@@ -308,7 +308,7 @@ public function avatarpicker($name, $curVal='', $options=array())
 		"</span>"."</div>":null;
 */
 		return ($this->var['euser_pref'][$var])?"<div class='d-inline-flex'>"."<span>".
-		($this->var['euser_pref']['friends']?e107::getForm()->checkbox('eprefs[]', '+'.$this->flags[$name.'_fr'], $this->euser_privprefs[$name.'_fr'], array('label' => LAN_EUSER_130)).
+		($this->var['euser_pref']['friend_sys']?e107::getForm()->checkbox('eprefs[]', '+'.$this->flags[$name.'_fr'], $this->euser_privprefs[$name.'_fr'], array('label' => LAN_EUSER_130)).
 		"</span><span class='ps-2'>":"").
 		e107::getForm()->checkbox('eprefs[]', '+'.$this->flags[$name.'_us'], $this->euser_privprefs[$name.'_us'], array('label' => LAN_EUSER_131)).
 		"</span><span class='ps-2'>".
@@ -349,19 +349,19 @@ public function avatarpicker($name, $curVal='', $options=array())
 	}
 	function sc_euser_propicwatch($parm = null)
 	{
-			return $this->render_checkboxes("primgvis", 'pics');
+			return $this->render_checkboxes("primgvis", 'image_sys');
 	}
 	function sc_euser_propiccomm($parm = null)
 	{
-			return $this->render_checkboxes("primgcom", 'pics');
+			return $this->render_checkboxes("primgcom", 'image_sys');
 	}
 	function sc_euser_providwatch($parm = null)
 	{
-			return $this->render_checkboxes("prvidvis", 'videos');
+			return $this->render_checkboxes("prvidvis", 'video_sys');
 	}
 	function sc_euser_providcomm($parm = null)
 	{
-			return $this->render_checkboxes("prvidcom", 'videos');
+			return $this->render_checkboxes("prvidcom", 'video_sys');
 	}
 	function sc_euser_promp3($parm = null)
 	{
@@ -382,20 +382,20 @@ public function avatarpicker($name, $curVal='', $options=array())
 	}
 	function sc_euser_pmonfriend($parm = null)
 	{
-//			return $this->var['euser_pref']['friends']?"<span>".e107::getForm()->checkbox("pmfriend", 1, false, array('label' => LAN_EUSER_22))."</span><span class='ps-2'>":null;
+//			return $this->var['euser_pref']['friend_sys']?"<span>".e107::getForm()->checkbox("pmfriend", 1, false, array('label' => LAN_EUSER_22))."</span><span class='ps-2'>":null;
 			return "<div class='radio'>" . e107::getForm()->radio_switch("pmfriend", $this->euser_privprefs['pmfriend'], LAN_YES, LAN_NO) . "</div>";
 
 //			$this->render_checkboxes("pmfriend", "friends");
 	}
 	function sc_euser_emailonfriend($parm = null)
 	{
-//		return $this->var['euser_pref']['friends']?"<span>".e107::getForm()->checkbox("emfriend", 1, false, array('label' => LAN_EUSER_23))."</span><span class='ps-2'>":null;
+//		return $this->var['euser_pref']['friend_sys']?"<span>".e107::getForm()->checkbox("emfriend", 1, false, array('label' => LAN_EUSER_23))."</span><span class='ps-2'>":null;
 		return "<div class='radio'>" . e107::getForm()->radio_switch("emfriend", $this->euser_privprefs['emfriend'], LAN_YES, LAN_NO) . "</div>";
 		//		return $this->render_checkboxes("", "friends");
 	}
 	function sc_euser_showfriendbutton($parm = null)
 	{
-//		return $this->var['euser_pref']['friends']?"<span>".e107::getForm()->checkbox("emfriend", 1, false, array('label' => LAN_EUSER_23))."</span><span class='ps-2'>":null;
+//		return $this->var['euser_pref']['friend_sys']?"<span>".e107::getForm()->checkbox("emfriend", 1, false, array('label' => LAN_EUSER_23))."</span><span class='ps-2'>":null;
 		return "<div class='radio'>" . e107::getForm()->radio_switch("showfrbut", $this->euser_privprefs['showfrbut'], LAN_YES, LAN_NO) . "</div>";
 		//		return $this->render_checkboxes("", "friends");
 	}
@@ -413,7 +413,7 @@ return sprintf("%01.1f", $maxmp3meret);
 	}
 
 	function sc_euser_mp3_set(){
-		if ($this->var['euser_pref']['mp3enabled']){
+		if ($this->var['euser_pref']['mp3_sys']){
 //			global $template;
 			$sc_template = e107::getTemplate('euser', 'euser_settings');
 			return $this->tp->parseTemplate($sc_template['mp3'], TRUE, $this);
@@ -422,7 +422,7 @@ return sprintf("%01.1f", $maxmp3meret);
 
 	function sc_euser_music_remote($parms = null)
 	{
-		if ($this->var['euser_pref']['mp3enabled'] && ($this->var['euser_pref']['mp3'] == "Both" || $this->var['euser_pref']['mp3'] == "Remote Only")){
+		if ($this->var['euser_pref']['mp3_sys'] && ($this->var['euser_pref']['mp3'] == "Both" || $this->var['euser_pref']['mp3'] == "Remote Only")){
 			if($parms['radio'])
 		{
 //			$options['enabled'] = array('title' => LAN_USER_84);
@@ -473,7 +473,7 @@ return sprintf("%01.1f", $maxmp3meret);
 
 	function sc_euser_music_local($parms = null)
 	{
-		if ($this->var['euser_pref']['mp3enabled'] && ($this->var['euser_pref']['mp3'] == "Both" || $this->var['euser_pref']['mp3'] == "Local Only")){
+		if ($this->var['euser_pref']['mp3_sys'] && ($this->var['euser_pref']['mp3'] == "Both" || $this->var['euser_pref']['mp3'] == "Local Only")){
 			if($parms['radio'])
 		{
 			//			$options['enabled'] = array('title' => LAN_USER_84);
@@ -497,7 +497,7 @@ return sprintf("%01.1f", $maxmp3meret);
 
 	function sc_euser_music_none($parms = null)
 	{
-		if ($this->var['euser_pref']['mp3enabled']) {
+		if ($this->var['euser_pref']['mp3_sys']) {
 			if ($parms['radio'])
 		{
 //			$options['enabled'] = array('title' => LAN_USER_84);
@@ -518,10 +518,10 @@ return sprintf("%01.1f", $maxmp3meret);
 
 
 //var_dump ($this->var['euser_data']);
-//var_dump ($this->var['euser_pref']['mp3enabled']);
+//var_dump ($this->var['euser_pref']['mp3_sys']);
 // MP3 /// Render menu mp3
-//if ($this->var['euser_pref']['mp3enabled'] == "ON" || $this->var['euser_pref']['mp3enabled'] == "") {
-//if ($this->var['euser_pref']['mp3enabled']) {
+//if ($this->var['euser_pref']['mp3_sys'] == "ON" || $this->var['euser_pref']['mp3_sys'] == "") {
+//if ($this->var['euser_pref']['mp3_sys']) {
 /*
 $text .= '<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#MP3Modal">'.LAN_EUSER_103.'
@@ -680,7 +680,7 @@ if ($this->var['euser_pref']['buttontype'] == "Yes") {
 
 
 	function sc_euser_friends_edit($parm){
-//		if ($this->var['euser_pref']['friends']) {
+//		if ($this->var['euser_pref']['friend_sys']) {
 //	$euser_template = e107::getTemplate('euser');
 //			        global $euser_template;
 			//        var_dump ($euser_template);

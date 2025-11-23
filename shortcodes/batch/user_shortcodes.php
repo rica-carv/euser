@@ -47,7 +47,19 @@ protected $var;
     		$this->sql->select("euser", "*", "user_id='".$this->var['user_id']."' ");
 //    		$this->euser_data = $this->sql->fetch();
     		$this->var['euser_data'] = $this->sql->fetch();
-			
+
+        $pref = e107::pref('euser');
+
+        // Carrega shortcodes de "amigos" só se estiver ativo nas preferências
+        if (!empty($pref['friend_sys']))
+        {
+            $file = e_PLUGIN.'euser/includes/friend_shortcodes.php';
+
+            if (is_readable($file))
+            {
+                require_once($file);
+            }
+        }
 	}
 
 // Override shortcodes originais do user	
@@ -146,15 +158,23 @@ protected $var;
 //public function sc_user_picture($parm=null) //TODO new function $tp->toAvatar(); so full 
 //public function sc_user_avatar($parm=null) //TODO new function $tp->toAvatar(); so full arrays arrays can be passed to it. 
 
-// Para sair se aprovarem o pull https://github.com/e107inc/e107/pull/5435
+// Para sair se aprovarem o pull https://github.com/e107inc/e107/pull/5435, mas já refiz com outras opções... É muito diferente do pull request original
+/* Passou para o e_shortcode, tornou-se global....
 function sc_user_sendpm($parm=null)
 {
 //	$pref = e107::getPref();
-	$tp = e107::getParser();
-	if(e107::isInstalled("pm") && ($this->var['user_id'] > 0))
+	if (!e107::isInstalled("pm")) return null;
+	
+/////	$tp = e107::getParser();
+	if($this->var['user_id'] > 0)
 	{
 		$parms_str = 'user='.$this->var['user_id'];
+	}
+	elseif (key($this->userinfo()) <> USERID){
+		$parms_str = 'user='.key($this->userinfo());
+	}
 
+	if ($parms_str){
 		if ($parm) {
 			$parms_str .='&'.implode('&', array_map(
             function($k, $v) { 
@@ -167,11 +187,14 @@ function sc_user_sendpm($parm=null)
 		}
 //		var_dump ($set);
 
-		return $tp->parseTemplate("{SENDPM:".$parms_str.'}');
+		return $this->tp->parseTemplate("{SENDPM:".$parms_str.'}');
 
+//	}
+//	elseif (key($this->userinfo()) <> USERID){
+//			return $this->tp->parseTemplate("{SENDPM: user=" . key($this->userinfo()) . "}");
 	}
 }
-
+*/
 function sc_user_id($parm='')
 {
 	if(ADMIN && getperms("4"))
@@ -356,12 +379,12 @@ foreach($doc->getElementsByTagName('img') as $image){
 */  
   
   
-  
+/*---  
 	function sc_euser_addfriend($parm='')
 	{
 //    var_dump ($parm);
 // Depois também tenho de por aqui o check pessoal de cada utilizador....
-  	if ($this->var['euser_pref']['friends']) {
+  	if ($this->var['euser_pref']['friend_sys']) {
 // Porque se repete isto? É código original...		
 		if ($this->var['euser_pref']['user_tracking'] == "session") {
 			$ulang = $_SESSION['e107language_'.$this->var['euser_pref']['cookie_name']];
@@ -373,13 +396,14 @@ foreach($doc->getElementsByTagName('img') as $image){
 		} else {
 			$ulang = $_COOKIE['e107_language'];
 		}
+---*/
 // Porque se repete isto? É código original...		
 /*
     $sql->mySQLresult = @mysql_query("SELECT user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
 		$settings = $sql->db_Fetch();
 */
 //		$settings = $this->var['euser_data'];
-
+/*---
 		$friendb = explode("|", $this->var['euser_data']['user_friends']);
 		$friendb1 = explode("|", $this->var['euser_data']['user_friends_request']);
 		if (USER && $this->var['user_id'] != USERID && !in_array(USERID, $friendb) && !in_array(USERID, $friendb1)) {
@@ -389,6 +413,7 @@ foreach($doc->getElementsByTagName('img') as $image){
 		}
 	}
   }
+---*/
 /*
 	function sc_euser_sendpm($parm='')
 	{
@@ -1836,10 +1861,10 @@ return '
 	function sc_euser_mp3($parm='')
 	{
 		// O mp3 passou paara uma tabela separaada, isto depois tem de ser modificado
-			if ($this->var['euser_data']['user_mp3'] != "" && $euser_pref['mp3enabled'] && !isset($_GET['page'])) {
+			if ($this->var['euser_data']['user_mp3'] != "" && $euser_pref['mp3_sys'] && !isset($_GET['page'])) {
 //--			$sql->mySQLresult = @mysql_query("SELECT user_mp3 FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
 //--			$mp3 = $sql->db_Fetch();
-//			if ($mp3['user_mp3'] != "" && $euser_pref['mp3enabled'] == "ON" && !isset($_GET['page'])) {
+//			if ($mp3['user_mp3'] != "" && $euser_pref['mp3_sys'] == "ON" && !isset($_GET['page'])) {
 				$type = substr(strrchr($this->var['euser_data']['user_mp3'], '.'), 1);
 				if(strpos($this->var['euser_data']['user_mp3'], "http://") === false && strpos($this->var['euser_data']['user_mp3'], "https://") === false && strpos($this->var['euser_data']['user_mp3'], "ftp://") === false) {
 					$mp3file = "usermp3/".$this->var['user_id'].".".$type;
@@ -2280,7 +2305,7 @@ return '
 //			var_dump ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "");
 
 //--			if ($euser_pref['friends'] == "ON" || $euser_pref['friends'] == "") {
-//			if ($this->var['euser_pref']['friends']) {
+//			if ($this->var['euser_pref']['friend_sys']) {
 
 //---        global $euser_template;
 //        var_dump ($euser_template);
@@ -2296,12 +2321,12 @@ define("UPROF", "");
 //---$text .="</div>";
 
 /*
-				if ($euser_pref['frcol'] == '') {
+				if ($euser_pref['friend_col'] == '') {
 					$frcolumn = '6';
-				} elseif ($euser_pref['frcol'] > '8') {
+				} elseif ($euser_pref['friend_col'] > '8') {
 					$frcolumn = '8';
 				} else {
-					$frcolumn = $euser_pref['frcol'];
+					$frcolumn = $euser_pref['friend_col'];
 				}
 
 				$sql->mySQLresult = @mysql_query("SELECT user_id, user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".$this->var['user_id']."' ");
@@ -2400,8 +2425,8 @@ define("UPROF", "");
 */
 				}
 			}
-//			if ($euser_pref['pics'] == "ON" || $euser_pref['pics'] == "") {
-			if ($this->var['euser_pref']['pics']) {
+//			if ($euser_pref['image_sys'] == "ON" || $euser_pref['image_sys'] == "") {
+			if ($this->var['euser_pref']['image_sys']) {
 
 //--$text.="<div class='virtualpage4".(($_GET['page'] == images)?"":" hidepiece")."'>";
 // Carrego o ficheiro para no futuro ter uma hipótese de reoordenar como eu quiser isto...
@@ -2624,7 +2649,7 @@ $text .= '</td>
 
 
 
-						$sql->mySQLresult = @mysql_query("SELECT com_id, com_message, com_date, com_by FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_type='pics' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."' ORDER BY com_date DESC");
+						$sql->mySQLresult = @mysql_query("SELECT com_id, com_message, com_date, com_by FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_type='image_sys' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."' ORDER BY com_date DESC");
 						$piccomm = $sql->db_Rows();
 						// Kép hozzászólások listázása
 						$sql->mySQLresult = @mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."'");
@@ -2648,7 +2673,7 @@ $text .= '</td>
 						if (!$comment_order == ASC || !$comment_order == DESC) {
 							$comment_order = "DESC";
 						}
-						$sql->mySQLresult = @mysql_query("SELECT com_id, com_message, com_date, com_by FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_type='pics' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."' ORDER BY com_date $comment_order LIMIT $offset,$rowsPerPage");
+						$sql->mySQLresult = @mysql_query("SELECT com_id, com_message, com_date, com_by FROM ".MPREFIX."euser_com WHERE com_to='".$this->var['user_id']."' AND com_type='image_sys' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($_GET['pic'])."' ORDER BY com_date $comment_order LIMIT $offset,$rowsPerPage");
 						$piccomm = $sql->db_Rows();
 						$maxPage = ceil($picnumrows/$rowsPerPage);
 						$self = $_SERVER['PHP_SELF'];
@@ -2897,7 +2922,7 @@ if (e_LANGUAGE == "English") {
 										//Album pictures:
 										if (file_exists($dir."/thumbs/".$file)) {
 											$text .= "<td width='".$profile_piccol_p."%'><center><a href='euser.php?id=".$this->var['user_id']."&page=".$_GET['page']."&album=".$_GET['album']."&pic=".$file."'><img src='".$dir."thumbs/".$file."'></a><br/>".str_replace("_", " ", $newname)."<br/>".$ft."<br/>(".$fs."kB)";
-											$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='pics' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($file)."' ");
+											$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='image_sys' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($file)."' ");
 											$pic_all = mysql_num_rows($query);
 											if ($pic_all > 0) {
 												$text .= "<br/>".$pic_all." ".($pic_all == 1 ? PROFILE_315 : PROFILE_315)."</center></td>";
@@ -2906,7 +2931,7 @@ if (e_LANGUAGE == "English") {
 											}
 										} else {
 											$text .= "<td width='".$profile_piccol_p."%'><center><a href='euser.php?id=".$this->var['user_id']."&page=".$_GET['page']."&album=".$_GET['album']."&pic=".$file."'><img src='".$dir.$file."' width='100'></a><br/>".str_replace("_", " ", $newname)."<br/>".$ft."<br/>(".$fs."kB)";
-											$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='pics' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($file)."' ");
+											$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='image_sys' AND com_extra='".mysql_real_escape_string($_GET['album'])."/".mysql_real_escape_string($file)."' ");
 											$pic_all = mysql_num_rows($query);
 											if ($pic_all > 0) {
 												$text .= "<br/>".$pic_all." ".($pic_all == 1 ? PROFILE_315 : PROFILE_315)."</center></td>";
@@ -2991,7 +3016,7 @@ if (e_LANGUAGE == "English") {
 									//Pictures:
 									if (file_exists($dir."thumbs/".$file)) {
 										$pic .= "<td width='".$profile_piccol_p."%'><center><a href='euser.php?id=".$this->var['user_id']."&page=images&album=root&pic=".$file."'><img src='".$dir."thumbs/".$file."'></a><br/>".str_replace("_", " ", $newname)."<br/>".$ft."<br/>(".$fs."kB)";
-										$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='pics' AND com_extra='root/".mysql_real_escape_string($file)."' ");
+										$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='image_sys' AND com_extra='root/".mysql_real_escape_string($file)."' ");
 										$pic_all = mysql_num_rows($query);
 										if ($pic_all > 0) {
 											$pic .= "<br/>".$pic_all." ".($pic_all == 1 ? PROFILE_315 : PROFILE_315)."</center></td>";
@@ -3000,7 +3025,7 @@ if (e_LANGUAGE == "English") {
 										}
 									} else {
 										$pic .= "<td width='".$profile_piccol_p."%'><center><a href='euser.php?id=".$this->var['user_id']."&page=images&album=root&pic=".$file."'><img src='".$dir.$file."' width='100'></a><br/>".str_replace("_", " ", $newname)."<br/>".$ft."<br/>(".$fs."kB)";
-										$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='pics' AND com_extra='root/".mysql_real_escape_string($file)."' ");
+										$query = mysql_query("SELECT com_id FROM ".MPREFIX."euser_com WHERE com_type='image_sys' AND com_extra='root/".mysql_real_escape_string($file)."' ");
 										$pic_all = mysql_num_rows($query);
 										if ($pic_all > 0) {
 											$pic .= "<br/>".$pic_all." ".($pic_all == 1 ? PROFILE_315 : PROFILE_315)."</center></td>";
@@ -3100,8 +3125,8 @@ if (e_LANGUAGE == "English") {
 */
 				}
 			}
-//--			if ($euser_pref['videos'] == "ON" || $euser_pref['videos'] == "") {
-			if ($this->var['euser_pref']['videos']) {
+//--			if ($euser_pref['video_sys'] == "ON" || $euser_pref['video_sys'] == "") {
+			if ($this->var['euser_pref']['video_sys']) {
 
 //--        global $euser_template;
 //        var_dump ($euser_template);
@@ -3124,7 +3149,7 @@ if (e_LANGUAGE == "English") {
 
 
 
-
+/*
 {
 
 //var_dump($parm);
@@ -3213,3 +3238,4 @@ if (e_LANGUAGE == "English") {
 //	return $img;
 	return $text;
 }
+	*/

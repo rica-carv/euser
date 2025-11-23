@@ -209,7 +209,7 @@ $picdir = "userimages/".$id."/";
 		$intCount = -1;
 }
 $kepekszama = $intCount;
-if ($kepekszama > 0 AND $euser_pref['memberlist_pic_info'] != "OFF" AND ($euser_pref['pics'] == "ON" || $euser_pref['pics'] == "") AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
+if ($kepekszama > 0 AND $euser_pref['memberlist_pic_info'] != "OFF" AND ($euser_pref['image_sys'] == "ON" || $euser_pref['image_sys'] == "") AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
 return "<a href='euser.php?id=".$id."&page=images'><img src='".e_PLUGIN."euser/images/pict.png' border='0' alt='' width='16' title='".PROFILE_317." (".$kepekszama.")' /></a>&nbsp;";
 }
 SC_END
@@ -219,7 +219,7 @@ global $sql, $user;
 $id = $user[user_id];
 $sql_vid = new db;
 $vid = $sql_vid->db_Count("euser_vids","(*)","where vid_uid = '$id' LIMIT 1");
-if ($vid > 0 AND $euser_pref['memberlist_vid_info'] != "OFF" AND ($euser_pref['videos'] == "ON" || $euser_pref['videos'] == "") AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
+if ($vid > 0 AND $euser_pref['memberlist_vid_info'] != "OFF" AND ($euser_pref['video_sys'] == "ON" || $euser_pref['video_sys'] == "") AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
 return "<a href='euser.php?id=".$id."&page=videos'><img src='".e_PLUGIN."euser/images/vid.png' border='0' alt='' width='16' title='".PROFILE_113." (".$vid.")' /></a>&nbsp;";
 }
 SC_END
@@ -257,7 +257,7 @@ global $sql, $user;
 $id = $user[user_id];
 $sql_mp3 = new db;
 $mp3 = $sql_mp3->db_Count("euser","(*)","where user_id = '$id' AND user_mp3 !='' LIMIT 1");
-if ($mp3 > 0 AND $euser_pref['memberlist_mp3_info'] != "OFF" AND $euser_pref['mp3enabled'] == "ON" AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
+if ($mp3 > 0 AND $euser_pref['memberlist_mp3_info'] != "OFF" AND $euser_pref['mp3_sys'] == "ON" AND ($euser_pref['member_info'] == "Yes" || $euser_pref['member_info'] == "")) {
 return "<a href='euser.php?id=".$id."'><img src='".e_PLUGIN."euser/images/mp3.png' border='0' alt='' width='16' title=".PROFILE_318." /></a>";
 }
 SC_END
