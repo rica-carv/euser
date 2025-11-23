@@ -39,7 +39,7 @@ $EUSER_TEMPLATE['caption'] =	"<a href='{EUSER_SETTINGS:link}' title='{EUSER_SETT
 </li>
 </ul></span>";
 */
-$EUSER_WRAPPER['caption']['USER_LOGINNAME'] = " ({---})"; // LOGIN_NAME só aparece se quem estiver a ver for admin
+$EUSER_WRAPPER['caption']['USER_LOGINNAME'] = $EUSER_WRAPPER['main']['USER_LOGINNAME'] = " ({---})"; // LOGIN_NAME só aparece se quem estiver a ver for admin
 
 $EUSER_WRAPPER['caption']['USER_ID'] = " #{---}&nbsp;"; // LOGIN_NAME só aparece se quem estiver a ver for admin
 
