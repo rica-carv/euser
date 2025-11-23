@@ -116,22 +116,22 @@ define("LAN_EUSER_ADMIN_137", "Blogs");
 define("LAN_EUSER_ADMIN_138", "Suggestions");
 
 // Settings lans
-define("LAN_EUSER_ADMIN_300", "Registration and registration cancellation");
-define("LAN_EUSER_ADMIN_301", "Recently changed to access a list of profiles");
-define("LAN_EUSER_ADMIN_302", "Profiles page last changed columns");
-define("LAN_EUSER_ADMIN_303", "Most recently changed the display mode menu profiles");
-define("LAN_EUSER_ADMIN_304", "Last changed profiles up menu. many members appear");
-define("LAN_EUSER_ADMIN_304H", "Default value: 3");
+//define("LAN_EUSER_ADMIN_300", "Registration and registration cancellation");
+//define("LAN_EUSER_ADMIN_301", "Recently changed to access a list of profiles");
+//define("LAN_EUSER_ADMIN_302", "Profiles page last changed columns");
+//define("LAN_EUSER_ADMIN_303", "Most recently changed the display mode menu profiles");
+//define("LAN_EUSER_ADMIN_304", "Last changed profiles up menu. many members appear");
+//define("LAN_EUSER_ADMIN_304H", "Default value: 3");
 define("LAN_EUSER_ADMIN_305", "Clickable links for use with images?<br/>(Some of the topics better suited)");
-define("LAN_EUSER_ADMIN_306", "WARN System Support");
-define("LAN_EUSER_ADMIN_306H", "You can read more about the WARN system settings here: http://v1.e107hungary.org");
-define("LAN_EUSER_ADMIN_307", "Redirect new users after logon to the profile set page");
-define("LAN_EUSER_ADMIN_308", "Members can cancel their registration");
-define("LAN_EUSER_ADMIN_308H", "When registration is canceled, member's Another Profiles picture, video, profile comments, friend lists, pictures & soundfiles will be deleted, and the member will be deleted from the user database of the page as well. The main Admin will be informed in an e-mail and private message.");
-define("LAN_EUSER_ADMIN_309", "Members cancelling registration will save their pictures & music");
-define("LAN_EUSER_ADMIN_309H", "If on, a save is done of the user albums, pictures and mp3 when cancelling registration");
-define("LAN_EUSER_ADMIN_310", "Vertical");
-define("LAN_EUSER_ADMIN_311", "Horizontal");
+//define("LAN_EUSER_ADMIN_306", "WARN System Support");
+//define("LAN_EUSER_ADMIN_306H", "You can read more about the WARN system settings here: http://v1.e107hungary.org");
+//define("LAN_EUSER_ADMIN_307", "Redirect new users after logon to the profile set page");
+//define("LAN_EUSER_ADMIN_308", "Members can cancel their registration");
+//define("LAN_EUSER_ADMIN_308H", "When registration is canceled, member's Another Profiles picture, video, profile comments, friend lists, pictures & soundfiles will be deleted, and the member will be deleted from the user database of the page as well. The main Admin will be informed in an e-mail and private message.");
+//define("LAN_EUSER_ADMIN_309", "Members cancelling registration will save their pictures & music");
+//define("LAN_EUSER_ADMIN_309H", "If on, a save is done of the user albums, pictures and mp3 when cancelling registration");
+//define("LAN_EUSER_ADMIN_310", "Vertical");
+//define("LAN_EUSER_ADMIN_311", "Horizontal");
 
 // Friends system lans
 define("LAN_EUSER_ADMIN_400", "Friends system");
@@ -143,10 +143,10 @@ define("LAN_EUSER_ADMIN_404", "This setting overrides members personal settings"
 
 // Profile lans
 //define("LAN_EUSER_ADMIN_501", "Use plugin members \"settings\" and \"profile\" pages, instead of core ones");
-define("LAN_EUSER_ADMIN_501", "Member class allowed to view user profile");
-define("LAN_EUSER_ADMIN_501I", "If set to ".UC_LAN_2.", the profiles section of the plugin can only be used with direct links and will have no effect on the site");
-define("LAN_EUSER_ADMIN_502", "User class allowed to edit own profile");
-define("LAN_EUSER_ADMIN_502I", "If set to ".UC_LAN_2.", the edit profiles section of the plugin can only be used with direct links and will have no effect on the site");
+//define("LAN_EUSER_ADMIN_501", "Member class allowed to view user profile");
+//define("LAN_EUSER_ADMIN_501I", "If set to ".UC_LAN_2.", the profiles section of the plugin can only be used with direct links and will have no effect on the site");
+//define("LAN_EUSER_ADMIN_502", "User class allowed to edit own profile");
+//define("LAN_EUSER_ADMIN_502I", "If set to ".UC_LAN_2.", the edit profiles section of the plugin can only be used with direct links and will have no effect on the site");
 define("LAN_EUSER_ADMIN_503", "Profile Statistics (All reviewers)");
 define("LAN_EUSER_ADMIN_510", "Profile comments");
 define("LAN_EUSER_ADMIN_511", "Maximum number of profile comments");
@@ -671,7 +671,52 @@ define("LAN_ADMIN_7", "Tipo do menu Info Online: ");
 //-----------------------------------------------------------------------
 //---- LANS DEFINITIVAS, BASICAMENTE É SÓ AS QUE VOU USAR NO EUSER... ---
 //-----------------------------------------------------------------------
-define("LAN_EUSER_ADMIN_1", "Sistema Amigos"); //Ex LAN_EUSER_ADMIN_400
-define("LAN_EUSER_ADMIN_2", "Secção Membros"); //Ex LAN_EUSER_ADMIN_006
-define("LAN_EUSER_ADMIN_3", "Secção Informação"); //Ex LAN_EUSER_ADMIN_007
-define("LAN_EUSER_ADMIN_4", "Definições cores");   //Ex LAN_EUSER_001007
+//define("LANAD_EUSER_1", "Secções (opcionais)"); //Ex LAN_EUSER_ADMIN_400
+//define("LANAD_EUSER_2", "Estado da secção"); 
+//define("LANAD_EUSER_3", "Ajuda das secções"); 
+//define("LAN_EUSER_ADMIN_3", "Secção Informação"); //Ex LAN_EUSER_ADMIN_007
+/* define("LANAD_EUSER_4", " <p>Esta secção permite gerir as definições dos diversos sistemas opcionais do Euser.<p>Cada secção pode ser activada ou desactivada individualmente, na primeira opção de cada secção: <strong>".LANAD_EUSER_2."</strong></p><h1>Atenção!</h1><p>Esta opção não torna a secção visível se não existir o shortcode da secção no template, ou seja, para uma secção ser visível, tem de <b>existir o shortcode no template e estar ligada nesta aba de preferências!</b></p>
+        <p>Só tem acesso ás configurações de cada secção caso tenha essa mesma secção <em>ligada</em>.</p>"); 
+*/
+
+define("LANAD_EUSER_5", "Esta definição anula a definição no perfil individual de cada utilizador?");//Ex LAN_EUSER_ADMIN_404
+
+//define("LANAD_EUSER_6", "Classe de membros que pode visualizar perfis");//define("LAN_EUSER_ADMIN_501", "Member class allowed to view user profile");
+define("LANAD_EUSER_7", "Classe de membros que pode editar perfis");//define("LAN_EUSER_ADMIN_502", "User class allowed to edit own profile");
+define("LANAD_EUSER_8", "Esta configuração é apenas para a exibição de perfis individuais, e não altera as definições originais dos utilizadores no e107");
+
+define("LANAD_EUSER_10", "Últimos perfis modificados");//Ex LAN_EUSER_ADMIN_404
+define("LANAD_EUSER_11", "Classe com permissões para visualizar os ultimos perfis modificados");// ex define("LAN_EUSER_ADMIN_301", "Recently changed to access a list of profiles");
+define("LANAD_EUSER_12", "Número de colunas na lista de ultimos perfis modificados");// ex define("LAN_EUSER_ADMIN_302", "Profiles page last changed columns");
+define("LANAD_EUSER_13", "Modo de exibição no menu da lista de ultimos perfis actualizados");//define("LAN_EUSER_ADMIN_303", "Most recently changed the display mode menu profiles");
+define("LANAD_EUSER_14", "Vertical");//define("LAN_EUSER_ADMIN_310", "Vertical");
+define("LANAD_EUSER_15", "Horizontal");//define("LAN_EUSER_ADMIN_311", "Horizontal");
+define("LANAD_EUSER_16", "Total de perfis exibidos no menu da lista de ultimos perfis actualizados");//define("LAN_EUSER_ADMIN_304", "Last changed profiles up menu. many members appear");
+define("LANAD_EUSER_17", "Valor por defeito: 3");//define("LAN_EUSER_ADMIN_304H", "Default value: 3");
+
+define("LANAD_EUSER_20", "Conta de utilizador");//define("LAN_EUSER_ADMIN_300", "Registration and registration cancellation");
+define("LANAD_EUSER_21", "Número de vezes após o login, que os novos utilizadores são redireccionados para actualizar o perfil após entrar no site");//define("LAN_EUSER_ADMIN_307", "Redirect new users after logon to the profile set page");
+define("LANAD_EUSER_22", "Ao excluir a conta, excluir também todos os dados?");//define("LAN_EUSER_ADMIN_308", "Members can cancel their registration");
+define("LANAD_EUSER_23", "Conta de utilizador");//define("LAN_EUSER_ADMIN_308H", "When registration is canceled, member's Another Profiles picture, video, profile comments, friend lists, pictures & soundfiles will be deleted, and the member will be deleted from the user database of the page as well. The main Admin will be informed in an e-mail and private message.");
+//define("LANAD_EUSER_24", "Conta de utilizador");//define("LAN_EUSER_ADMIN_309", "Members cancelling registration will save their pictures & music");
+//define("LANAD_EUSER_25", "Conta de utilizador");//define("LAN_EUSER_ADMIN_309H", "If on, a save is done of the user albums, pictures and mp3 when cancelling registration");
+
+define("LANAD_EUSER_40", "Definições cores");   //Ex LAN_EUSER_001007
+
+// Friends system lans
+/*
+define("LANAD_EUSER_100", "Amigos"); //Ex LAN_EUSER_ADMIN_006
+define("LANAD_EUSER_101", "Notificações de pedidos de amizade");//Ex LAN_EUSER_ADMIN_400
+define("LANAD_EUSER_102", "Número de colunas na listagem de amigos");//Ex LAN_EUSER_ADMIN_401
+define("LANAD_EUSER_103", "Maximo permitido: 8");//Ex LAN_EUSER_ADMIN_401H
+define("LANAD_EUSER_104", "Aviso de pedido de amizade enviado por mensagem privada");//Ex LAN_EUSER_ADMIN_402
+define("LANAD_EUSER_105", "Aviso de pedido de amizade enviado por email");//Ex LAN_EUSER_ADMIN_403
+define("LANAD_EUSER_106", "Lista de amigos privada");
+define("LANAD_EUSER_107", "A lista de amigos não é visivel para ninguêm, excepto o próprio utilizador");
+
+// Image system lans
+define("LANAD_EUSER_125", "");
+
+// Video system lans
+define("LANAD_EUSER_150", "Videos");
+*/

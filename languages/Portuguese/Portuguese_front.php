@@ -1142,7 +1142,9 @@ define("LAN_EUSER_2", "Ficheiros enviados");
 define("LAN_EUSER_3", "Hiperligações");
 define("LAN_EUSER_4", "Resumo actividade");
 define("LAN_EUSER_5", "Forum");
-define("LAN_EUSER_6", "Aviso apenas para administradores:[br]As secções [b][x][/b] estão ligadas.");
+define("LAN_EUSER_6", "Aviso apenas para administradores:[br]");
+define("LAN_EUSER_7", "As secções [b][x][/b] estão DESLIGADAS.");
+define("LAN_EUSER_8", "As secções [b][x][/b] estão ligadas.");
 // LAN'S editor perfil utilizador
 define("LAN_EUSER_101", "Configurações do perfil do Utilizador");
 define("LAN_EUSER_102", "Preferências do perfil");
