@@ -278,8 +278,8 @@ function sc_user_extended_all($parm=null)
 					}
 				}
 			}
+			$ret .= $template['end'];
 		}
-		$ret .= $template['end'];
 	}
 	return $ret;
 }
@@ -470,7 +470,7 @@ echo "</pre>";
 		global $euser_template;
 
 		$edata = array(
-			'news' => array ('label'=>ONLINEINFO_LIST_1,'title'=>PROFILE_38,'table'=>'news','count_field'=>'news_author', 'count_data'=>$this->var['user_id']),
+			'news' => array ('label'=>ONLINEINFO_LIST_1,'title'=>LAN_EUSER_505,'table'=>'news','count_field'=>'news_author', 'count_data'=>$this->var['user_id']),
 			'download_up' => array ('label'=>LAN_EUSER_2,'title'=>ADMIN_PROFILE_134,'table'=>'download','count_field'=>'download_author', 'count_data'=>$this->var['user_name']),
 			'download' => array ('label'=>ONLINEINFO_LIST_17,'title'=>PROFILE_27,'table'=>'download_requests','count_field'=>'download_request_userid', 'count_data'=>$this->var['user_id']),
 			'links' => array ('label'=>LAN_EUSER_3,'title'=>PROFILE_37,'table'=>'links_page','count_field'=>'link_author', 'count_data'=>$this->var['user_id']),
@@ -2276,7 +2276,9 @@ return '
 */
   	function sc_euser_friends($parm='')
 	{
-
+    if (!e107::isInstalled('user_friends'))    {
+      return false;
+    } 
   // #####AMIGOS#####
     if (($_GET['page'] == "friends") || (!$_GET['page'])){
 			// Check member settings - NO Admin & NO Friends
@@ -2394,7 +2396,9 @@ define("UPROF", "");
   // NÃO USO, NÃO SÃO PERMITIDOS AINDA
   	function sc_euser_images($parm='')
 	{
-
+    if (!e107::isInstalled('user_media'))    {
+      return false;
+    } 
   // #####IMAGENS#####
     if (($_GET['page'] == "images") || (!$_GET['page'])){
 			// Check member settings - NO Admin & NO Friends
@@ -3094,7 +3098,10 @@ if (e_LANGUAGE == "English") {
   // NÃO USO, NÃO SÃO PERMITIDOS AINDA
   	function sc_euser_videos($parm='')
 	{
-// #####VIDEOS#####
+    if (!e107::isInstalled('user_media'))    {
+      return false;
+    } 
+	// #####VIDEOS#####
     if (($_GET['page'] == "videos") || (!$_GET['page'])){
 			// Check member settings - NO Admin & NO Friends
 			if (!USERID == ADMIN || !USER) {

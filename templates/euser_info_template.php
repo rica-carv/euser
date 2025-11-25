@@ -22,10 +22,16 @@ $EUSER_INFO_TEMPLATE['news']['inline'] =  '
 
 // USO O ESUER_NEWS para ter a contagem das noticias porque o core não tem essa função...
 
-$EUSER_INFO_WRAPPER['news']['panel']['NEWS_AUTHOR_AVATAR'] = '<div class="post-by-author-avatar container">{---}</div>';
+$EUSER_INFO_WRAPPER['news']['panel']['NEWS_AUTHOR_AVATAR'] = '
+              <div class="col-auto">
+                <a class="author-avatar e-tip {EUSER_ONLINE:class=1}" href="{NEWS_AUTHOR:link=1}" title="{LAN=USER_50} {NEWS_AUTHOR:link=-1} {EUSER_ONLINE:text=1}">
+<div class="post-by-author-avatar container">{---}</div>
+                </a>
+              </div> 
+';
 $EUSER_INFO_WRAPPER['news']['panel']['NEWS_AUTHOR_SIGNATURE'] = '<div class="post-by-author-signature">{---}</div>';
-$EUSER_INFO_WRAPPER['news']['panel']['EUSER_NEWS'] = "<a class='btn btn-xs bd-blue-100 e-tip' title='{LAN=PROFILE_38}{EUSER_NEWS}' href='{NEWS_AUTHOR_ITEMS_URL}'>{GLYPH:type=fa-newspaper}{LAN=PLUGIN_NEWS_NAME}<span class='badge'>{---}</span></a>";
-$EUSER_INFO_WRAPPER['news']['panel']['EUSER_POSTS'] = "<a href='{EUSER_POSTS:url=1}' class='btn btn-xs bd-teal-100 e-tip' title='{LAN=PROFILE_213}: {EUSER_POSTS}'>{GLYPH:type=fa-comments}{LAN=PROFILE_389}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['news']['panel']['EUSER_NEWS'] = "<a class='btn btn-xs bd-blue-100 e-tip' title='{LAN=LAN_EUSER_505}{EUSER_NEWS}' href='{NEWS_AUTHOR_ITEMS_URL}'>{GLYPH:type=fa-newspaper}{LAN=PLUGIN_NEWS_NAME}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['news']['panel']['EUSER_POSTS'] = "<a href='{EUSER_POSTS:url=1}' class='btn btn-xs bd-teal-100 e-tip' title='{LAN=LAN_EUSER_504}: {EUSER_POSTS}'>{GLYPH:type=fa-comments}{LAN=LAN_EUSER_506}<span class='badge'>{---}</span></a>";
 
 $EUSER_INFO_WRAPPER['news']['panel']['EUSER_LEVEL'] = "<small class='e-tip' title='{EUSER_LEVEL}'>{---}</small>";
 $EUSER_INFO_WRAPPER['news']['panel']['USER_SENDPM'] = '<div class="pt-1 d-print-none">{---}</div>';
@@ -33,13 +39,9 @@ $EUSER_INFO_WRAPPER['news']['panel']['USER_SENDPM'] = '<div class="pt-1 d-print-
 $EUSER_INFO_TEMPLATE['news']['panel'] =  '
         <div class="row m-0 author-info">
           <div class="col post-by-author-inner g-0">
+            {SETIMAGE: w=100&h=100&crop=1}
             <div class="row m-0 g-0">
-              <div class="col-auto">
-                {SETIMAGE: w=75&h=75&crop=1}
-                <a class="author-avatar e-tip {EUSER_ONLINE:class=1}" href="{NEWS_AUTHOR:link=1}" title="{LAN=USER_50} {NEWS_AUTHOR:link=-1} {EUSER_ONLINE:text=1}">
-                  {NEWS_AUTHOR_AVATAR: shape=rounded&class=me-3 user-avatar&placeholder=1}
-                </a>
-              </div> 
+              {NEWS_AUTHOR_AVATAR: shape=rounded&class=me-3 user-avatar&placeholder=1}
               <div class="col">                 
 	              <div class="post-by-author-body">
                   <div class="row">
@@ -52,9 +54,7 @@ $EUSER_INFO_TEMPLATE['news']['panel'] =  '
                   </div>
                   {NEWS_AUTHOR_SIGNATURE}
                   <div id="user_activity" class="small-text d-print-none">
-                    {LAN=PROFILE_390}
-                    {EUSER_NEWS}
-                    {EUSER_POSTS}
+                    {LAN=LAN_EUSER_503}: {EUSER_NEWS}{EUSER_POSTS}
                   </div>
                   {USER_SENDPM}
                 </div> 
@@ -66,18 +66,20 @@ $EUSER_INFO_TEMPLATE['news']['panel'] =  '
 
 
 $EUSER_INFO_WRAPPER['forum']['panel']['CUSTOMTITLE'] = "<span class='forum-viewtopic-customtitle'><small>{---}</small></span>";
-$EUSER_INFO_WRAPPER['forum']['panel']['EUSER_NEWS'] = "<a class='btn btn-xs bd-blue-100 e-tip' title='{LAN=PROFILE_38} {EUSER_NEWS}' href='{EUSER_NEWS:url=1}'>{GLYPH:type=fa-newspaper}{LAN=PLUGIN_NEWS_NAME}<span class='badge'>{---}</span></a>";
-$EUSER_INFO_WRAPPER['forum']['panel']['EUSER_POSTS'] = "<a href='{EUSER_POSTS:url=1}' class='btn btn-xs bd-teal-100 e-tip' title='{LAN=PROFILE_213}: {EUSER_POSTS}'>{GLYPH:type=fa-comments}{LAN=PROFILE_389}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['forum']['panel']['EUSER_NEWS'] = "<a class='btn btn-xs bd-blue-100 e-tip' title='{LAN=LAN_EUSER_505} {EUSER_NEWS}' href='{EUSER_NEWS:url=1}'>{GLYPH:type=fa-newspaper}{LAN=PLUGIN_NEWS_NAME}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['forum']['panel']['EUSER_POSTS'] = "<a href='{EUSER_POSTS:url=1}' class='btn btn-xs bd-teal-100 e-tip' title='{LAN=LAN_EUSER_504}: {EUSER_POSTS}'>{GLYPH:type=fa-comments}{LAN=LAN_EUSER_506}<span class='badge'>{---}</span></a>";
 $EUSER_INFO_WRAPPER['forum']['panel']['EUSER_FORUM_COMBO'] = "<div class='col-12 d-block'>{---}</div>";
 $EUSER_INFO_WRAPPER['forum']['panel']['CUSTOMTITLE'] = "<div class='col-12 d-block'>{---}</div>";
 $EUSER_INFO_WRAPPER['forum']['panel']['AVATAR'] = "
-{SETIMAGE: w=100&h=100&crop=1}
+    <div class='col-12 text-center mb-1'>
 <a href='{POSTER:link=1}' title='{LAN=USER_50} {POSTER:name=1} {EUSER_ONLINE:text=1}' class='poster-avatar e-tip {EUSER_ONLINE:class=1}'>
   <div class='post-by-author-avatar container'>
+    {SETIMAGE: w=100&h=100&crop=1}
     {---}
   </div>
   <div>{EUSER_DATA}</div>
 </a>
+    </div>
   ";
 $EUSER_INFO_WRAPPER['forum']['panel']['USER_SENDPM'] = '<div class="col-12 hidden-xs align-self-end"><div class="pt-1 d-print-none">{---}</div></div>';
 //Uso o do forum porque tem mais alguams coisas no level....
@@ -85,9 +87,7 @@ $EUSER_INFO_WRAPPER['forum']['panel']['LEVEL'] = "<small class='e-tip' title='{L
 
 $EUSER_INFO_TEMPLATE['forum']['panel'] =  "
   <div class='row d-flex author-info'>
-    <div class='col-12 text-center mb-1'>
-      {AVATAR: shape=rounded}
-    </div>
+    {AVATAR: shape=rounded}
     {CUSTOMTITLE}
     <div class='col-12 hidden-xs text-start'>
       {NEWFLAG: class=1} {ANON_IP}
@@ -96,10 +96,43 @@ $EUSER_INFO_TEMPLATE['forum']['panel'] =  "
       {LEVEL=glyph}
     </div>
     <div id='user_activity' class='col-12 hidden-xs small-text mb-1 d-print-none'>
-        {LAN=PROFILE_390}<br>
+        {LAN=LAN_EUSER_503}<br>
         {EUSER_POSTS}
         {EUSER_NEWS}
     </div>
     {USER_SENDPM}
   </div>
 ";
+
+$EUSER_INFO_WRAPPER['pm']['panel']['EUSER_AVATAR'] = "
+    <div class='col-12'>
+<a href='{EUSER_DATA:link=1}' title='{LAN=USER_50} {EUSER_DATA} {EUSER_ONLINE:text=1}' class='poster-avatar e-tip {EUSER_ONLINE:class=1}'>
+  <div class='post-by-author-avatar container'>
+    {---}
+  </div>
+  <div>{EUSER_DATA}</div>
+</a>
+    </div>
+  ";
+$EUSER_INFO_WRAPPER['pm']['panel']['EUSER_NEWS'] = "<a class='btn btn-xs bd-blue-100 e-tip me-1' title='{LAN=LAN_EUSER_505}{EUSER_NEWS}' href='{NEWS_AUTHOR_ITEMS_URL}'>{GLYPH:type=fa-newspaper}{LAN=PLUGIN_NEWS_NAME}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['pm']['panel']['EUSER_POSTS'] = "<a href='{EUSER_POSTS:url=1}' class='btn btn-xs bd-teal-100 e-tip' title='{LAN=LAN_EUSER_504}: {EUSER_POSTS}'>{GLYPH:type=fa-comments}{LAN=LAN_EUSER_506}<span class='badge'>{---}</span></a>";
+$EUSER_INFO_WRAPPER['pm']['panel']['EUSER_LEVEL'] = "<small class='e-tip' title='{EUSER_LEVEL}'>{---}</small>";
+$EUSER_INFO_WRAPPER['pm']['panel']['USER_SENDPM'] = '<div class="pt-1 d-print-none">{---}</div>';
+
+$EUSER_INFO_TEMPLATE['pm']['panel'] =  '
+  <div class="row d-flex author-info text-center">
+      {EUSER_AVATAR: shape=rounded&w=100&h=100&crop=1}
+    <div class="col-12">
+    {CUSTOMTITLE}
+    </div>
+    <div class="col-12 hidden-xs">
+      {EUSER_LEVEL=glyph}
+    </div>
+    <div id="user_activity" class="col-12 hidden-xs small-text mb-1 d-print-none">
+      {LAN=LAN_EUSER_503}<br>
+      {EUSER_NEWS}
+      {EUSER_POSTS}
+    </div>
+    {USER_SENDPM}
+  </div>
+                ';

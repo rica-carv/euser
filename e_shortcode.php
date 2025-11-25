@@ -31,133 +31,19 @@ else
 e107::getTemplate('euser', 'icons');
 e107::coreLan('admin', true);
 
+//include_once(e_PLUGIN . "euser/shortcodes/batch/user_shortcodes.php");
+
 class euser_shortcodes extends e_shortcode
+//class euser_shortcodes extends plugin_euser_user_shortcodes
 {
 	use Euser_global_info;
 	protected $tp;
-
 	protected $sql;
 
 	function __construct()
 	{
 		$this->sql = e107::getDb();
 		$this->tp = e107::getParser();
-	}
-
-	/*----------------------------- 
-  PM SHORTCODE 
------------------------------*/  
-// Tenho de ver se substituo isto pelo do euser ou não....
-function sc_signin_pm_nav($parm=null)
-{
-  if(!e107::isInstalled('pm') )
-  {
-    return null;
-  }
-
-//  $sc = e107::getScBatch('pm', true);
-
-/*
-  return $sc->sc_pm_nav($parm);;
-}
-
-function sc_pm_nav($parm='')
-	{
-    echo "<HR>ESTOU AQUI<HR><HR>";
-*/
-
-//    $tp = e107::getParser();
-
-    require_once(e_PLUGIN."pm/pm_func.php");
-
-    $pmprefs = e107::getPlugPref('pm');
-
-		if(!isset($pmprefs['pm_class']) || !check_class($pmprefs['pm_class']))
-		{
-			return null;
-		}
-
-		$pm = new pmbox_manager();
-		$mbox = $pm->pm_getInfo('inbox');
-
-		if(!empty($mbox['inbox']['new']))
-		{
-			$count = "<span class='badge bg-danger'>".$mbox['inbox']['new']."</span>";
-//			$icon = $this->tp->toGlyph('fa-envelope');
-		}
-		else
-		{
-//			$icon = $this->tp->toGlyph('fa-envelope');
-			$count = '';
-		}
-
-    $icon = $this->tp->toGlyph('fa-envelope');
-		$urlInbox = e107::url('pm','index','', array('query'=>array('mode'=>'inbox')));
-		$urlOutbox = e107::url('pm','index','', array('query'=>array('mode'=>'outbox')));
-		$urlCompose = e107::url('pm','index','', array('query'=>array('mode'=>'send')));
-
-		return '<a class="pm-nav nav-link dropdown-toggle icon-link" data-toggle="dropdown" data-bs-toggle="dropdown" data-bs-toggle="dropdown" href="#">'.$icon.$count.'</a>
-		<ul class="dropdown-menu dropdown-menu-end">
-		<li>
-			<a class="dropdown-item icon-link" href="'.$urlInbox.'"><i class="fa-solid fa-inbox"></i> '.LAN_PLUGIN_PM_INBOX.'</a>
-			<a class="dropdown-item icon-link" href="'.$urlOutbox.'"><i class="fa-solid fa-envelopes-bulk"></i> '.LAN_PLUGIN_PM_OUTBOX.'</a>
-			<a class="dropdown-item icon-link" href="'.$urlCompose.'"><i class="fa-solid fa-pen"></i> '.LAN_PLUGIN_PM_NEW.'</a> 
-		</li>
-		</ul>';
-	}
-
-	function sc_sendpm($parm=null)
-	{
-	
-	  // global $sysprefs, $pm_prefs;
-	  // $pm_prefs = $sysprefs->getArray("pm_prefs");
-	
-	  if(is_string($parm))
-	  {
-		$parm = array('user'=>$parm);
-	  }
-	  
-	  $pm_prefs = e107::getPlugPref('pm');
-	
-	  $url = e107::url('pm','index').'?send.'.varset($parm['user']);
-	
-	  require_once(e_PLUGIN."pm/pm_class.php");
-	
-	  $pm = new private_message;
-	
-//	  $glyph  = empty($parm['glyph']) ? 'fa-paper-plane' : $parm['glyph'];
-	  $glyph  = empty($parm['glyph']) ? 'fa-message' : $parm['glyph'];
-	  $class  = empty($parm['class']) ? 'sendpm btn btn-sm btn-light' : $parm['class'];
-	
-	
-	  if(isset($pm_prefs['pm_class']) && check_class($pm_prefs['pm_class']) && $pm->canSendTo($parm['user'])) // check $this->pmPrefs['send_to_class'].
-	  {
-		  if(deftrue('FONTAWESOME') && deftrue('BOOTSTRAP'))
-		  {
-			  $img =  e107::getParser()->toGlyph($glyph,'');
-	/// TENHO DE TER O SC AQUI SÓ POR CAUSA DESTA LINHA VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-			  return  "<a class='".$class."' href='".$url ."' title='".LAN_PM_1."'>{$img} ".LAN_PM_1."</a>";
-		  }
-	
-	/*  
-		  if(file_exists(THEME.'forum/pm.png'))
-		  {
-				 $img = "<img src='".THEME_ABS."forum/pm.png' alt='".LAN_PM."' title='".LAN_PM."' style='border:0' />";
-		   }
-		   else
-		   {
-				$img = "<img src='".e_PLUGIN_ABS."pm/images/pm.png' alt='".LAN_PM."' title='".LAN_PM."' style='border:0' />";
-		   }
-	*/  
-	
-	
-		return  "<a class='sendpm' href='".$url ."'>{$img}</a>";
-	  }
-	  else
-	  {
-		return null;
-	  }
-	
 	}
 
 // ####################################
@@ -574,11 +460,17 @@ echo "</pre>";
   //        $main = (substr( e_PAGE, 0, 10 ) === "forum_view")?"view":((substr( e_PAGE, 0, 4 ) === "news")?"news":"");
 		  $main = strpos(e_PAGE, "forum_view")===False?
 		  ((strpos( e_PAGE, "news")===false?
-			(array_filter($_GET, function($key) {return strpos($key, 'news') == 0;}, ARRAY_FILTER_USE_KEY)===false?"":"news")
+			(array_filter($_GET, function($key) {return strpos($key, 'news') == 0;}, ARRAY_FILTER_USE_KEY)===false?"":
+			(strpos( e_PAGE, "pm")===false?"default":"pm")
+		  	)					
 			:"news"))
 		  :"view";
+
 /*
 		  echo "<pre>";
+		  var_dump (strpos(e_PAGE, "forum_view")===False);
+		  var_dump (strpos( e_PAGE, "news")===false);
+		  var_dump (array_filter($_GET, function($key) {return strpos($key, 'news') == 0;}, ARRAY_FILTER_USE_KEY)===false);
 		  var_dump ($main);
 		  var_dump ($submain);
 			echo "</pre>";
@@ -665,8 +557,7 @@ $obj3 = $this->mergeObjectsRecursively($obj1, $obj2);
 //			$text = $this->tp->parseTemplate($template[($submain?:$main)][$sub], true, $sc);
 
 //			$text = $this->tp->parseTemplate($template[($submain?:$main)][$sub], true, $sc); // parse news shortcodes.
-			$text = $this->tp->parseTemplate($tmpl, true, $sc); // parse news shortcodes.
-  
+			return $this->tp->parseTemplate($tmpl, true, $sc); // parse news shortcodes.
   
 		  // teste para ver se os tags funcionam no tema em snippets. Funciona
 		  //        $text .= e107::getForm()->checkbox_toggle('e-column-toggle', '1', 'multiselect');
@@ -674,9 +565,18 @@ $obj3 = $this->mergeObjectsRecursively($obj1, $obj2);
   //        var_dump ($template[($submain?:$main)][$sub]);
 		  //        $text = $template['news']; // parse news shortcodes.
 	///var_dump ($template);
-	return $text; // parse news shortcodes.
+//	return $text; // parse news shortcodes.
 	}
 
+	// Mantenho aqui ou passo para o euser_info_shortcodes???
+		function sc_euser_avatar($opts=null)
+	{
+//		return e107::getParser()->toAvatar(e107::user($this->var['forum_lastpost_user']),$opts);
+//var_dump ($this->userinfo());
+//var_dump (array('user_id'=>array_key_first($this->userinfo())));
+		return e107::getParser()->toAvatar(array('user_id'=>array_key_first($this->userinfo())),$opts);
+	}
+	
 	function sc_euser_online($parms='')
 	{
 //var_dump (e107::isInstalled("pm"));
@@ -694,13 +594,14 @@ $obj3 = $this->mergeObjectsRecursively($obj1, $obj2);
 
 	$check = $this->sql->count("online","(*)","online_user_id='".$this->var['user_id'].".".$this->var['user_name']."'");
 */
-		$uinfo = $this->userinfo();
+//		$uinfo = $this->userinfo();
 //			var_dump ($uinfo);
 //		$this->var['user_id']=key($uinfo);
 //		$this->var['user_name']=current($uinfo);
 //	}
+		if (!$this->userinfo()) {return false;}
 
-$check = $this->sql->count("online","(*)","online_user_id='".key($uinfo).".".current($uinfo)."'");
+$check = $this->sql->count("online","(*)","online_user_id='".key(array: $this->userinfo()).".".current($this->userinfo())."'");
 /*
 echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>";
 	  var_dump ($parms['class']);
@@ -724,8 +625,92 @@ var_dump ($parms['text']);
 	return $text;
   }
 
+	function sc_euser_level($parm='')
+	{
+//var_dump (e107::isInstalled("pm"));
+//var_dump ($this->var['user_id'] > 0);
+//    var_dump ($this->var['user_id']);
+//    var_dump ($this->var['user_name']);
+//  	$on_name = "".$this->var['user_id'].".".$this->var['user_name']."";
+/*
+		if (!$this->var['user_id'] || !$this->var['user_name']) {
+			$uinfo = $this->userinfo();
+//			var_dump ($uinfo);
+			$this->var['user_id']=key($uinfo);
+			$this->var['user_name']=current($uinfo);
+		}
 
-	function sc_euser_data(){
+	$check = $this->sql->count("online","(*)","online_user_id='".$this->var['user_id'].".".$this->var['user_name']."'");
+*/
+		if (!$this->userinfo()) {return false;}
+		$uid = array_key_first($this->userinfo());
+//			var_dump ($uinfo);
+/*
+			if ($parms['class']){
+		$text = ( $check > 0 )?'euseron':'euseroff';
+	} elseif ($parms['text']==2){
+		$text = ( $check > 0 )?LAN_ON:LAN_OFF;
+	} elseif ($parms['text']){
+		$text = ( $check > 0 )?'('.LAN_ON.')':'('.LAN_OFF.')';
+	} else {
+		$text = ( $check > 0 )?IMAGE_online:IMAGE_offline;
+	}
+	return $text;
+*/
+// A partir daqui é praticamente uma cópia do sc_level do view_shortcodes do forum
+		if(empty($uid))
+		{
+			return '';
+		}
+
+		$rankInfo = e107::getRank()->getRanks($uid);
+		// FIXME - level handler!!!
+
+		//	print_a($rankInfo);
+
+		if($parm == 'badge')
+		{
+			if(!empty($rankInfo['name']))
+			{
+				return "<span class='label label-info'>" . $rankInfo['name'] . "</span>";
+			}
+		}
+
+		if(!$parm)
+		{
+			$parm = 'name';
+		}
+
+		switch($parm)
+		{
+			case 'userid' :
+				return $uid;
+				break;
+
+			case 'glyph':
+				$text = "";
+				$tp = e107::getParser();
+				for($i = 0; $i < $rankInfo['value']; $i++)
+				{
+					$text .= $tp->toGlyph('fa-star');
+				}
+
+				return $text;
+				break;
+
+			default:
+				return varset($rankInfo[$parm], '');
+				break;
+		}
+//return array_key_first($uinfo);
+  }
+
+	function sc_euser_data($parms=null){
+	
+		if ($parms['link']) {
+//		$url = e107::getUrl();
+			return e107::getUrl()->create('user/profile/view', array('id' => array_key_first($this->userinfo()), 'name' => current($this->userinfo())));
+		}
 		return current($this->userinfo());
 	}
 
@@ -753,17 +738,19 @@ var_dump ($parms['text']);
 		$uid = $sc->news_item['news_author'];
 	  }
 	  */
-	  $uinfo=$this->userinfo();
+//	  $uinfo=$this->userinfo();
+		if (!$this->userinfo()) {return false;}
 
 		if ($parms['url']){
 
 //	  public function sc_news_author_items_url($parm=null)
+/*
 		  if(empty($uinfo))
 		  {
 			  return null;
 		  }
-  
-		  return e107::getUrl()->create('news/list/author',array('author'=>current($uinfo))); // e_BASE."news.php?author=".$val
+ */ 
+		  return e107::getUrl()->create('news/list/author',array('author'=>current(array: $this->userinfo()))); // e_BASE."news.php?author=".$val
 	}
 	else
 	{
@@ -809,17 +796,17 @@ var_dump ($parms['text']);
 	var_dump ($sc);
 	echo "</pre>";
 	*/
-	  if(!empty($uinfo))
-	  {
+//	  if(!empty($uinfo))
+//	  {
 		$row = $this->sql->retrieve("SELECT n.news_author, COUNT(n.news_id) AS totalnews FROM #news AS n
-		WHERE n.news_author = ".key($uinfo));
+		WHERE n.news_author = ".key($this->userinfo()));
 	/*
 	echo "<pre>";
 	var_dump (empty($row['totalnews']));
 	echo "</pre>";
 	*/
 		return empty($row['totalnews'])?null:$row['totalnews'];
-	  }
+//	  }
 
 	}
 
@@ -828,37 +815,41 @@ var_dump ($parms['text']);
 
 	function sc_euser_posts($parms=null) // default count
 	{
-		$uinfo=$this->userinfo();
+//		$uinfo=$this->userinfo();
+		if (!$this->userinfo()) {return false;}
 		
 		if ($parms['url']){
 
 			//	  public function sc_news_author_items_url($parm=null)
-					  if(empty($uinfo))
+/*					  if(empty($uinfo))
 					  {
 						  return null;
 					  }
-			  
+*/			  
 // Quando puder tenho de meter isto com o geturl
  //					  return e107::getUrl()->create('news/list/author',array('author'=>$unm)); // e_BASE."news.php?author=".$val
-						return e_HTTP.'userposts.php?0.forums.'.key($uinfo);
+						return e_HTTP.'userposts.php?0.forums.'.key($this->userinfo());
 				}
 		else
 		{
 //			var_dump (e107::getRegistry('_all_')); // Não vou usar o registry, nem sei como funciona....
-			if(!empty($uinfo))
-			{
-			  $row = $this->sql->retrieve("SELECT p.post_user, COUNT(p.post_id) AS totalposts FROM #forum_post AS p WHERE p.post_user = ".key($uinfo));
+//			if(!empty($uinfo))
+//			{
+			  $row = $this->sql->retrieve("SELECT p.post_user, COUNT(p.post_id) AS totalposts FROM #forum_post AS p WHERE p.post_user = ".key($this->userinfo()));
 		  /*
 		  echo "<pre>";
 		  var_dump (empty($row['totalnews']));
 		  echo "</pre>";
 		  */
 			  return empty($row['totalposts'])?null:$row['totalposts'];
-			}
+//			}
 		}
 
 	}
 
+	//CUSTOM EUSER PLUGIN SHORTCODES (USER IN EUSER INFO PANEL), USES SENDPM (EITHER CUSOTMIZED FROM EPM OR FROM STANDARD CORE SHORTCODE....)
+	// ISTO É PRATICAMENTE IGUAL AO sc_user_sendpm NO USER_SHORTCODES DAQUI...
+/*----
 	function sc_euser_pmuser()
 {
 //  $sc = e107::getScBatch('view', 'forum');
@@ -879,5 +870,47 @@ return $this->tp->parseTemplate("{SENDPM: user=" . key($uinfo) . "}");
     // $text .= "<li><a href='".e_PLUGIN_ABS."pm/pm.php?send.{$this->postInfo['post_user']}'>".$tp->toGlyph('envelope')." ".LAN_FORUM_2036." </a></li>";
   }
 }
+-----*/
 
+/***********************
+ * 
+ * REWRITE USER_SENDPM CORE SHORTCODE
+ * 
+ */
+// Para sair se aprovarem o pull https://github.com/e107inc/e107/pull/5435, mas já refiz com outras opções... É muito diferente do pull request original
+function sc_user_sendpm($parm=null)// Tornei este sc global e código refeito
+{
+		if (!$this->userinfo()) {return false;}
+//	$pref = e107::getPref();
+	if (!e107::isInstalled("pm")) return null;
+	
+/////	$tp = e107::getParser();
+	if($this->var['user_id'] > 0)
+	{
+		$parms_str = 'user='.$this->var['user_id'];
+	}
+	elseif (key($this->userinfo()) <> USERID){
+		$parms_str = 'user='.key($this->userinfo());
+	}
+
+	if ($parms_str){
+		if ($parm) {
+			$parms_str .='&'.implode('&', array_map(
+            function($k, $v) { 
+                return $k . '=' . $v;
+            }, 
+            array_keys($parm), 
+            array_values($parm)
+            )
+        );
+		}
+//		var_dump ($set);
+
+		return $this->tp->parseTemplate("{SENDPM:".$parms_str.'}');
+
+//	}
+//	elseif (key($this->userinfo()) <> USERID){
+//			return $this->tp->parseTemplate("{SENDPM: user=" . key($this->userinfo()) . "}");
+	}
+}
 }

@@ -34,6 +34,64 @@ trait Euser_global_info {
 //			$uname = $sc->news_item['user_name'];
 			$uinfo[$sc->news_item['news_author']] = $sc->news_item['user_name'];
 ////			var_dump ($sc->news_item);
+		} elseif (strpos(e_PAGE, "pm") !== false) {
+//			$sc = e107::getScBatch('pm');
+//			$sc = e107::getScBatch('pm');
+
+//			$userTo = $sc->sc_pm_form_touser();
+//				var_dump($userTo);
+//			$classTo = $sc->sc_pm_form_toclass();
+//				var_dump($classTo);
+//		var_dump($sc->var);
+//			$sc = e107::getScBatch('epm');
+
+//			$userTo = $sc->sc_pm_form_touser();
+//				var_dump($userTo);
+//			$classTo = $sc->sc_pm_form_toclass();
+//				var_dump($classTo);
+//		var_dump($sc->var);
+			require_once(e_PLUGIN . 'pm/pm_class.php');
+			$pm = new private_message();
+				$qs = explode('.', e_QUERY);
+				$pm_proc_id = intval(varset($qs[1], 0));
+//			$pm_info = $pm->pm_get($pm_proc_id);
+//				var_dump($pm_info);
+/*
+	if(isset($_POST['pm_come_from']))
+	{
+		$pmSource = $tp->toDB($_POST['pm_come_from']);
+	}
+	elseif(isset($qs[2]))
+	{
+		$pmSource = $tp->toDB($qs[2]);
+	}
+*/
+			$pm_info = $pm->pm_get($pm_proc_id);
+/*
+			if(!empty($sc->var['pm_from']))
+			{
+				$uinfo[$sc->var()['pm_from']] = $sc->var()['from_name'];
+				var_dump($uinfo);
+//				return e107::getForm()->hidden('pm_to', $this->var['pm_from']).$this->var['from_name'];
+			}
+*/
+//////			if($pm_info['pm_to'] != USERID && $pm_info['pm_from'] != USERID)
+//				var_dump($pm_info);
+//			echo "<hr>";
+			if($pm_info['pm_from'] != USERID)
+			{
+				$uinfo[$pm_info['pm_from']] = $pm_info['from_name'];
+//				var_dump($uinfo);
+//				return e107::getForm()->hidden('pm_to', $this->var['pm_from']).$this->var['from_name'];
+			} else {
+				$uinfo[$pm_info['pm_to']] = $pm_info['sent_name'];
+
+			}
+//				var_dump($uinfo);
+//			$uid = $sc->news_item['news_author'];
+//			$uname = $sc->news_item['user_name'];
+//			$uinfo[$sc->news_item['news_author']] = $sc->news_item['user_name'];
+////			var_dump ($sc->news_item);
 		} elseif (strpos(e_PAGE, "euser") !== false) {
 			$sc = e107::getScBatch('user', 'euser', 'user');
 //			$uid = $_GET['id'];
@@ -58,6 +116,7 @@ trait Euser_global_info {
 //		  return ($parm=='name'?$unm:$uid);
 		// vou passar ausar um array
 //		  return array($uid => $uname);
+//var_dump ($uinfo);
 		  return ($uinfo??null);
 	}
 
@@ -70,11 +129,22 @@ trait Euser_admin_info {
 		if(ADMIN)
 		{
 			$tp = e107::getParser();
-			//	var_dump($euser_pref['friends']);
-			$sections = $euser_pref['friends']?LAN_EUSER_130.", ":null;
-			$sections .= $euser_pref['pics']?LAN_EUSER_140.", ":null;
-			$sections .= $euser_pref['videos']?LAN_EUSER_150:null;
-			$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(LAN_EUSER_6, true), array('x'=>$sections)).'</div>';
+//				var_dump($euser_pref['friend_sys']);
+/*
+			$sections = $euser_pref['friend_sys']?LAN_EUSER_130.", ":null;
+			$sections .= $euser_pref['image_sys']?LAN_EUSER_140.", ":null;
+			$sections .= $euser_pref['video_sys']?LAN_EUSER_150:null;
+*/
+			$sections[$euser_pref['friend_sys']][]= LAN_EUSER_130;
+			$sections[$euser_pref['image_sys']][]=LAN_EUSER_140;
+			$sections[$euser_pref['video_sys']][]=LAN_EUSER_150;
+
+//			$adminwarn = "<div class='alert alert-warning'>".$tp->lanVars($tp->toHTML(LAN_EUSER_6, true), array('x'=>$sections)).'</div>';
+//			var_dump($sections);
+			$adminwarn = "<div class='alert alert-warning'>".$tp->toHTML(LAN_EUSER_6, true);
+			$adminwarn .= $sections[0]?$tp->lanVars($tp->toHTML(LAN_EUSER_7, true), array('x'=>implode(", ", $sections[0]))):'';
+			$adminwarn .= $sections[1]?'<br>'.$tp->lanVars($tp->toHTML(LAN_EUSER_8, true), array('x'=>implode(", ", $sections[1]))):'';
+			$adminwarn .= '</div>';
 		}
 		return ($adminwarn??null);
 	}

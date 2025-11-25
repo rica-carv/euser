@@ -118,12 +118,11 @@ $EUSER_WRAPPER['main']['PROFILE_COMMENTS'] = "<div id='euser_comments' class='ta
   
 $EUSER_TEMPLATE['main'] =	'
 {EUSER_WARN}
-
 <div class="euser-profile row">
   <div class="col-md-12">
     <div class="euser-panel">
-      <div class="euser-body pb-3">
-        <div class="row border-0">
+      <div class="euser-body">
+        <div class="row border-0 pb-3">
           <div class="col-auto text-center">
             {SETIMAGE: w=200&h=200&crop=1}
             <div class="{EUSER_ONLINE:class=1} pb-3" data-bs-original-title="{EUSER_ONLINE:text=2}" title="{EUSER_ONLINE:text=2}">
@@ -135,7 +134,7 @@ $EUSER_TEMPLATE['main'] =	'
               <!-- End Controls -->
             </div>
           </div>
-
+          <!-- Primeira secção abas -->
           <div class="col ps-0">
             <div class="tabbed-menu">
               <div class="tabbed-menu-body">
@@ -196,7 +195,7 @@ $EUSER_TEMPLATE['main'] =	'
                                 - etc.
                               </div>
                             </div>
-                            {USER_EXTENDED_ALL}
+                            »»»»»»»{USER_EXTENDED_ALL}«««««««««
                           </div>
                         </div>
 
@@ -214,7 +213,7 @@ $EUSER_TEMPLATE['main'] =	'
 
         <!-- Segunda seção de abas -->
         <div class="row border-0">
-          <div class="col p-o">
+          <div class="col">
             <div class="tabbed-menu">
               <div class="tabbed-menu-body">
                 <div class="tabs-wrapper">
@@ -240,8 +239,8 @@ $EUSER_TEMPLATE['main'] =	'
                 </div>
               </div>
             </div>
- 
-          </div>
+          </div> 
+        </div>
 
       </div> <!-- /.euser-body -->
     </div> <!-- /.euser-panel -->
