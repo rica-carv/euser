@@ -16,3 +16,9 @@ Enhanced user plugin adds new functions for the core user plugin for E107 CMS sy
 Still in beta development, but usable.
 
 Use at own risk, i can't be responsable for any damage...
+
+## Installation
+
+1. Copy the files into your e107 installation.
+2. Replace or override the existing shortcode.
+3. Use the new parameters in your theme templates.
