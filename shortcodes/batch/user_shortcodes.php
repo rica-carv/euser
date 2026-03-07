@@ -27,14 +27,17 @@ require_once(e_CORE."shortcodes/batch/user_shortcodes.php");
 //	}
 //include_once(e_PLUGIN . "euser/shortcodes/euser_trait.php");
 //}
+include_once(e_PLUGIN . "euser/includes/euser_trait.php");
 class plugin_euser_user_shortcodes extends user_shortcodes
 //class plugin_euser_user_shortcodes extends e_shortcode
 {
 //	use core_user_sc;
-	//	use Euser_global_info;
+		use Euser_global_info;
+//		use Euser_info;
+//  var $override = true; // when set to true, existing core/plugin shortcodes matching methods below will be overridden. 
 protected $sql;
 protected $tp;
-protected $var;
+protected $pref;
 
 	function __construct()
 	{
@@ -44,14 +47,14 @@ protected $var;
 //        $this->var['euser_pref'] = e107::getPlugPref('euser');
 //$this->var['euser_pref'] = $this->var['user_data']['user_settings'];
         
-    		$this->sql->select("euser", "*", "user_id='".$this->var['user_id']."' ");
+//    		$this->var['euser_data'] = $this->sql->retrieve("euser", "*", "euser_id=".$this->var['user_id'], false, null, true);
 //    		$this->euser_data = $this->sql->fetch();
-    		$this->var['euser_data'] = $this->sql->fetch();
+//    		$this->var['euser_data'] = $this->sql->fetch();
 
-        $pref = e107::pref('euser');
+        $this->pref = e107::pref('euser');
 
         // Carrega shortcodes de "amigos" só se estiver ativo nas preferências
-        if (!empty($pref['friend_sys']))
+        if (!empty($this->pref['friend_sys']))
         {
             $file = e_PLUGIN.'euser/includes/friend_shortcodes.php';
 
@@ -63,14 +66,16 @@ protected $var;
 	}
 
 // Override shortcodes originais do user	
-  // Provisório, até o pull ser aprovado.... PS: Qual pull?
+  // Provisório, até o pull ser aprovado.... https://github.com/e107inc/e107/pull/5308
 	function sc_user_jump_link($parm = null)
 	{
-		global $full_perms;
+//        $pref = e107::pref('euser');
+		$full_perms = getperms("0") || check_class(varset($this->pref['memberlist_access'], 253));		// Controls display of info from other users
+//		global $full_perms;
 //		$sql = e107::getDb();
 //		$tp = e107::getParser();
 		
-//      var_dump ($full_perms);
+//	    var_dump ($full_perms);
 		if (!$full_perms) return;
 		$url = e107::getUrl();
 		if(!$userjump = e107::getRegistry('userjump'))
@@ -91,8 +96,6 @@ protected $var;
 		  }
 		  e107::setRegistry('userjump', $userjump);
 		}
-		
-
 	
 		if($parm == 'prev' || isset($parm['prev']))
 		{
@@ -195,6 +198,7 @@ function sc_user_sendpm($parm=null)
 	}
 }
 */
+
 function sc_user_id($parm='')
 {
 	if(ADMIN && getperms("4"))
@@ -203,7 +207,8 @@ function sc_user_id($parm='')
 	}
 }
 
-function sc_user_extended_all($parm=null)
+/*----
+function sc_userextended_all($parm=null)
 {
 //	$sql = e107::getDb();
 //	$tp = e107::getParser();
@@ -217,6 +222,8 @@ function sc_user_extended_all($parm=null)
 	else // v2.x
 	{
 */
+
+/*----
 		$template = e107::getTemplate('euser', true, 'extended');
 /*
 		$EXTENDED_CATEGORY_START    = $template['start'];
@@ -232,13 +239,15 @@ function sc_user_extended_all($parm=null)
 	";
 	*/
 
+
+/*----
 	$ue = e107::getUserExt();
 	$ueCatList = $ue->user_extended_get_categories();
 	$ueFieldList = $ue->user_extended_get_fields();
 	
 	$ueCatList[0][0] = array('user_extended_struct_name' => LAN_USER_44, 'user_extended_struct_text' => '');
 	
-//	print_a($ueFieldList);
+	print_a($ueFieldList);
 	
 	$ret = "";
 	foreach($ueCatList as $catnum => $cat)
@@ -247,8 +256,11 @@ function sc_user_extended_all($parm=null)
 	//	$cat_name = $tp->parseTemplate("{USER_EXTENDED={$key}.text.{$this->var['user_id']}}", TRUE); //XXX FIXME Fails
 
 	//	$cat_name = true; //XXX TEMP Fix.
+
 		
-		if(/*$cat_name != FALSE && */isset($ueFieldList[$catnum]) && count($ueFieldList[$catnum]))
+		if(/*$cat_name != FALSE && */
+/*----
+isset($ueFieldList[$catnum]) && count($ueFieldList[$catnum]))
 		{
 			$ret .= str_replace("{EXTENDED_NAME}", $key, $template['start']);
 			foreach($ueFieldList[$catnum] as $f)
@@ -281,24 +293,140 @@ function sc_user_extended_all($parm=null)
 			$ret .= $template['end'];
 		}
 	}
-	return $ret;
+	return "»»»»»»USER SHORTVODES»»»»»»»»".$ret;
 }
+----*/
+	function sc_total_users($parm=null)
+	{
+//		global $users_total;
+//var_dump ($this->var);
+		return (int) EUSER_TOTAL;
+	}
 
 /// #### FIM DO OVERRIDE DOS SHORTCDODES DO USER
 
+/// INICIO DOS SHORTCODES DO EUSER
+	function sc_euser_listnav($parm='') //Usada na lista template
+  {
+/////////////global $philcat_from;
+//    $philcat_npaction = "show";
+//    $parms = $philcat_count . "," . $pref['phcat_perpage'] . "," . $philcat_from . "," . e_SELF . '?' . "[FROM]." . $philcat_npaction;
+//    $parms = philcat_count . "," . $this->pref['perpage'] . "," . $philcat_from . "," . "philcat.php?[FROM].show";
+//    $parms = philcat_count . "," . $this->pref['perpage'] . "," .FROM. "," . "philcat.php?[FROM]";
 
+//		$amount 	= NEWSLIST_LIMIT;
+//		$nitems 	= defined('NEWS_NEXTPREV_NAVCOUNT') ? '&navcount='.NEWS_NEXTPREV_NAVCOUNT : '' ;
+//		$url 		= rawurlencode(e107::getUrl()->create($this->route, $this->newsUrlparms));
+/*
+		$url 		= rawurlencode(e107::getUrl());
+    var_dump ($url);
+
+		$url 		= rawurlencode(e107::getUrl()->create($this->route));
+    var_dump ($url);
+*/
+//		$url = e_PAGE."?--FROM--";
+//		var_dump (e_SELF);
+//    var_dump ($url);
+//		$url = "philcat?--FROM--";
+
+//		$parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url='.$url; // .'&url='.$url;
+//		$parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url=philcat?--FROM--'; // .'&url='.$url;
+//		$parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url=?--FROM--'; // .'&url='.$url;
+//-----		$parms = 'tmpl_prefix=default&total='.$this->var['total'].'&amount='.EUSER_RECORDS.'&current='.EUSER_FROM.'&url='.e_SELF.'?--FROM--.'.EUSER_RECORDS.'.'.EUSER_ORDER; // .'&url='.$url;
+		$parms = 'tmpl_prefix=default&total='.EUSER_TOTAL.'&amount='.EUSER_RECORDS.'&current='.EUSER_FROM.'&url='.e_SELF.'?--FROM--.'.EUSER_RECORDS.'.'.EUSER_ORDER; // .'&url='.$url;
+//		$newUrl = e107::url('philcat','page', array('id'=>intval($this->pref['perpage'])+FROM));
+//		$newUrl = e107::url('philcat','page', array('id'=>FROM));
+//    $newUrl = e107::url('philcat','page');
+//    $parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url='.$newUrl; // .'&url='.$url;
+/*
+    echo "<hr>";
+    var_dump(array('id'=>FROM));
+    echo "<hr>";
+    var_dump($newUrl);
+*/    
+
+/*
+		$parms = array(
+				'tmpl_prefix'	=> deftrue('PHCAT_NEXTPREV_TMPL', 'default'),
+				'total'			=> philcat_count,
+				'amount'		=> intval($this->pref['perpage']),
+				'current'		=> FROM,
+				'url'			=> urldecode($newUrl)
+		);
+*/
+
+//		$parms  	= 'tmpl_prefix='.deftrue('NEWS_NEXTPREV_TMPL', 'default').'&total='.$news_total.'&amount='.$amount.'&current='.$this->from.$nitems.'&url='.$url;
+
+//		$this->addDebug('newsUrlParms',$this->newsUrlparms);
+/*
+var_dump($this->var);
+echo "<hr>";
+var_dump($parms);
+*/
+//global $discl, $philcat_showimg, $tp, $parms, $sc_phil_style;
+//$sc_phil_style['NEXTPREV']['pre'] = "<hr><center>";
+//$sc_phil_style['NEXTPREV']['post'] = "</center>";
+// O div tem de ser hardcoded por causa do Ajax, n�o posso deixar isto nas m�os do template...
+return $this->tp->parseTemplate("{NEXTPREV={$parms}}");
+  }
+
+	function sc_euser_lastviewed($parm='')
+	{
+		$getdata = ($this->var['euser_data']['euser_lastviewed']);
+//		var_dump ($getdata);
+//		var_dump (!$getdata);
+		if (!$getdata){return false;}
+//		var_dump ($getdata);
+//		foreach ($getdata as $d) {
+//			var_dump ($d);
+			$data = unserialize($getdata);
+//			$data = unserialize($d);
+//			var_dump ($data);
+			$date_break = explode("|", $data[0]);
+//			var_dump ($date_break);
+//		}
+		return $this->tp->toDate($date_break[1], ($parm??'long'));
+	}
+
+		function sc_euser_totalviews($parm='')
+	{
+		return $this->var['euser_data']['euser_totalviews'];
+	}
 
 	function sc_euser_controls($parm='')
 	{
-    global $euser_template;
+//    global $euser_template;
 //		return $this->tp->parseTemplate((USERID == $this->var['user_id']?$euser_template['controls_logged']:$euser_template['controls'].(ADMIN?"<br>".$euser_template['controls_logged']:"")), TRUE, $this);
-		return $this->tp->parseTemplate((USERID == $this->var['user_id']?null:$euser_template['controls']), TRUE, $this);
+// Garante que a classe de shortcodes do plugin está carregada
+
+
+//return $this->tp->parseTemplate((USERID == $this->var['user_id']?null:$this->var['euser_template']['controls']), TRUE, $this);
+//return (USERID == $this->var['user_id']?null:$this->var['euser_template']['controls']);
+
+require_once(e_PLUGIN.'euser/e_shortcode.php');
+
+// Instancia a classe de shortcodes do plugin
+$sc = new euser_shortcodes();
+
+// Gera o conteúdo do shortcode diretamente
+//$sendpm_html = $sc->sc_user_sendpm($parm);
+
+// Pega a template
+//$template = (USERID == $this->var['user_id'] ? null : $this->var['euser_template']['controls']);
+
+// Substitui o shortcode pelo retorno direto
+//$template = str_replace('[user_sendpm]', $sendpm_html, $template);
+
+// Agora parseTemplate processa outros shortcodes / variáveis da template
+return $this->tp->parseTemplate((USERID == $this->var['user_id']?null:$this->var['euser_template']['controls']), TRUE, $sc);
+//return $template;
+
   }
 
 	function sc_euser_settings($parm='')
 	{
 //        var_dump ($parm['text']);
-
+/*
     			if (USERID == $this->var['user_id'] && ADMIN) {
 //				$text .= "{USER_UPDATE_LINK}";
         $url=e_HTTP."usersettings.php";
@@ -306,19 +434,41 @@ function sc_user_extended_all($parm=null)
         $text = LAN_EDIT;
 //        return "<a href='".e_HTTP."usersettings.php' title='".LAN_USER_38."'".($parm['class']?" class=".$parm['class']."":"").">".($text?:IMAGE_settings."&nbsp;".LAN_USER_38)."</a>";
 			} elseif (USERID == $this->var['user_id']) {
+			*/
+			/*		if (USERID == $this->var['user_id']) {
 ////					$text .= "<tr><td colspan='2' style='width:100%' class='forumheader'><center><a href='".e_BASE."usersettings.php'>".PROFILE_360."</a></center></td></tr>";
-					$url = e_BASE."usersettings.php";
-					$title = PROFILE_360;
-					$text = PROFILE_360;
+///////////////					$url = e_BASE."usersettings.php";
+//						$url = e107::getUrl()->create('user/myprofile/edit');
+					$title = LAN_EUSER_100;
+					$text = LAN_EUSER_100;
 //					return "<a href='".e_BASE."usersettings.php' title='".PROFILE_360."'".($parm['class']?" class=".$parm['class']."":"").">".($text?:IMAGE_settings."&nbsp;".PROFILE_360)."</a>";
 				} elseif (ADMIN && getperms("4")) {
+				*/
+							if (ADMIN && getperms("4")) {
 ////					$text .= "<tr><td colspan='2' style='width:100%' class='forumheader'><center><a href='euser_settings.php?uid=".$this->var['user_id']."'>".PROFILE_29."</a></center></td></tr>";
-					$url = "euser_settings.php?page=settings&id.".$this->var['user_id'];
+////////////////					$url = "euser_settings.php?page=settings&id.".$this->var['user_id'];
 //					$title = PROFILE_29;
+//					$url = e_ADMIN_ABS."users.php?mode=main&action=edit&id=".$this->var['user_id'];
+//					var_dump ($this->var['user_id']);
+//					var_dump ($this->var['user_admin']);
+//					var_dump (ADMIN);
+				$this->var['user_admin'] = 0; // Para teste
+//					var_dump (!$this->var['euser_admin']);
           $title = LAN_USER_39;
           $text = LAN_EDIT;
 //					return "<a href='euser_settings.php?page=settings&uid=".$this->var['user_id']."' title='".PROFILE_29."'".($parm['class']?" class=".$parm['class']."":"").">".($text?:IMAGE_settings."&nbsp;".PROFILE_29)."</a>";
 				}
+					elseif (USERID == $this->var['user_id']) {
+////					$text .= "<tr><td colspan='2' style='width:100%' class='forumheader'><center><a href='".e_BASE."usersettings.php'>".PROFILE_360."</a></center></td></tr>";
+///////////////					$url = e_BASE."usersettings.php";
+//						$url = e107::getUrl()->create('user/myprofile/edit');
+					$title = LAN_EUSER_100;
+					$text = LAN_EUSER_100;
+//					return "<a href='".e_BASE."usersettings.php' title='".PROFILE_360."'".($parm['class']?" class=".$parm['class']."":"").">".($text?:IMAGE_settings."&nbsp;".PROFILE_360)."</a>";
+				}
+
+				$url = $this->sc_user_settings_url();
+//				vaR_dump ($this->var['euser_admin']);
 
     if (isset($parm['link'])){return $url;}
     if (isset($parm['title'])){return $title;}
@@ -436,6 +586,7 @@ foreach($doc->getElementsByTagName('img') as $image){
   
 // É quase uma cópia do USER_ADDONS, mas ao contrário, não precisa do ficheiro e_euser.php no plugin...
 //Primeiro copiamos o USER_addons, mas com umas pequenas alterações...
+//var_dump ($this->var);
 $data 		= e107::getAddonConfig('e_user',null,'profile',$this->var);
 /*
 	echo "<pre>";
@@ -467,7 +618,7 @@ echo "</pre>";
 //  }
 */
 
-		global $euser_template;
+//		global $euser_template;
 
 		$edata = array(
 			'news' => array ('label'=>ONLINEINFO_LIST_1,'title'=>LAN_EUSER_505,'table'=>'news','count_field'=>'news_author', 'count_data'=>$this->var['user_id']),
@@ -495,8 +646,8 @@ echo "</pre>";
 //			var_dump($data[$plugin][0]['url']);
 			$val['url'] = $val['url']??$data[$plugin][0]['url'];
 //			var_dump($val['url']);
+//			var_dump ($plugin);
 /*
-			var_dump ($plugin);
 			var_dump (e107::getPref('profile_'.$plugin));
 			var_dump (empty(e107::getPref('profile_'.$plugin)));
 */
@@ -525,7 +676,7 @@ echo "</pre>";
 //			$captions.= $this->tp->parseTemplate($tmpl, TRUE, $this);
 			$captions.= $this->tp->parseTemplate(
 //			$this->tp->lanVars($euser_template['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant(IMAGE_.$plugin)." ".$val['label'],'x'=>($usercount>0?$usercount:NULL))),
-			$this->tp->simpleParse($euser_template['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant("IMAGE_".$plugin)." ".$val['label'],'count'=>($usercount>0?$usercount:NULL))),
+			$this->tp->simpleParse($this->var['euser_template']['plugins_caption'], array('ttl'=>$val['title']."&nbsp;".$percent,'plg'=>$plugin,'txt'=>constant("IMAGE_".$plugin)." ".$val['label'],'count'=>($usercount>0?$usercount:NULL))),
 			TRUE, $this);
 		}
 //		echo "<pre>";		var_dump ($captions);echo "</pre>";
@@ -548,15 +699,15 @@ echo "</pre>";
 					'EUSER_ADDON_TEXT' => (vartrue($val['url']) ? "<a href=\"".$val['url']."\">".$percent."</a>" : $percent),
 					'PLG' => $plugin,
 				);
-				$text.= $this->tp->parseTemplate(($euser_template['plugins_'.$plugin]??$euser_template['plugins']), true, $array);
+				$text.= $this->tp->parseTemplate(($this->var['euser_template']['plugins_'.$plugin]??$this->var['euser_template']['plugins']), true, $array);
 				if (isset($parm['resume']))
 				{
-					$resume.= $this->tp->parseTemplate($euser_template['plugins_resume'], true, $array);
+					$resume.= $this->tp->parseTemplate($this->var['euser_template']['plugins_resume'], true, $array);
 				}
 			}		
 		}
 		//        var_dump ($text);
-		return isset($parm['caption'])?$captions:(isset($parm['resume'])?$euser_template['plugins_resume_s'].$resume.$euser_template['plugins_resume_e']:$text);
+		return isset($parm['caption'])?$captions:(isset($parm['resume'])?$this->var['euser_template']['plugins_resume_s'].$resume.$this->var['euser_template']['plugins_resume_e']:$text);
 //		return $text;			
 //************************************************************************
 //FALTA O NUMERO DE CLASSIFICADOS
@@ -2274,11 +2425,13 @@ return '
 /*
   }
 */
+// Isto depois passa para caad aum dos plugins individuais...
   	function sc_euser_friends($parm='')
 	{
     if (!e107::isInstalled('user_friends'))    {
       return false;
-    } 
+    }
+	return "A mudar!!!!";
   // #####AMIGOS#####
     if (($_GET['page'] == "friends") || (!$_GET['page'])){
 			// Check member settings - NO Admin & NO Friends
@@ -2318,7 +2471,11 @@ return '
 // Carrego o ficheiro para no futuro ter uma hipótese de reoordenar como eu quiser isto...
 //var_dump ("Inicio");
 define("UPROF", "");
-			return require("includes/friends.php");
+//var_dump(e_PLUGIN . e107::getPlug()->load('user_friends')->getFields(true)['plugin_path']."/includes/friends.php");
+//return require('http://localhost/selospt_dev/e107_plugins/user_friends/includes/friends.php');
+//var_dump(e_PLUGIN.USER_FRIENDS_PLUGIN_PATH);
+//			return require_once(e_PLUGIN . e107::getPlug()->load('user_friends')->getFields(true)['plugin_path']."/includes/friends.php");
+			return require_once(e_PLUGIN.USER_FRIENDS_PLUGIN_PATH."/includes/friends.php");
 //var_dump ("Fim");
 //---$text .="</div>";
 

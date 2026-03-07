@@ -8,7 +8,7 @@
 #  user_background varchar(255) NOT NULL default '',
 #  user_friends text NOT NULL,
 #  user_friends_request text NOT NULL,
-#  user_settings varchar(50) NOT NULL default '',
+#  user_settings varchar(255) NOT NULL default '',
 #  user_simple int(1) NOT NULL default '1',
 #  user_lastviewed text NOT NULL,
 #  user_totalviews int(10) NOT NULL default '0',
@@ -17,22 +17,22 @@
 #  PRIMARY KEY  (user_id)
 #);
 #
-CREATE TABLE IF NOT EXISTS  euser (
-  user_id int(5) NOT NULL default '0',
-  user_custompage text NOT NULL,
-  user_background varchar(255) NOT NULL default '',
-  user_settings int(10) NOT NULL default '0',
-  user_simple int(1) NOT NULL default '1',
-  user_lastviewed text NOT NULL,
-  user_totalviews int(10) NOT NULL default '0',
-  user_lastupdated int(11) NOT NULL default '0',
+CREATE TABLE euser (
+  euser_id int(5) NOT NULL default '0',
+  euser_custompage text NOT NULL,
+  euser_background varchar(255) NOT NULL default '',
+  euser_settings text NOT NULL default '0',
+  euser_simple int(1) NOT NULL default '1',
+  euser_lastviewed text NOT NULL,
+  euser_totalviews int(10) NOT NULL default '0',
+  euser_lastupdated int(11) NOT NULL default '0',
   PRIMARY KEY  (user_id)
 );
 # --------------------------------------------------------
 #
 # Table structure for table `euser_memberlist`
 #
-CREATE TABLE  IF NOT EXISTS euser_memberlist (
+CREATE TABLE euser_memberlist (
   memberlist_id int(5) NOT NULL default '0',
   memberlist_search varchar(200) NOT NULL default '',
   memberlist_columns varchar(200) NOT NULL default '',
@@ -40,18 +40,9 @@ CREATE TABLE  IF NOT EXISTS euser_memberlist (
 );
 # --------------------------------------------------------
 #
-# Table structure for table `euser_friends`
-#
-CREATE TABLE IF NOT EXISTS  euser (
-  user_id int(5) NOT NULL default '0',
-  friend_id int(5) NOT NULL default '0',
-  PRIMARY KEY  (user_id, friend_id)
-);
-# --------------------------------------------------------
-#
 # Table structure for table `euser_commments`
 #
-CREATE TABLE  IF NOT EXISTS euser_comments (
+CREATE TABLE euser_comments (
   com_id int(10) NOT NULL auto_increment,
   com_by int(10) NOT NULL default '0',
   com_to int(10) NOT NULL default '0',
@@ -63,31 +54,9 @@ CREATE TABLE  IF NOT EXISTS euser_comments (
 );
 # --------------------------------------------------------
 #
-# Table structure for table `euser_vids`
-#
-CREATE TABLE  IF NOT EXISTS euser_vids (
-  vid_id int(10) NOT NULL auto_increment,
-  vid_uid int(10) NOT NULL default '0',
-  vid_name varchar(30) NOT NULL default '',
-  vid_desc varchar(255) NOT NULL default '',
-  vid_embed text NOT NULL,
-  vid_added varchar(55) NOT NULL default '',
-  PRIMARY KEY  (vid_id)
-);
-# --------------------------------------------------------
-#
-# Table structure for table `euser_mp3`
-#
-CREATE TABLE IF NOT EXISTS  euser_mp3 (
-  mp3_id int(5) NOT NULL default '0',
-  mp3_embed text NOT NULL,
-  PRIMARY KEY  (user_id)
-);
-# --------------------------------------------------------
-#
 # Table structure for table `euser_cache`
 #
-CREATE TABLE IF NOT EXISTS euser_cache (
+CREATE TABLE euser_cache (
   type varchar(50) NOT NULL default '',
   cache_name varchar(100) NOT NULL default '',
   cache text NOT NULL,
@@ -103,7 +72,7 @@ CREATE TABLE IF NOT EXISTS euser_cache (
 #
 # Table structure for table `euser_read`
 #
-CREATE TABLE IF NOT EXISTS euser_read (
+CREATE TABLE euser_read (
   user_id int(10) NOT NULL default '0',
   news text NOT NULL,
   chatbox text NOT NULL,

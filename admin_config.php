@@ -14,8 +14,12 @@ e107::lan('euser', 'front', true);
 e107::lan('euser', 'global', true);
 // e107::lan('euser',true);
 
-require_once('admin_class.php');
+require_once('includes/admin_class.php');
 
+$traitFile = e_PLUGIN.'eadmin/handlers/eadmin_trait.php';
+if (is_readable($traitFile)) {
+    require_once($traitFile);
+}
 /*
 function create_expandit_container ($parent, $data_array) {
 
@@ -81,12 +85,14 @@ class euser_adminArea extends e_admin_dispatcher
 			'ui' 			=> 'euser_main_form_ui',
 			'uipath' 		=> null
 		),
-		'friends'	=> array(
-			'controller' 	=> 'euser_friends_ui',
+/*
+		'sections'	=> array(
+			'controller' 	=> 'euser_sections_ui',
 			'path' 			=> null,
-			'ui' 			=> 'euser_friends_form_ui',
+			'ui' 			=> 'euser_sections_form_ui',
 			'uipath' 		=> null
 		),
+*/
 		'profile'	=> array(
 			'controller' 	=> 'euser_profile_ui',
 			'path' 			=> null,
@@ -127,20 +133,21 @@ class euser_adminArea extends e_admin_dispatcher
 //		'main/list'			=> array('caption'=> LAN_MANAGE, 'perm' => 'P'),
 //		'main/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
 		'main/prefs'			=> array('caption'=> LAN_PREFS, 'perm' => 'P'),
-		'friends/prefs'			=> array('caption'=> LAN_EUSER_ADMIN_1, 'perm' => 'P'),
-
-		'opt1'              => array('header'=> LAN_EUSER_ADMIN_2),
+//		'sections/prefs'			=> array('caption'=> LANAD_EUSER_1, 'perm' => 'P'),
+		'maint/opt1'              => array('divider'=>true),
 
 		'profile/prefs'			=> array('caption'=> LAN_USER_50, 'perm' => 'P'), 
 		'memberlist/prefs'			=> array('caption'=> LAN_EUSER_500, 'perm' => 'P'),
 //		'main/opt1'              => array('divider'=>true),
-		'opt2'              => array('header'=> LAN_EUSER_ADMIN_3),
+		'main/opt2'              => array('divider'=>true),
+//		'opt2'              => array('header'=> LAN_EUSER_ADMIN_3),
 		'whatsnew/prefs'			=> array('caption'=> LAN_EUSER_501, 'perm' => 'P'),
 //		'main/opt2'              => array('divider'=>true),
 		'online/prefs'			=> array('caption'=> LAN_EUSER_502, 'perm' => 'P'),
 //		'main/opt3'              => array('divider'=>true),
-		'color/prefs'			=> array('caption'=> LAN_EUSER_ADMIN_4, 'perm' => 'P'),
+		'color/prefs'			=> array('caption'=> LANAD_EUSER_40, 'perm' => 'P'),
 //		'color/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
+
 
 		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
 	);
@@ -166,28 +173,62 @@ class euser_main_ui extends e_admin_ui
 	protected $orderStep 		= 1;
 	protected $listOrder 		= 'fb_order asc';
 
-  protected $preftabs			= array(LAN_OPTIONS,LAN_EUSER_ADMIN_300); 
+	protected $preftabs			= array(LAN_OPTIONS,LANAD_EUSER_10); 
 	protected $prefs = array( 
-           'lastupdate_filter'  => array('title'=> LAN_EUSER_ADMIN_301,'tab' => 0, 'type'=>'userclass', 'writeParms' => 'classlist=public,member,classes,admin,main'),
-          'updatedtotal_col'  => array('title'=> LAN_EUSER_ADMIN_302,'tab' => 0, 'type'=>'text'),
-  				'updateddirection'  => array('title'=> LAN_EUSER_ADMIN_303,'tab' => 0,  'type'=>'dropdown', 'writeParms'=>array('optArray'=> array('v'=> LAN_EUSER_ADMIN_310,'h'=> LAN_EUSER_ADMIN_311))),
-          'updatedtotal'  => array('title'=> LAN_EUSER_ADMIN_304,'tab' => 0, 'type'=>'text','help' => LAN_EUSER_ADMIN_304H),
-  				'buttontype'  => array('title'=> LAN_EUSER_ADMIN_305, 'type'=>'boolean','tab' => 0),
-  				'user_warn_support'  => array('title'=> LAN_EUSER_ADMIN_306, 'type'=>'boolean','tab' => 0,'help' => LAN_EUSER_ADMIN_306H),
-  				'redirect'  => array('title'=> LAN_EUSER_ADMIN_307, 'type'=>'boolean','tab' => 1,'writeParms'=>array('tdClassRight'=>'form-inline')),
-  				'unreg'  => array('title'=> LAN_EUSER_ADMIN_308, 'type'=>'boolean','tab' => 1,'help' => LAN_EUSER_ADMIN_308H),
-  				'unreg_save'  => array('title'=> LAN_EUSER_ADMIN_309, 'type'=>'boolean','tab' => 1,'help' => LAN_EUSER_ADMIN_309H),
+ 	//		'memberprofile_view'  => array('title'=> LANAD_EUSER_6,'tab' => 0, 'type'=>'userclass', 'writeParms'=>array('class'=>'pull-left', 'tdClassRight'=>'form-inline')), Redundante, já existe o memberlist_access no core....
+ 			'memberprofile_edit'  => array('title'=> LANAD_EUSER_7,'tab' => 0, 'type'=>'userclass', 'writeParms'=>array('class'=>'pull-left', 'tdClassRight'=>'form-inline')),
+			
+			'_divider' => array('title' => "<div class='form-divider' style='font-weight:bold; margin-top:8px; padding-top:6px; text-transform:uppercase;'>". LANAD_EUSER_20 ."</div>", 'type' => 'method'),
+
+  			'redirect_usersettings'  => array('title'=> LANAD_EUSER_21, 'type'=>'number','tab' =>0,
+    'min'      => 1,           // valor mínimo
+    'max'      => 5,           // valor máximo
+    'step'     => 1,           // incremento
+    'validate' => true,        // ativa validação automática do e107
+		),
+//  			'unreg'  => array('title'=> LAN_EUSER_ADMIN_308, 'type'=>'boolean','tab' => 0,'help' => LAN_EUSER_ADMIN_308H),
+//  			'unreg_save'  => array('title'=> LAN_EUSER_ADMIN_309, 'type'=>'boolean','tab' => 0,'help' => LAN_EUSER_ADMIN_309H),
+
+			'lastupdated_profiles'  => array('title'=> LANAD_EUSER_11,'tab' => 1, 'type'=>'userclass', 'writeParms' => 'classlist=public,member,classes,admin,main'),
+//        	'lastupdated_totalcol'  => array('title'=> LANAD_EUSER_12,'tab' => 1, 'type'=>'text'),
+'lastupdated_totalcol' => array(
+    'title'    => LANAD_EUSER_12,'tab' => 1, 
+    'type'     => 'number',    // campo numérico HTML5
+    'min'      => 1,           // valor mínimo
+    'max'      => 8,           // valor máximo
+    'step'     => 1,           // incremento
+    'validate' => true,        // ativa validação automática do e107
+),
+//			'lastupdated_direction'  => array('title'=> LANAD_EUSER_13,'tab' => 1,  'type'=>'method'),
+'lastupdated_direction'  => array(
+    'title' => LANAD_EUSER_13,
+    'tab'   => 1,
+'type'=>'boolean', 'writeParms' => array('enabled' => LANAD_EUSER_14 , 'disabled' => LANAD_EUSER_15 )),
+
+//          	'lastupdated_total'  => array('title'=> LANAD_EUSER_16,'tab' => 1, 'type'=>'text','help' => LANAD_EUSER_17),
+'lastupdated_total' => array(
+    'title'    => LANAD_EUSER_16,'tab' => 1, 'help' => LANAD_EUSER_17,
+    'type'     => 'number',    // campo numérico HTML5
+    'min'      => 1,           // valor mínimo
+    'max'      => 10,           // valor máximo
+    'step'     => 1,           // incremento
+    'validate' => true,        // ativa validação automática do e107
+),
 
 	);
 	
 	function init()
 	{
 //          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
-//          var_dump (e107::getPlugPref('euser','redirect'));
-
-					$this->prefs['redirect_usersettings']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_501I."</span>";
-					$this->prefs['redirect']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_502I."</span>";
+//          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
+					$this->prefs['memberprofile_view']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LANAD_EUSER_8."</span>";
+					$this->prefs['memberprofile_edit']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LANAD_EUSER_8."</span>";
           
+
+////////////////////////					$this->prefs['redirect_usersettings']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_501I."</span>";
+////					$this->prefs['redirect_usersettings']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_502I."</span>";
+          
+/*
           		$categories = array();
 		if(e107::getDb()->select('featurebox_category'))
 		{
@@ -207,13 +248,20 @@ class euser_main_ui extends e_admin_ui
 		
 		$this->prefs['menu_category']['writeParms']['optArray'] 	= $menuCat;
 		$this->prefs['menu_category']['readParms']['optArray'] 		= $menuCat;
-
+*/
 //     	$mes = e107::getMessage();
 //	    $message = LAN_EUSER_ADMIN_SHAREDCONFIG;
 //			e107::getMessage()->addInfo(LAN_EUSER_ADMIN_SHAREDCONFIG);
 
 	}
-		
+/*
+	use EAdmin_trait; // para usar a função divider()
+public function _divider()
+{
+	return $this->divider();
+}
+*/
+
 }
 
 
@@ -235,112 +283,18 @@ class euser_main_form_ui extends e_admin_form_ui
 }		
 */
 
-
-
-
-
-
-class euser_friends_ui extends e_admin_ui
+class euser_main_form_ui extends e_admin_form_ui
 {
-	//TODO Move to Class above. 
-	protected $pluginTitle		= LAN_EUSER_FULLNAME;
-	protected $pluginName		= 'euser';
-//	protected $table			= "featurebox";	
-//	protected $pid 				= "fb_id";
-	protected $perPage 			= 10;
-	protected $batchDelete 		= true;
-	protected $batchCopy 		= true;
-	protected $sortField		= 'fb_order';
-	protected $orderStep 		= 1;
-	protected $listOrder 		= 'fb_order asc';
-
-	protected $prefs = array( 
-  				'friends'  => array('title'=> LAN_EUSER_ADMIN_400, 'type'=>'boolean'),
-  				'frcol'  => array('title'=> LAN_EUSER_ADMIN_401, 'type'=>'text','help' => LAN_EUSER_ADMIN_401H),
-//  				'fr_req_sendpm'  => array('title'=> LAN_EUSER_ADMIN_402, 'type'=>'boolean'),
-  				'fr_req_sendpm'  => array('title'=> LAN_EUSER_ADMIN_402, 'type'=>'method'),
-  				'fr_req_sendemail'  => array('title'=> LAN_EUSER_ADMIN_403, 'type'=>'method'),
-	);
 	
-	function init()
-	{
+	use EAdmin_trait {divider as _divider;} // para usar a função divider()
 /*
-$this->prefs['fr_req_sendpm']['writeParms']['post'] = e107::getForm()->renderElement('fr_req_sendpm_all', e107::getPlugPref('euser')['fr_req_sendpm_all'], array('title'=> "",'tab' => 2, 'type'=>'boolean', 'writeParms'=>array('pre'=>'<span class="pull-left">&nbsp;&nbsp;'.LAN_EUSER_ADMIN_404.'&nbsp;&nbsp;</span>')));
-
-$this->prefs['fr_req_sendemail']['writeParms']['post'] = e107::getForm()->renderElement('fr_req_sendemail_all', e107::getPlugPref('euser')['fr_req_sendemail_all'], array('title'=> "",'tab' => 2, 'type'=>'boolean', 'writeParms'=>array('pre'=>'<span class="pull-left">&nbsp;&nbsp;'.LAN_EUSER_ADMIN_404.'&nbsp;&nbsp;</span>')));
-*/
-//          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
-//          var_dump (e107::getPlugPref('euser','redirect'));
-
-//					$this->prefs['redirect_usersettings']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_501I."</span>";
-//					$this->prefs['redirect']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_502I."</span>";
-          
-/*
-          		$categories = array();
-		if(e107::getDb()->select('featurebox_category'))
-		{
-			while ($row = e107::getDb()->fetch())
-			{
-				$id = $row['fb_category_id'];
-				$tmpl = $row['fb_category_template'];
-				$categories[$id] = $row['fb_category_title'];
-				$menuCat[$tmpl] = $row['fb_category_title'];
-			}
-		}
-
-		$this->fields['fb_category']['writeParms'] 		= $categories;	
-		$this->fields['fb_category']['readParms'] 		= $categories;
-		
-		unset($menuCat['unassigned']);
-		
-		$this->prefs['menu_category']['writeParms']['optArray'] 	= $menuCat;
-		$this->prefs['menu_category']['readParms']['optArray'] 		= $menuCat;
-*/
-//     	$mes = e107::getMessage();
-//	    $message = LAN_EUSER_ADMIN_SHAREDCONFIG;
-//			e107::getMessage()->addInfo(LAN_EUSER_ADMIN_SHAREDCONFIG);
-
-	}
-		
-}
-
-class euser_friends_form_ui extends e_admin_form_ui
+public function _divider()
 {
-
-	function fr_req_sendpm($curVal,$mode)
-	{
-/*
-var_dump ($_POST);
-echo "<hr>";
-var_dump (e107::getPlugPref('euser'));		
+	return $this->divider();
+}
 */
-		$frm = e107::getForm();
-		
-    $text .= '<div class="pull-left">';
-    $text .= $frm->renderElement('fr_req_sendpm', $curVal, array('type'=>'boolean'));
-    $text .= '</div><div class="pull-left text-right">&nbsp;&nbsp;&nbsp;&nbsp;'.LAN_EUSER_ADMIN_404.'&nbsp;&nbsp;</div><div class="pull-left">';
-    $text .= $frm->renderElement('fr_req_sendpm_all', e107::getPlugPref('euser')['fr_req_sendpm_all'], array('type'=>'boolean'));
-    $text .= '</div></div>';
-		
-		return $text;
-	}
 
-	function fr_req_sendemail($curVal,$mode)
-	{
-		
-		$frm = e107::getForm();
-		
-    $text .= '<div class="pull-left">';
-    $text .= $frm->renderElement('fr_req_sendemail', $curVal, array('type'=>'boolean'));
-    $text .= '</div><div class="pull-left text-right">&nbsp;&nbsp;&nbsp;&nbsp;'.LAN_EUSER_ADMIN_404.'&nbsp;&nbsp;</div><div class="pull-left">';
-    $text .= $frm->renderElement('fr_req_sendemail_all', e107::getPlugPref('euser')['fr_req_sendemail_all'], array('type'=>'boolean'));
-    $text .= '</div></div>';
-		
-		return $text;
-	}
-
-
-}		
+}
 
 class euser_profile_ui extends e_admin_ui
 {
@@ -358,8 +312,6 @@ class euser_profile_ui extends e_admin_ui
 
   protected $preftabs			= array(LAN_OPTIONS,LAN_EUSER_ADMIN_510,LAN_EUSER_ADMIN_520,LAN_EUSER_ADMIN_540,LAN_EUSER_ADMIN_550); 
 	protected $prefs = array( 
-  				'memberprofile_view'  => array('title'=> LAN_EUSER_ADMIN_501,'tab' => 0, 'type'=>'userclass', 'writeParms'=>array('class'=>'pull-left')),
-  				'memberprofile_edit'  => array('title'=> LAN_EUSER_ADMIN_502,'tab' => 0, 'type'=>'userclass', 'writeParms'=>array('class'=>'pull-left')),
   				'stats'  => array('title'=> LAN_EUSER_ADMIN_503,'tab' => 0, 'type'=>'boolean'),
   				'commentson'  => array('title'=> LAN_EUSER_ADMIN_510,'tab' => 1,  'type'=>'boolean'),
           'maxpcomment'  => array('title'=> LAN_EUSER_ADMIN_511,'tab' => 1, 'type'=>'text','help' => LAN_EUSER_ADMIN_511H),
@@ -371,7 +323,7 @@ class euser_profile_ui extends e_admin_ui
           'comments_spy_num'  => array('title'=> LAN_EUSER_ADMIN_516,'tab' => 1, 'type'=>'text','help' => LAN_EUSER_ADMIN_516H),
           'comments_spy'  => array('title'=> LAN_EUSER_ADMIN_517,'tab' => 1, 'type'=>'userclass', 'writeParms' => 'classlist=public,member,classes,admin,main'),
           'comments_spy_pic_size'  => array('title'=> LAN_EUSER_ADMIN_518,'tab' => 1, 'type'=>'text'),
-  				'pics'  => array('title'=> LAN_EUSER_ADMIN_520,'tab' => 2,  'type'=>'boolean'),
+  				'image_sys'  => array('title'=> LAN_EUSER_ADMIN_520,'tab' => 2,  'type'=>'boolean'),
 //          '_header1'  => array('title'=> LAN_EUSER_ADMIN_521,'tab' => 2, 'type'=>'bbarea', 'writeParms'=>array('pre'=>'<div class="e-hideme">', 'post'=>'</div>')),
           '_header1'  => array('tab' => 2, 'type'=>'method', 'writeParms'=>array('nolabel'=>2)),
           'maxalbumnumber'  => array('title'=> LAN_EUSER_ADMIN_522,'tab' => 2, 'type'=>'text','help' => LAN_EUSER_ADMIN_522H),
@@ -390,7 +342,7 @@ class euser_profile_ui extends e_admin_ui
           'imagewidth'  => array('title'=> LAN_EUSER_ADMIN_537,'tab' => 2, 'type'=>'method'),
 //          'avatarwidth'  => array('title'=> LAN_EUSER_ADMIN_538,'tab' => 2, 'type'=>'text', 'writeParms'=>array('class'=>'pull-left'),'help' => LAN_EUSER_ADMIN_538H),
           'avatarwidth'  => array('title'=> LAN_EUSER_ADMIN_538,'tab' => 2, 'type'=>'method'),
-  				'videos'  => array('title'=> LAN_EUSER_ADMIN_540,'tab' => 3,  'type'=>'boolean'),
+  				'video_sys'  => array('title'=> LAN_EUSER_ADMIN_540,'tab' => 3,  'type'=>'boolean'),
           'maxnovids'  => array('title'=> LAN_EUSER_ADMIN_541,'tab' => 3, 'type'=>'text','help' => LAN_EUSER_ADMIN_541H),
           'videowidth'  => array('title'=> LAN_EUSER_ADMIN_542,'tab' => 3, 'type'=>'text','help' => LAN_EUSER_ADMIN_542H),
 //          '_header3'  => array('title'=> LAN_EUSER_ADMIN_543,'tab' => 3, 'type'=>'bbarea', 'writeParms'=>array('pre'=>'<div class="e-hideme">', 'post'=>'</div>')),
@@ -399,7 +351,7 @@ class euser_profile_ui extends e_admin_ui
   				'vimeo'  => array('title'=> LAN_EUSER_ADMIN_545,'tab' => 3,  'type'=>'boolean'),
   				'metacafe'  => array('title'=> LAN_EUSER_ADMIN_546,'tab' => 3,  'type'=>'boolean'),
   				'indavideo'  => array('title'=> LAN_EUSER_ADMIN_547,'tab' => 3,  'type'=>'boolean'),
-  				'mp3enabled'  => array('title'=> LAN_EUSER_ADMIN_550,'tab' => 4,  'type'=>'boolean'),
+  				'mp3_sys'  => array('title'=> LAN_EUSER_ADMIN_550,'tab' => 4,  'type'=>'boolean'),
   				'mp3'  => array('title'=> LAN_EUSER_ADMIN_551,'tab' => 4,  'type'=>'dropdown', 'writeParms'=>array('optArray'=> array('Remote Only'=> LAN_EUSER_ADMIN_556,'Local Only'=> LAN_EUSER_ADMIN_557,'Both'=> LAN_EUSER_ADMIN_558))),
           'mp3size'  => array('title'=> LAN_EUSER_ADMIN_552,'tab' => 4, 'type'=>'text','help' => LAN_EUSER_ADMIN_552H),
   				'mp3_autoplay'  => array('title'=> LAN_EUSER_ADMIN_553,'tab' => 4,  'type'=>'boolean'),
@@ -410,11 +362,8 @@ class euser_profile_ui extends e_admin_ui
 	function init()
 	{
 //          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
-//          var_dump (e107::getPlugPref('euser','redirect'));
+//          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
 
-					$this->prefs['memberprofile_view']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_501I."</span>";
-					$this->prefs['memberprofile_edit']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_502I."</span>";
-          
 //          var_dump (e107::pref('core','upload_enabled'));
           if (!e107::pref('core','upload_enabled')) {
           $this->prefs['indmaxuploadsize']['title'] .= "<br><span class='label label-important label-danger'>".LAN_EUSER_ADMIN_526W."</span>";
@@ -537,6 +486,8 @@ foreach ($prefsexp as $key => $value){
 //	    $message = LAN_EUSER_ADMIN_SHAREDCONFIG;
 //			e107::getMessage()->addInfo(LAN_EUSER_ADMIN_SHAREDCONFIG);
 
+
+
 	}
 		
 }
@@ -637,7 +588,7 @@ class euser_memberlist_ui extends e_admin_ui
 	function init()
 	{
 //          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
-//          var_dump (e107::getPlugPref('euser','redirect'));
+//          var_dump (e107::getPlugPref('euser','redirect_usersettings'));
 
 					$this->prefs['memberlist_access']['writeParms']['post'] = "&nbsp;<span class='label label-important label-info'>".LAN_EUSER_ADMIN_601I."</span>";
           

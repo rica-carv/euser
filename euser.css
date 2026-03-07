@@ -30,12 +30,13 @@ CSS FOR EUSER.PHP MAIN FILE
 .euser-profile .card-body .tab-content > .active {
 	visibility: visible;
 }
-.euser-profile div.euseroff img.user-avatar{
-	border-color: gray;
+.euseroff img.user-avatar, img.user-avatar {
+	border-color: gray !important;
 	filter: grayscale(1);
 }
-.euser-profile div.euseron img.user-avatar{
+.euseron img.user-avatar, img.user-avatar-online{
 	border-color: rgb(0, 102, 0) !important;
+	filter: none;
 }
 
 /*
@@ -46,33 +47,38 @@ CSS FOR USER MEMBER & PROFILE INFO PANEL
 	left: 15%;
 }
 */
+/*---
 .author-info .useronoff {
 	left: 25%;
 	font-size: large;
 }
+---*/
 /*
 .member-info .euseroff img.user-avatar{
 filter: grayscale(75%);
 }
 */
+/*---
 .author-info a.euseroff{
 	color: gray;
 }
 .author-info a.euseroff:hover{
 	color: inherit;
 }
+---*/
 /* Não vou usar, fica aqui só para o caso de não quered borda no avatar....
 .author-info div .euseron img.user-avatar{
 	border-style: unset;
 }
 */
+/*---
 .author-info a.euseroff:hover {
 	color: unset;
 }
-.author-info a img.user-avatar{
+.author-info a img.user-avatar, img.user-avatar-online{
 	border: .15rem solid;
 }
-
+---*/
 .small-text {
 		font-size: .75em !important;
 }

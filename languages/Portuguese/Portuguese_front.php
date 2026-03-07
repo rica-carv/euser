@@ -369,7 +369,7 @@ define("MENU_PROFILE_4a", "Novo comentário sobre video");
 define("MENU_PROFILE_5", "Menu do perfil");
 define("MENU_PROFILE_6", "Seguir comentários");
 // ANOTHER-PROFILES-PAGE-TITLES
-define("TITLE_PROFILE_1", "Perfil individual");
+//define("TITLE_PROFILE_1", "Perfil individual");
 define("TITLE_PROFILE_2", "Editar perfil");
 define("TITLE_PROFILE_3", "Última actualização");
 // ANOTHER-PROFILES-ADMIN-MENU
@@ -669,7 +669,7 @@ define("PROFILE_7", "Membros registados:");
 define("PROFILE_8", "Membros:");
 define("PROFILE_9", "Data de registo");
 define("PROFILE_9a", "Ùltima visita");
-define("PROFILE_9b", "Visitas");
+//define("PROFILE_9b", "Visitas");
 define("PROFILE_10", "Listagem de membros");
 define("PROFILE_11", "Perfil");
 define("PROFILE_12", "Informação do membro");
@@ -707,7 +707,7 @@ define("PROFILE_35", "Ficheiros enviados:");
 define("PROFILE_36", "Esta imagem ainda não recebeu comentários");
 define("PROFILE_36a", "Comentários");
 define("PROFILE_37", "Hiperligações enviadas:");
-define("PROFILE_38", "Notícias enviadas:");
+//define("PROFILE_38", "Notícias enviadas:");
 
 define("PROFILE_40", "Foi enviado a");
 define("PROFILE_41", "o seu pedido de amizade. Por favor aguarde pela aceitação.");
@@ -901,7 +901,7 @@ define("PROFILE_209e", "Click here to sign in: ");
 define("PROFILE_210", "ACCEPT");
 define("PROFILE_211", "REJECT");
 define("PROFILE_212", "Novos Pedidos de Amizade!");
-define("PROFILE_213", "Postagens no fórum");
+//define("PROFILE_213", "Postagens no fórum");
 define("PROFILE_214", "Comments");
 define("PROFILE_215", "Tribute Entries");
 define("PROFILE_216", "My Tributes");
@@ -1051,7 +1051,7 @@ define("PROFILE_347a", "The publication says ");
 define("PROFILE_348a", " disabled.<br/>This picture is in a private album.");
 define("PROFILE_349", " in profile");
 define("PROFILE_350", "Nome real:");
-define("PROFILE_351", "Correio electrónico:");
+//define("PROFILE_351", "Correio electrónico:");
 define("PROFILE_352", "Estatuto");
 define("PROFILE_353", "Última visita");
 define("PROFILE_354", "Data de registo");
@@ -1060,7 +1060,7 @@ define("PROFILE_356", "Número de mensagens no chat:");
 define("PROFILE_357", "Número de comentários:");
 define("PROFILE_358", "Número de mensagens no fórum:");
 define("PROFILE_359", "Número de visitas desde o registo:");
-define("PROFILE_360", "Update Details");
+//define("PROFILE_360", "Update Details");
 define("PROFILE_361", "Main admin");
 define("PROFILE_362", "Admin");
 define("PROFILE_363", "Postagens no fórum");
@@ -1089,8 +1089,8 @@ define("PROFILE_385", "You do not have permission to view top lists!");
 define("PROFILE_386", "Comments: ");
 define("PROFILE_387", "Most comments");
 define("PROFILE_388", "Most forum messages");
-define("PROFILE_389", "Postagens");
-define("PROFILE_390", "Actividade: ");
+//define("PROFILE_389", "Postagens");
+//define("PROFILE_390", "Actividade: ");
 define("PROFILE_391", "Most active members");
 define("PROFILE_392", "Chatbox Messages: ");
 define("PROFILE_393", "Most chatbox message");
@@ -1143,9 +1143,15 @@ define("LAN_EUSER_3", "Hiperligações");
 define("LAN_EUSER_4", "Resumo actividade");
 define("LAN_EUSER_5", "Forum");
 define("LAN_EUSER_6", "Aviso apenas para administradores:[br]");
-define("LAN_EUSER_7", "As secções [b][x][/b] estão DESLIGADAS.");
-define("LAN_EUSER_8", "As secções [b][x][/b] estão ligadas.");
+define("LAN_EUSER_7", "Os plugins [b][x][/b] NÃO estão instalados.");
+define("LAN_EUSER_8", "Os plugins [b][x][/b] estão instalados.");
+define("LAN_EUSER_9", "Número de visitas ao perfil");
+define("LAN_EUSER_10", "Data da última visita ao perfil");
+define("LAN_EUSER_11", "Perfil individual");// Ex-define("TITLE_PROFILE_1", "Perfil individual");
+//define("LAN_EUSER_12", "Visitas");//Ex-define("PROFILE_9b", "Visitas"); Já existe o LAN_USER_21
+define("LAN_EUSER_12", "Correio electrónico");//Ex-define("PROFILE_351", "Correio electrónico:"); Existe parecido o LAN_EMAIL
 // LAN'S editor perfil utilizador
+define("LAN_EUSER_100", "Editar configurações do perfil");//// ex define("PROFILE_360", "Update Details");
 define("LAN_EUSER_101", "Configurações do perfil do Utilizador");
 define("LAN_EUSER_102", "Preferências do perfil");
 define("LAN_EUSER_103", "Configurar musica do perfil"); //Ex PROFILE_166, PROFILE_404
@@ -1184,7 +1190,7 @@ define("LAN_EUSER_150", "Videos"); //Ex-PROFILE_113
 define("LAN_EUSER_500", "Lista de membros"); //Ex LAN_EUSER_0029
 define("LAN_EUSER_501", "Novidades"); //Ex LAN_EUSER_400
 define("LAN_EUSER_502", "Ligado"); //Ex LAN_EUSER_104
-//Ex LAN_EUSER_001007
-
-
-
+define("LAN_EUSER_503", "Actividade"); //// Ex define("PROFILE_390", "Actividade: ");
+define("LAN_EUSER_504", "Postagens no fórum"); //// Ex define("PROFILE_213", "Postagens no fórum");
+define("LAN_EUSER_505", "Notícias enviadas:");//// Ex define("PROFILE_38", "Notícias enviadas:");
+define("LAN_EUSER_506", "Postagens");/// Ex define("PROFILE_389", "Postagens");

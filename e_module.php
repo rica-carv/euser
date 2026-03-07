@@ -29,28 +29,47 @@
 if (!defined('e107_INIT') || !e107::isInstalled('euser')) { exit; }
 
 $euser_pref = e107::getPlugPref('euser');
+//$user_pref = e107::getPref('user');
 //var_dump ($euser_pref);
 //if ($euser_pref['plug_installed']['euser']) {
 //  if ($euser_pref['redirect_usersettings'] == "Yes" && e_PAGE == "usersettings.php" && e_QUERY != "update") {
 /*
 var_dump (e107::getPlugPref('euser','redirect_usersettings'));
-var_dump (e107::getPlugPref('euser','redirect'));
+var_dump (e107::getPlugPref('euser','redirect_usersettings'));
 var_dump (e_PAGE);
 var_dump (e_PAGE == "user.php");
   var_dump(e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "usersettings.php" && e_QUERY != "update");
   var_dump(e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "user.php");
-  var_dump(USER && e107::getPlugPref('euser','redirect_usersettings') && e107::getPlugPref('euser','redirect') && e_PAGE != "euser_settings.php" && e_QUERY != "update");
+  var_dump(USER && e107::getPlugPref('euser','redirect_usersettings') && e107::getPlugPref('euser','redirect_usersettings') && e_PAGE != "euser_settings.php" && e_QUERY != "update");
 */
 //exit;
 //var_dump(check_class($euser_pref['allowguests']));
 //var_dump(check_class($euser_pref['memberlist_accept']));
 
 //  if ($euser_pref['redirect_usersettings'] && e_PAGE == "usersettings.php" && e_QUERY != "update") {
-//	var_dump(check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update");
+/*
+	var_dump(check_class($euser_pref['memberprofile_edit']) && e_PAGE == "usersettings.php" && e_QUERY != "update");
+	var_dump(check_class($euser_pref['memberprofile_edit']));
+	var_dump(e_PAGE == "usersettings.php");
+	var_dump(e_QUERY != "update");
+	var_dump(e_QUERY);
+
+	var_dump(defined('e_PAGE'));
+	var_dump(e_PAGE);
+var_dump((defined('e_PAGE')?e_PAGE:"") == "usersettings.php")	;
+	var_dump(check_class($user_pref['memberprofile_edit']));
+	var_dump((defined('e_PAGE')?e_PAGE:"") == "usersettings.php");
+	var_dump(e_QUERY != "update");
+	var_dump(e_QUERY);
+	var_dump(check_class($user_pref['memberprofile_edit']) && (defined('e_PAGE')?e_PAGE:"") == "usersettings.php" && e_QUERY != "update");
+*/
 //	exit;
+/*---------
 		if (check_class($euser_pref['memberprofile_edit']) && (defined('e_PAGE')?e_PAGE:"") == "usersettings.php" && e_QUERY != "update") {
 //  if (e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "usersettings.php" && e_QUERY != "update") {
   $_uid = is_numeric(e_QUERY) ? intval(e_QUERY) : "";
+
+//  var_dump($_uid != '');
 	if ($_uid != '') {
     e107::redirect(e_PLUGIN."euser/euser_settings.php?uid=".$_uid);
 //				header("Location: ".e_PLUGIN."euser/euser_settings.php?uid=".$_uid."");
@@ -60,9 +79,10 @@ var_dump (e_PAGE == "user.php");
 //		header("Location: ".e_PLUGIN."euser/euser_settings.php?page=settings");
 	}
   }
-
+--------*/
 //  if ($euser_pref['redirect_usersettings'] && e_PAGE == "user.php") {
 //  var_dump (e_QUERY);
+//----  if (check_class($euser_pref['memberprofile_view']) && (defined('e_PAGE')?e_PAGE:"") == "user.php" && e_QUERY) {
   if (check_class($euser_pref['memberprofile_view']) && (defined('e_PAGE')?e_PAGE:"") == "user.php" && e_QUERY) {
 //  if (e107::getPlugPref('euser','redirect_usersettings') && e_PAGE == "user.php") {
 // Para quê reinventar a roda e transformar isto para um $GET?????
@@ -82,6 +102,7 @@ var_dump (e_PAGE == "user.php");
 */
 //var_dump("aqui");
 //exit;
+
     e107::redirect(e_PLUGIN."euser/euser.php?".e_QUERY);
 
 // Para que é isto????
@@ -97,17 +118,17 @@ var_dump (e_PAGE == "user.php");
 	}
 
   // Check if new user and then redirect and prompt them to fill in profile info.
-//  if (USER && e107::getPlugPref('euser','redirect_usersettings') && e107::getPlugPref('euser','redirect') && e_PAGE != "euser_settings.php" && e_QUERY != "update") {
+//  if (USER && e107::getPlugPref('euser','redirect_usersettings') && e107::getPlugPref('euser','redirect_usersettings') && e_PAGE != "euser_settings.php" && e_QUERY != "update") {
 // ISTO POR ENQUANTO FICA DESLIGADO SENÃO APARECE EM TODAS AS PÁGINAS...
-/*
-  if (USER && $euser_pref['redirect_usersettings'] && $euser_pref['redirect'] && e_PAGE != "euser_settings.php" && e_QUERY != "update") {
-	$sql -> db_Select("euser", "*", "user_id='".USERID."'");
-	$count = $sql -> db_Rows();
-		if ($count == 0) {
+/*-------------
+  if (USER && $euser_pref['redirect_usersettings'] > USERVISITS && e_PAGE != "euser_settings.php" && e_QUERY != "update") {
+//	$sql -> select("euser", "*", "user_id='".USERID."'");
+//	$count = $sql -> select("euser", "*", "user_id='".USERID."'");
+		if ($sql -> select("euser", "*", "user_id='".USERID."'") == 0) {
 			header("Location: ".e_PLUGIN."euser/euser_settings.php?first");
 		}
   }
-*/
+---------*/  
   if ((defined('e_PAGE')?e_PAGE:"") == "users.php") {
 	if ($_POST['useraction'] == "deluser") {
     e107::redirect(e_PLUGIN."euser/admin_menu.php?page=deluser&deluser_id=".intval($_POST['userid']));

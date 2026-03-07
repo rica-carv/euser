@@ -25,7 +25,7 @@ include_once(e_PLUGIN . "euser/includes/euser_trait.php");
 
 class plugin_euser_user_settings_shortcodes extends usersettings_shortcodes
 {
-	use Euser_info;
+	use Euser_global_info;
 protected $tp;
 protected $sql;
 protected $post_max_info;
@@ -677,9 +677,12 @@ if ($this->var['euser_pref']['buttontype'] == "Yes") {
 
 
 
-
-
+/*
+// Isto depois passa para caad aum dos plugins individuais...
 	function sc_euser_friends_edit($parm){
+    if (!e107::isInstalled('user_friends'))    {
+      return false;
+    } 
 //		if ($this->var['euser_pref']['friend_sys']) {
 //	$euser_template = e107::getTemplate('euser');
 //			        global $euser_template;
@@ -694,15 +697,20 @@ if ($this->var['euser_pref']['buttontype'] == "Yes") {
 		return require("includes/friends.php");
 //		}
 	}
+*/	
 	function sc_euser_images_edit($parm){
-///		global $eus;
+    if (!e107::isInstalled('user_media'))    {
+      return false;
+    } ///		global $eus;
 //		return "safklagçklçaskçdlkflçfkfçalsdfkad";
 //		$this->wrapper('euser_settings/edit');
 ///		return $eus->euser_init(); 
 return require("includes/images.php");
 	}
 	function sc_euser_videos_edit($parm){
-///		global $eus;
+    if (!e107::isInstalled('user_media'))    {
+      return false;
+    } ///		global $eus;
 //		return "safklagçklçaskçdlkflçfkfçalsdfkad";
 //		$this->wrapper('euser_settings/edit');
 ///		return $eus->euser_init(); 
