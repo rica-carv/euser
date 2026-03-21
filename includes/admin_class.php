@@ -15,7 +15,7 @@ if (!getperms('P'))
 
 class euser_admin
 {
-function render_expandedcontainer ($parent, $data_array) {
+public static function render_expandedcontainer ($parent, $data_array) {
 
 //!vartrue($pref['membersonly_enabled']) ? "e-hideme" : "";
 
@@ -57,7 +57,7 @@ return "<div>".$text."</div>";
 
 } 
 
-function label_installed ($plug, $notinstalledbutton = null) {
+public static function label_installed ($plug, $notinstalledbutton = null) {
 
 e107::coreLan('plugin', true);
 
@@ -113,7 +113,7 @@ $postext .= euser_admin::linkbutton($link,$butext,$btclass,$addclass);
 return array ('type' => 'text', 'tab' => $tab, 'writeParms' => array('post' => $postext, 'class' => 'hidden'));
 } 
 */
-function render_fulltableline ($link, $text, $rtype, $tab = 0, $class = 'default', $addclass = '') {
+public static function render_fulltableline ($link, $text, $rtype, $tab = 0, $class = 'default', $addclass = '') {
 $postext = is_null($tab)?'':'</td></tr><tr><td colspan=2>';
 //var_dump ($postext);
 		switch($rtype)
@@ -152,9 +152,98 @@ foreach ($array as $key => $value){
 return $postext."</td></tr>";
 } 
 
-function linkbutton ($link, $butext, $btclass = 'default', $addclass = '') {
+public static function linkbutton ($link, $butext, $btclass = 'default', $addclass = '') {
 //$postext = '</td></tr><tr><td colspan=2>';
 return '<a href="../e107_plugins/euser/'.$link.'" class="btn btn-'.$btclass.' '.$addclass.'" role="button" style="word-wrap:break-word;white-space:normal !important;">'.$butext.'</a>';
 } 
+
+public static function syncExtendedFields()
+{
+    $sql = e107::getDb();
+    e107::lan('euser', 'front', true);
+
+    // ----------------------------
+    // 1️⃣ Categoria dos campos do plugin
+    // ----------------------------
+    $catName = LAN_EUSER_101;
+    $catID = $sql->retrieve(
+        "user_extended_struct",
+        "user_extended_struct_id",
+        "user_extended_struct_name='{$catName}'"
+    );
+
+    if (!$catID) {
+        $catID = $sql->insert("user_extended_struct", [
+            "user_extended_struct_name" => $catName,
+            "user_extended_struct_type" => 0
+        ]);
+    }
+
+    // ----------------------------
+    // 2️⃣ Campos que queremos no plugin
+    // ----------------------------
+    $fields = [
+        'custompage' => ['text'=>LAN_EUSER_104,'type'=>5,'order'=>1],
+        'background'=> ['text'=>LAN_EUSER_105,'type'=>1,'order'=>2],
+        'simple'=> ['text'=>LAN_EUSER_106,'type'=>2,'values'=>LAN_YES.','.LAN_NO,'default'=>1,'order'=>3]
+    ];
+
+    $processedFields = [];
+
+    // ----------------------------
+    // 3️⃣ Criar/Atualizar campos
+    // ----------------------------
+    foreach ($fields as $shortName => $data) {
+        $fieldName = "plugin_euser_" . $shortName;
+        $processedFields[] = $fieldName;
+
+        // Verificar se o campo já existe pelo name
+        $existingField = $sql->retrieve(
+            "user_extended_struct",
+            "user_extended_struct_id",
+            "user_extended_struct_name='{$fieldName}'"
+        );
+
+        $fieldData = [
+            "user_extended_struct_name"       => $fieldName,
+            "user_extended_struct_text"       => $data['text'],
+            "user_extended_struct_type"       => $data['type'],
+            "user_extended_struct_parms"      => "plugin_euser^,^^,^^,^0^,^^,^{$data['text']}",
+            "user_extended_struct_values"     => $data['values'] ?? '',
+            "user_extended_struct_default"    => $data['default'] ?? 0,
+            "user_extended_struct_read"       => 253,
+            "user_extended_struct_write"      => 253,
+            "user_extended_struct_required"   => 0,
+            "user_extended_struct_signup"     => 0,
+            "user_extended_struct_applicable" => 253,
+            "user_extended_struct_order"      => $data['order'],
+            "user_extended_struct_parent"     => $catID
+        ];
+
+        if ($existingField) {
+            // Atualizar campo existente
+            $fieldData['WHERE'] = "user_extended_struct_id=".intval($existingField);
+            $sql->update("user_extended_struct", $fieldData);
+        } else {
+            // Inserir novo campo
+            $sql->insert("user_extended_struct", $fieldData);
+        }
+    }
+
+    // ----------------------------
+    // 4️⃣ Remover campos antigos que não estão mais no $fields
+    // ----------------------------
+    $sql->select("user_extended_struct","*","user_extended_struct_parent={$catID}");
+    while ($row = $sql->fetch()) {
+        if (!in_array($row['user_extended_struct_name'], $processedFields)) {
+            $sql->delete("user_extended_struct","user_extended_struct_id=".intval($row['user_extended_struct_id']));
+        }
+    }
+
+    // ----------------------------
+    // 5️⃣ Limpar cache
+    // ----------------------------
+    e107::getCache()->clear('system');
+}
 
 }

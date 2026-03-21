@@ -9,16 +9,26 @@
 * Custom FAQ install/uninstall/update routines
 *
 */
-
-class euser_setup
+if(!class_exists("euser_setup"))
 {
-/*	
+//		require_once(e_PLUGIN . "user_friends/includes/user_friends_admin_class.php");
+		require_once(e_PLUGIN . "euser/includes/admin_class.php");
+
+		class euser_setup
+{
+	/*
  	function install_pre($var)
 	{
 		// print_a($var);
 		// echo "custom install 'pre' function<br /><br />";
 	}
 */
+	    function install_pre($var)
+		{
+			// print_a($var);
+			// echo "custom install 'pre' function<br /><br />";
+		}
+
 	function install_post($var)
 	{
 		$sql = e107::getDb();
@@ -67,6 +77,7 @@ class euser_setup
 		$status = ($sql->db_Select_gen($query2)) ? E_MESSAGE_SUCCESS : E_MESSAGE_ERROR;
 		$mes->add("Adding Default table data to table: faqs_info",$status);
 */
+    		euser_admin::syncExtendedFields();
 	}
 /*	
 	function uninstall_options()
@@ -85,4 +96,33 @@ class euser_setup
 		// $sql = e107::getDb();
 	}
 */	
+		function uninstall_options()
+		{
+
+		}
+
+
+		function uninstall_post($var)
+		{
+			// print_a($var);
+		}
+
+
+		/*
+		 * Call During Upgrade Check. May be used to check for existance of tables etc and if not found return TRUE to call for an upgrade.
+		 *
+		 * @return bool true = upgrade required; false = upgrade not required
+		 */
+		function upgrade_required()
+		{
+
+		}
+
+
+		function upgrade_post($var)
+		{
+			// $sql = e107::getDb();
+    		euser_admin::syncExtendedFields();
+		}
+}
 }

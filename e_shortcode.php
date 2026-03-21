@@ -1131,6 +1131,7 @@ function sc_userextended_all($parm = '')
     $curUE = $sql->retrieve('user_extended', '*', 'user_extended_id='.(int) USERID);
 
     $curVal = e107::user(USERID);
+//	print_r($curVal);
     $curVal = array_merge($curVal, $curUE);
     $curVal['userclass_list'] = $userMethods->addCommonClasses($curVal, false);
 
@@ -1197,7 +1198,7 @@ function sc_userextended_all($parm = '')
             }
             else
             {
-                $out .= '<div class="tab-pane fade show" id="'.$id.'" role="tabpanel">'.$tab['text'].'</div>';
+                $out .= '<div class="tab-pane fade" id="'.$id.'" role="tabpanel">'.$tab['text'].'</div>';
             }
         }
 

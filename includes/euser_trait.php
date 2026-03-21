@@ -416,7 +416,7 @@ trait Euser_admin_info {
 			$sections[$euser_pref['image_sys']][]=LAN_EUSER_140;
 			$sections[$euser_pref['video_sys']][]=LAN_EUSER_150;
 */
-			$sections[e107::isInstalled('user_friends')][]=LAN_EUSER_130." (user_friends)";
+			$sections[e107::isInstalled('user_friends')][]=LAN_USERFRIENDS_FULLNAME." (user_friends)";
 			$sections[e107::isInstalled('user_media')][]=LAN_EUSER_140." (user_media)";
 			$sections[e107::isInstalled('user_media')][]=LAN_EUSER_150." (user_media)";
 			

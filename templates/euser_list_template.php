@@ -113,11 +113,11 @@ $EUSER_LIST_TEMPLATE['start'] =	"
 
  		<table class='table table-striped table-condensed table-hover border e-list'>
     <colgroup>
-      <col style='width:10%' />
-      <col style='width:10%' />
+      <col style='width:17%' />
+      <col style='width:5%' />
       <col style='width:20%' />
       <col style='width:25%' />
-      <col style='width:10%' />
+      <col style='width:8%' />
       <col style='width:25%' />
     </colgroup>
 		<thead>

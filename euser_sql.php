@@ -19,14 +19,10 @@
 #
 CREATE TABLE euser (
   euser_id int(5) NOT NULL default '0',
-  euser_custompage text NOT NULL,
-  euser_background varchar(255) NOT NULL default '',
-  euser_settings text NOT NULL default '0',
-  euser_simple int(1) NOT NULL default '1',
   euser_lastviewed text NOT NULL,
   euser_totalviews int(10) NOT NULL default '0',
   euser_lastupdated int(11) NOT NULL default '0',
-  PRIMARY KEY  (user_id)
+  PRIMARY KEY (euser_id)
 );
 # --------------------------------------------------------
 #
@@ -40,7 +36,7 @@ CREATE TABLE euser_memberlist (
 );
 # --------------------------------------------------------
 #
-# Table structure for table `euser_commments`
+# Table structure for table `euser_comments`
 #
 CREATE TABLE euser_comments (
   com_id int(10) NOT NULL auto_increment,
@@ -67,7 +63,7 @@ CREATE TABLE euser_cache (
   cache_active tinyint(1) NOT NULL default '0',
   type_order int(11) NOT NULL default '0',
   PRIMARY KEY  (type,cache_name,type_order)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 #
 # Table structure for table `euser_read`
@@ -96,5 +92,5 @@ CREATE TABLE euser_read (
   blogs text NOT NULL,
   suggestions text NOT NULL,
   PRIMARY KEY  (user_id)
-) ENGINE=MyISAM;
+);
 # --------------------------------------------------------

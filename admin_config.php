@@ -123,6 +123,7 @@ class euser_adminArea extends e_admin_dispatcher
 			'ui' 			=> 'euser_color_form_ui',
 			'uipath' 		=> null
 		),
+
 		
 
 	);	
@@ -147,6 +148,7 @@ class euser_adminArea extends e_admin_dispatcher
 //		'main/opt3'              => array('divider'=>true),
 		'color/prefs'			=> array('caption'=> LANAD_EUSER_40, 'perm' => 'P'),
 //		'color/create'		=> array('caption'=> LAN_CREATE, 'perm' => 'P'),
+
 
 
 		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
@@ -1590,7 +1592,8 @@ class euser_read_form_ui extends e_admin_form_ui
 
 }		
 */		
-		
+
+
 new euser_adminArea();
 
 require_once(e_ADMIN."auth.php");

@@ -52,6 +52,7 @@ if (!e107::isInstalled('euser')) {
 }
 
 //FAILSAFE DO GET....
+/*
 function checkget($string)
 {
 	switch ($string) {
@@ -66,7 +67,7 @@ function checkget($string)
 //        break;
 	}
 }
-
+*/
 //echo "<hr>";
 //echo filter_input(INPUT_GET, 'page', FILTER_CALLBACK, array("options"=>"checkget"));
 //echo "<hr>";
@@ -108,7 +109,9 @@ e_LANGUAGE
 )
 .".php");
 */
-
+// ISTO É PRECISO POR CAUSA DO SERVIDOR LIVE
+if(!defined('USER_WIDTH'))  define('USER_WIDTH','col-md-3');
+if(!defined('USER_VALUE'))  define('USER_VALUE','col-md-9');
 //require_once(e_LANGUAGEDIR."/".e_LANGUAGE."/lan_user.php");
 
 //define("e_PAGETITLE", TITLE_PROFILE_1);

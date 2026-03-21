@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e107Plugin name="E107 Extended/Enhanced User (Euser)" lan="EUSER_FULL_NAME" version="0.1.0b" date="2025-02-05" compatibility="2.3" installRequired="true" xhtmlcompliant="true" >
+<e107Plugin name="E107 Extended/Enhanced User (Euser)" lan="EUSER_FULL_NAME" version="0.1.0c" date="2025-02-05" compatibility="2.3" installRequired="true" xhtmlcompliant="true" >
 	<author name="rica-carv" email="selo.fan@gmail.com" url="https://github.com/rica-carv" />
 		<description lan="LAN_EUSER_DESC">E107 Extended user management area, based in e107 old plugins (see readme.txt for details)</description>
 	<keywords>
@@ -319,6 +319,11 @@
 
 <!--	<pref name="loginmenutype">Standard</pref> -->
 	</pluginPrefs>
-	<management>
-	</management>
+	
+		<extendedFields>
+      <field name="custompage" type="EUF_TEXTAREA" active="true"/>
+      <field name="background" type="EUF_TEXT" active="true"/>
+      <field name="simple" type="EUF_CHECKBOX" default="1" active="true"/>
+	</extendedFields>
+
 </e107Plugin>

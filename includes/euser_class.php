@@ -162,8 +162,8 @@ $this->user_sc->addVars($curVal);
 
 $this->user_sc->wrapper('euser/main');
 
-$username = $user['user_name'];
-
+//-----$username = $user['user_name'];
+/*---
 	// Check member settings - NO Admin & NO Friends
 	if (!USERID == ADMIN || !USER) {
 //		$sql->mySQLresult = @mysql_query("SELECT user_friends, user_settings FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
@@ -191,9 +191,10 @@ $username = $user['user_name'];
 			}
 		}
 */
+/*-----
     	$this->euser_onlyfriends(array(PROFILE_104,PROFILE_104a));
 	}
-
+----*/
 	if(!isset($_GET['add'])) {
 /*
 		if ($_GET['page'] == "") {
@@ -293,14 +294,14 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 //    	$text .= "<TR>
 //		<td  {$main_colspan} colspan=2 style='width:100%' class='forumheader3'><span style='float:left'><img src='images/lastseen.png'>&nbsp;".PROFILE_353.":&nbsp;&nbsp;</span><span style='float:right; text-align:right'>{USER_LASTVISIT}</span></td>
 //		</TR>";
-
+/*-------------
 			// CHECK TO SEE IF USING GOLD SYSTEM  // A ALTERAR QUANDO PUDER....
 			if (function_exists('gold')) {
 				$text .= "<tr><td {$main_colspan} style='width:100%' class='forumheader'><span style='float:left'>Kredit rendszer</span></td></tr>";
 				$text .= "<TR><td {$main_colspan} style='width:100%' class='forumheader3'><span style='float:left'>".PROFILE_218."<br><a href='".e_BASE.e_PLUGIN."gold_system/donate.php?{USER_NAME}'><i>".PROFILE_217."</i></a>&nbsp;&nbsp;</span><span style='float:right; text-align:right'>{USER_GOLD}</td></TR>";
 				$text .= "<TR><td {$main_colspan} style='width:100%' class='forumheader3'><span style='float:left'>".PROFILE_28."&nbsp;".$this->euser_pref['gold_currency_name']."&nbsp;&nbsp;</span><span style='float:right; text-align:right'>{USER_SPENT}</td></TR>";
 			}
-
+-----------*/
 			// Profil zene
 /*--
 			if ($mp3['user_mp3'] != "" && $euser_pref['mp3_sys'] == "ON" && !isset($_GET['page'])) {
@@ -441,8 +442,11 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 
 			}
 		}
-/////// FIQUEI AQUI!!!!!!!!
+
+
+
 // Este if todo é do add friend, por isso tem de passar para o user_friend.....
+				/*------------------
 		if (isset($_GET['add'])) {
 			$this->sql->mySQLresult = @mysql_query("SELECT user_id, user_friends, user_friends_request FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
 			$list = $this->sql->db_Fetch();
@@ -458,7 +462,7 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 			$ures = $sql->db_Fetch();
 			$uresek = ($ures['user_name']);
 */
-
+			/*-----------------
 	$this->sql-> db_Select("user","user_name","user_id = '$id'");
 	while($row = $sql -> db_Fetch()) {
 		$uresek = $row['user_name'];
@@ -562,17 +566,22 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 				}
 			}
 		} else {
+			--------------*/
 //			$sql->mySQLresult = @mysql_query("SELECT user_id, user_custompage, user_simple FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
 //$rows = $sql->db_Rows();
 //$profile = $sql->db_Fetch();
 //			$sql->mySQLresult = @mysql_query("SELECT user_id, user_custompage, user_simple FROM ".MPREFIX."euser WHERE user_id='".$id."' ");
 //			$rows = $sql->db_Rows();
+/*----
+
+//// REMODELAR POR CAUSA DO EXTENDED USER SETTINGS DO CORE
 			$profile = $this->sql->retrieve("euser", "euser_id, euser_custompage, euser_simple", "euser_id='".$id."'");
 			$custompage = $profile['euser_custompage'];
 //			$info = unserialize($custompage);
 			$html .= $this->tp->toHTML($custompage, true);
 			$break = explode("[||]", $html);
-		}
+//---------------		}
+----*/
 	}
 
 		// Isto é preciso por causa da quantidade de tabs horizontais....
@@ -581,7 +590,7 @@ if(($totallinks = $sql->db_Count("links_page","(*)"))>0)
 		e107::js('footer-inline',"$('.userprofile.nav-tabs').scrollingTabs();");
 
 //--        $this->euser_tablerender($text, 0);
-		$notexit = 0;
+//------		$notexit = 0;
 //		$display = $tp->parseTemplate($text, TRUE, $user_sc);
 //		$ns->tablerender("",$display);
 //--}
@@ -625,14 +634,16 @@ if(ADMIN)
 //    $display .= $textjs;
 
 	$this->ns->tablerender($cdisplay,$display);
-
+/*----
     if (is_null($notexit)){
 				require_once(FOOTERF);
 				exit;
     }
+				---*/
 }
 
 // ISto depois tamém tem de passar para o user_friends....
+/*------
 private function euser_onlyfriends($text_friends, $tdinline = null) {
 //extract($GLOBALS); 
 global $text, $friendb, $euser_pref, $username;
@@ -646,6 +657,7 @@ echo "<hr>TEXT1: ";
 echo htmlentities($text);
 echo "<hr><hr>";
 */
+/*------
         $text .= ( $text_friends[0]!='' ? $username.$text_friends[0]."</td></tr>" : "" );
         $text .= "</table>";
         euser_tablerender($text, $tdinline);
@@ -655,6 +667,7 @@ echo "<hr>TEXT2: ";
 echo htmlentities($text);
 echo "<hr><hr>";
 */
+/*------
         $text .= ($text_friends[1]!=''?$username.$text_friends[1]."</td></tr>":"");
         $text .= "</table>";
         euser_tablerender($text, $tdinline);
@@ -666,21 +679,23 @@ echo htmlentities($text);
 echo "<hr><hr>";
 */
 					//----------- Only friends
+/*------
 					if (!in_array(USERID, $friendb) || !USER) {
         $text .= $username.$text_friends[0]."</td></tr></table>";
         euser_tablerender($text, $tdinline);
 		}
   }
 }
+----*/
 
+/// FIQUEI AQUI....
 function render_list(){
-
 // É chamado quando não id nem numero, e dá uma lista de todos os membros....
 // Código para rever, dá erros...
 //////////////////////	require_once("memberlist.php");
 //global $sql, $tp, $ns;
 //require_once (e_BASE."user.php");
-
+////var_dump("jtiorweujdlskagjfklsgjlksdfjglkj");
 // Cópia das lihas 144 a 180 do user.php, com alterações customizadas....
 // Por isso não incluo o user.php, para não dar conflitos.
 $qs = explode(".", e_QUERY);
@@ -688,15 +703,15 @@ $qs = explode(".", e_QUERY);
 
 if (isset($_POST['records']))
 {
-	$records = intval($_POST['records']);
-	$order = ($_POST['order'] == 'ASC' ? 'ASC' : 'DESC');
-	$from = 0;
+	$users['records'] = intval($_POST['records']);
+	$users['order'] = ($_POST['order'] == 'ASC' ? 'ASC' : 'DESC');
+	$users['from'] = 0;
 }
 else if(!e_QUERY)
 {
-	$records = 20;
-	$from = 0;
-	$order = "DESC";
+	$users['records'] = 20;
+	$users['from'] = 0;
+	$users['order'] = "DESC";
 }
 else
 {
@@ -713,21 +728,21 @@ else
 		else
 		{
 			$qs = explode(".", e_QUERY);
-			$from = intval($qs[0]);
-			$records = intval($qs[1]);
-			$order = ($qs[2] == 'ASC' ? 'ASC' : 'DESC');
+			$users['from'] = intval($qs[0]);
+			$users['records'] = intval($qs[1]);
+			$users['order'] = ($qs[2] == 'ASC' ? 'ASC' : 'DESC');
 		}
 	}
 }
-if (vartrue($records) > 50)
+if (vartrue($users['records']) > 50)
 {
-	$records = 50;
+	$users['records'] = 50;
 }
 
 // LIsta por defeito normal....
 // Cópia das lihas 212 a 236 do user.php, com alterações customizadas....
 	// --------------------- List Users ------------------------  //TODO Put all of this into a class.
-	$query = "SELECT u.*, ue.* FROM `#user` AS u LEFT JOIN `#user_extended` AS ue ON u.user_id = ue.user_extended_id WHERE u.user_ban = 0 ORDER BY u.user_id ".$order." LIMIT ".intval($from).",".intval($records);
+	$query = "SELECT u.*, ue.* FROM `#user` AS u LEFT JOIN `#user_extended` AS ue ON u.user_id = ue.user_extended_id WHERE u.user_ban = 0 ORDER BY u.user_id ".$users['order']." LIMIT ".intval($users['from']).",".intval($users['records']);
 
 //	var_dump ($query);
 	if (!$data = $this->sql->retrieve($query,true))
@@ -748,25 +763,27 @@ if (vartrue($records) > 50)
 */
 //		define ('EUSER_TOTAL',$users['total']);
 
-		define ('EUSER_RECORDS',$records);
-		define ('EUSER_FROM',$from);
-		define ('EUSER_ORDER',$order);
+//		define ('EUSER_RECORDS',$records);
+//		define ('EUSER_FROM',$from);
+//		define ('EUSER_ORDER',$order);
 
 //		$users['records'] =$records;
 //		$users['from'] =$from;
 //		$users['order']=$order;
 
 		$euser_list_tmplt = e107::getTemplate('euser', 'euser_list');
-//		$users['total'] = $this->sql->count("user","(*)", "WHERE user_ban = 0");
+		$users['total'] = $this->sql->count("user","(*)", "WHERE user_ban = 0");
 //	Não posso usar isto senão não consigo meter o page_nav onde eu quiser... Uso constantes...
-//		$this->user_sc->setVars($users);
-		define ('EUSER_TOTAL',$this->sql->count("user","(*)", "WHERE user_ban = 0"));
+		$this->user_sc->setVars($users);
+//		define ('EUSER_TOTAL',$this->sql->count("user","(*)", "WHERE user_ban = 0"));
 	
 	// $userList = $sql->db_getList();
 //		$sc = e107::getScBatch('user');
 //		$text = $this->tp->parseTemplate($USER_SHORT_TEMPLATE_START, TRUE, $sc);
-		$text = $this->tp->parseTemplate($euser_list_tmplt['start'], TRUE, $this->user_sc);
 		$this->user_sc->wrapper('user/list');
+		$caption = $this->tp->parseTemplate($euser_list_tmplt['caption'], TRUE, $this->user_sc);
+		$text = $this->tp->parseTemplate($euser_list_tmplt['start'], TRUE, $this->user_sc);
+		$text_end = $this->tp->parseTemplate($euser_list_tmplt['end'], TRUE, $this->user_sc);
 
 		foreach ($data as $row)
 		{
@@ -783,15 +800,13 @@ if (vartrue($records) > 50)
 		}
 
 //		$text .= $this->tp->parseTemplate($USER_SHORT_TEMPLATE_END, TRUE, $sc);
-		$text .= $this->tp->parseTemplate($euser_list_tmplt['end'], TRUE, $this->user_sc);
 //	}
-		$caption= $this->tp->parseTemplate($euser_list_tmplt['caption'], TRUE, $this->user_sc);
 		
 //		$parms = 'tmpl_prefix=default&total='.$users['total'].'&amount='.$records.'&current='.$from.'&url='.e_SELF.'?--FROM--.'.$records.'.'.$order; // .'&url='.$url;
 //return e107::getParser()->parseTemplate("{NEXTPREV={$parms}}");
 //----		$text .= $this->tp->parseTemplate("{NEXTPREV={$parms}}");
 
-		$this->ns->tablerender($caption, $text, 'user-list');
+		$this->ns->tablerender($caption, $text.$text_end, 'user-list');
 //	$parms = $users['total'].",".$records.",".$from.",".e_SELF.'?[FROM].'.$records.".".$order;
 		return;
 	// FIm da cópia das linhas do user.php
