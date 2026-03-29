@@ -890,7 +890,8 @@ var_dump ($parms['text']);
 
 		if ($parms['link']) {
 //		$url = e107::getUrl();
-			return e107::getUrl()->create('user/profile/view', array('id' => array_key_first($this->userinfo()), 'name' => current($this->userinfo())));
+			return e107::url('euser', 'index')."?id.".array_key_first($this->userinfo());
+//			return e107::getUrl()->create('user/profile/view', array('id' => array_key_first($this->userinfo()), 'name' => current($this->userinfo())));
 		}
 		return current($this->userinfo());
 	}

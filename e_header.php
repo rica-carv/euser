@@ -83,5 +83,8 @@ if (e107::isInstalled('euser')) {
 	$FORUMTHREADSTYLE = str_replace($forum_old, $forum_new, $FORUMTHREADSTYLE);
 	$FORUMREPLYSTYLE = str_replace($forum_old, $forum_new, $FORUMREPLYSTYLE);
   }
-}
 
+    if (check_class($euser_pref['memberprofile_view']) && (defined('e_PAGE')?e_PAGE:"") == "user.php") {
+		e107::redirect(e107::url('euser', 'index').e_QUERY);
+	}
+}

@@ -217,6 +217,22 @@ if ($sql_codes_count >= 2) {
 // Uso o pref do core, o original, var $pref...
 //	if ($id != USERID && !check_class(varset($pref['memberlist_access'], 253))) {
 // Uso o pref do plugin em lugar do do core, é menos confuso...
+	$euser_pref = e107::getPlugPref('euser');
+/*
+	var_dump($id);
+	var_dump($id != USERID);
+	var_dump($euser_pref['memberlist_access']);
+	var_dump((!check_class($euser_pref['memberlist_access'])));
+	var_dump((check_class(varset($euser_pref['memberlist_access'], 253))));
+//	var_dump(e107::getPlugPref('euser'));
+//	var_dump(($id != USERID && !check_class($euser_pref['memberlist_access'])));
+	var_dump((!($qs[0] == 'id' && $id == USERID)));
+	var_dump(!(getperms("0")));
+	var_dump((check_class(varset($pref['memberlist_access'], 253))));
+
+	var_dump(($id != USERID && !check_class($euser_pref['memberlist_access'])) || (!($qs[0] == 'id' && $id == USERID) && !(getperms("0") || check_class(varset($pref['memberlist_access'], 253)))));
+*/
+
 	if (($id != USERID && !check_class($euser_pref['memberlist_access'])) || (!($qs[0] == 'id' && $id == USERID) && !(getperms("0") || check_class(varset($pref['memberlist_access'], 253))))) {
 //		$ns->tablerender(IMAGE_alert,PROFILE_2);
 //		$ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2);

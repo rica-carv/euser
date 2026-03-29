@@ -50,9 +50,12 @@ function render_user($id) {
 //-----{
 //	$user_exists = $this->sql->count("user","(*)", "WHERE user_id = ".$id."");
 //	var_dump($this->user_sc->getVars());
+//var_dump ($id);
 	$user = e107::user($id);
+	$msg = e107::getMessage();
+	$msg->setClose(false, E_MESSAGE_ERROR);
 //	var_dump($user);
-	if (!$user) {
+	if (!$user['user_id']) {
 /*		$this->ns->tablerender(IMAGE_alert,IMAGE_bigalert.PROFILE_2a);
 		require_once(FOOTERF);
 		exit;
@@ -60,8 +63,13 @@ function render_user($id) {
 
 	if($id == 0 || $this->sql->count("user","(*)", "WHERE user_id = ".$id."") == false)
 	{
-*/		$text = "<div style='text-align:center'>".LAN_USER_49." ".SITENAME."</div>";
-		$this->ns->tablerender(LAN_ERROR, $text);
+*/
+//		$text = "<div style='text-align:center'>".LAN_USER_49." ".SITENAME."</div>";
+    	$msg->addError(LAN_USER_49." ".SITENAME);
+///		$msg->addWarning(PROFILE_2);
+		echo $msg->render();
+
+//		$this->ns->tablerender(LAN_ERROR, $msg->render());
 		require_once(FOOTERF);
 		exit;
 	}
@@ -73,8 +81,11 @@ function render_user($id) {
 
 	if (!empty($ret) || !empty($ret2))
 	{
-		$text = "<div style='text-align:center'>".$ret."</div>";
-		$this->ns->tablerender(LAN_ERROR, $text);
+//		$text = "<div style='text-align:center'>".$ret."</div>";
+//		$this->ns->tablerender(LAN_ERROR, $text);
+    	$msg->addError($ret);
+		echo $msg->render();
+
 		require_once(FOOTERF);
 		exit;
 	}
@@ -1521,7 +1532,7 @@ if ($szures != "rate_forums" && $szures != "rate_comments" && $szures != "rate_c
 			$top_link = "";
 		}
 		if ($top_link != "") {
-			$text .= "<div style='text-align:left;'><a href='euser.php?szures=".$top_link."'><img src='".e_PLUGIN."euser/images/friends.png' style='border: 0px solid black; width: 24px; height: 24px; float: left;' title='".PROFILE_384."' /></a></div>";
+			$text .= "<div style='text-align:left;'><a href='".e107::url('euser', 'index')."?szures=".$top_link."'><img src='".e_PLUGIN."euser/images/friends.png' style='border: 0px solid black; width: 24px; height: 24px; float: left;' title='".PROFILE_384."' /></a></div>";
 		}
 	}
 		if ($sort == "") {
@@ -1840,7 +1851,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_level'>".PROFILE_391."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_level'>".PROFILE_391."</a><br/>";
 	}
 	if($this->euser_pref['top_forums'] == "ON"){
 		if ($szures == "rate_forums") {
@@ -1848,7 +1859,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_forums'>".PROFILE_388."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_forums'>".PROFILE_388."</a><br/>";
 	}
 	if(!$this->euser_pref['comments_disabled'] && $this->euser_pref['top_comments'] == "ON"){
 		if ($szures == "rate_comments") {
@@ -1856,7 +1867,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_comments'>".PROFILE_387."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_comments'>".PROFILE_387."</a><br/>";
 	}
 	if($this->euser_pref['top_chatbox'] == "ON"){
 		if ($szures == "rate_chatbox") {
@@ -1864,7 +1875,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_chatbox'>".PROFILE_393."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_chatbox'>".PROFILE_393."</a><br/>";
 	}
 	if($this->euser_pref['rate'] && $this->euser_pref['top_rate'] == "ON"){
 		if ($szures == "rate_user") {
@@ -1872,7 +1883,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_user'>".PROFILE_377."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_user'>".PROFILE_377."</a><br/>";
 	}
 	if($this->euser_pref['stats'] =="ON" && $this->euser_pref['top_profile'] == "ON"){
 		if ($szures == "rate_profiles") {
@@ -1880,7 +1891,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_profiles'>".PROFILE_378."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_profiles'>".PROFILE_378."</a><br/>";
 	}
 	if ($this->euser_pref['friends'] == "ON" && $this->euser_pref['top_friends'] == "ON") {
 		if ($szures == "rate_friends") {
@@ -1888,7 +1899,7 @@ if (!check_class($this->euser_pref['top_class'])) {
 		} else {
 			$text .= "<img src='images/gray.png' style=' width: 8px; height: 8px; float: left; margin-right: 10px' />";
 		}
-		$text .= "<a href='".e_PLUGIN."euser/euser.php?szures=rate_friends'>".PROFILE_379."</a><br/>";
+		$text .= "<a href='".e107::url('euser', 'index')."?szures=rate_friends'>".PROFILE_379."</a><br/>";
 	}
 	$text .= "<br/><br/><table width='100%'><tr>";
 	$text .= "<td colspan= 3 class='forumheader'>".PROFILE_380.$this->euser_pref['top_x']."</td>";
