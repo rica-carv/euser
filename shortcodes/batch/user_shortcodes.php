@@ -52,7 +52,7 @@ protected $pref;
 //    		$this->var['euser_data'] = $this->sql->fetch();
 
         $this->pref = e107::pref('euser');
-
+/*
         // Carrega shortcodes de "amigos" só se estiver ativo nas preferências
         if (!empty($this->pref['friend_sys']))
         {
@@ -63,6 +63,7 @@ protected $pref;
                 require_once($file);
             }
         }
+		*/
 	}
 
 // Override shortcodes originais do user	
@@ -104,7 +105,8 @@ protected $pref;
 		    if(isset($parm['title']))return $userjump['prev']['name'];
 		
 			  $icon = (deftrue('BOOTSTRAP')) ? $this->tp->toGlyph('chevron-left') : '&lt;&lt;';			
-    	  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".$url->create('user/profile/view', $userjump['prev']) ."' title=\"".$userjump['prev']['name']."\">".$icon." ".LAN_USER_40."</a>\n";
+//    	  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".$url->create('user/profile/view', $userjump['prev']) ."' title=\"".$userjump['prev']['name']."\">".$icon." ".LAN_USER_40."</a>\n";
+    	  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".e107::url('euser', 'index')."?id.".$userjump['prev']['id']."' title=\"".$userjump['prev']['name']."\">".$icon." ".LAN_USER_40."</a>\n";
 		  }
       return "&nbsp;"; 
 			// return isset($userjump['prev']['id']) ? "&lt;&lt; ".LAN_USER_40." [ <a href='".$url->create('user/profile/view', $userjump['prev'])."'>".$userjump['prev']['name']."</a> ]" : "&nbsp;";
@@ -117,8 +119,9 @@ protected $pref;
 	   	  if(isset($parm['title']))return $userjump['next']['name'];
 
 			  $icon = (deftrue('BOOTSTRAP')) ? $this->tp->toGlyph('chevron-right') : '&gt;&gt;';
-			  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".$url->create('user/profile/view', $userjump['next'])."' title=\"".$userjump['next']['name']."\">".LAN_USER_41." ".$icon."</a>\n";
-      }
+//			  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".$url->create('user/profile/view', $userjump['next'])."' title=\"".$userjump['next']['name']."\">".LAN_USER_41." ".$icon."</a>\n";
+			  return "<a class='e-tip".($parm['class']?" ".$parm['class']."":"")."' href='".e107::url('euser', 'index')."?id.".$userjump['next']['id']."' title=\"".$userjump['next']['name']."\">".LAN_USER_41." ".$icon."</a>\n";
+        }
       return "&nbsp;"; 
       // return isset($userjump['next']['id']) ? "[ <a href='".$url->create('user/profile/view', $userjump['next'])."'>".$userjump['next']['name']."</a> ] ".LAN_USER_41." &gt;&gt;" : "&nbsp;";
 		}
@@ -300,12 +303,27 @@ isset($ueFieldList[$catnum]) && count($ueFieldList[$catnum]))
 	{
 //		global $users_total;
 //var_dump ($this->var);
-		return (int) EUSER_TOTAL;
+//		return (int) EUSER_TOTAL;
+		return $this->var['total'];
 	}
 
 /// #### FIM DO OVERRIDE DOS SHORTCDODES DO USER
 
-/// INICIO DOS SHORTCODES DO EUSER
+
+/// INICIO DOS SHORTCODES ### NORMAIS ### DO EUSER
+	function sc_euser_custompage (){
+		// Esqueleto por enquanto...
+//// REMODELAR POR CAUSA DO EXTENDED USER SETTINGS DO CORE
+			$profile = $this->sql->retrieve("euser", "euser_id, euser_custompage, euser_simple", "euser_id='".$id."'");
+			$custompage = $profile['euser_custompage'];
+//			$info = unserialize($custompage);
+			$html .= $this->tp->toHTML($custompage, true);
+			$break = explode("[||]", $html);
+
+	}
+
+
+
 	function sc_euser_listnav($parm='') //Usada na lista template
   {
 /////////////global $philcat_from;
@@ -333,7 +351,7 @@ isset($ueFieldList[$catnum]) && count($ueFieldList[$catnum]))
 //		$parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url=philcat?--FROM--'; // .'&url='.$url;
 //		$parms = 'tmpl_prefix='.deftrue('PHCAT_NEXTPREV_TMPL', 'default').'&total='.philcat_count.'&amount='.$this->pref['perpage'].'&current='.FROM.'&url=?--FROM--'; // .'&url='.$url;
 //-----		$parms = 'tmpl_prefix=default&total='.$this->var['total'].'&amount='.EUSER_RECORDS.'&current='.EUSER_FROM.'&url='.e_SELF.'?--FROM--.'.EUSER_RECORDS.'.'.EUSER_ORDER; // .'&url='.$url;
-		$parms = 'tmpl_prefix=default&total='.EUSER_TOTAL.'&amount='.EUSER_RECORDS.'&current='.EUSER_FROM.'&url='.e_SELF.'?--FROM--.'.EUSER_RECORDS.'.'.EUSER_ORDER; // .'&url='.$url;
+		$parms = 'tmpl_prefix=default&total='.$this->var['total'].'&amount='.$this->var['records'].'&current='.$this->var['from'].'&url='.e_SELF.'?--FROM--.'.$this->var['records'].'.'.$this->var['order']; // .'&url='.$url;
 //		$newUrl = e107::url('philcat','page', array('id'=>intval($this->pref['perpage'])+FROM));
 //		$newUrl = e107::url('philcat','page', array('id'=>FROM));
 //    $newUrl = e107::url('philcat','page');
@@ -587,7 +605,7 @@ foreach($doc->getElementsByTagName('img') as $image){
 // É quase uma cópia do USER_ADDONS, mas ao contrário, não precisa do ficheiro e_euser.php no plugin...
 //Primeiro copiamos o USER_addons, mas com umas pequenas alterações...
 //var_dump ($this->var);
-$data 		= e107::getAddonConfig('e_user',null,'profile',$this->var);
+$data 		= e107::getAddonConfig('euser',null,'profile',$this->var);
 /*
 	echo "<pre>";
 var_dump($data);
